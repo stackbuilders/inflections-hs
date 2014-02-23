@@ -1,0 +1,35 @@
+name:                inflections
+version:             0.1.0.0
+synopsis:            Inflections library for Haskell
+description:
+  Inflections provides methods for singularization, pluralization, dasherizing, etc. The library is based on Rails' inflections library.
+license:             MIT
+license-file:        LICENSE
+author:              Justin Leitgeb
+maintainer:          justin@stackbuilders.com
+copyright:           2014 Justin Leitgeb
+category:            Text
+build-type:          Simple
+-- extra-source-files:
+cabal-version:       >=1.10
+
+library
+  exposed-modules:     Text.Inflections
+  ghc-options:         -Wall
+  build-depends:       base >=4.6 && <4.7, parsec, containers
+  default-language:    Haskell2010
+
+test-suite test
+  type: exitcode-stdio-1.0
+  hs-source-dirs: test
+  main-is: Suite.hs
+  build-depends:
+      inflections
+      , base >=4.6 && <4.7
+      , test-framework
+      , HUnit
+      , QuickCheck
+      , test-framework-hunit
+      , test-framework-quickcheck2
+      , containers
+  default-language:    Haskell2010
