@@ -1,5 +1,7 @@
 # String Inflections for Haskell
 
+[![Build Status](https://travis-ci.org/stackbuilders/inflections-hs.png)](https://travis-ci.org/stackbuilders/inflections-hs)
+
 This library is a partial port of the [String Inflector](http://api.rubyonrails.org/classes/ActiveSupport/Inflector.html) from Ruby on Rails. Specifically, it implements the [`parameterize`](http://api.rubyonrails.org/classes/ActiveSupport/Inflector.html#method-i-parameterize) and [`dasherize`](http://api.rubyonrails.org/classes/ActiveSupport/Inflector.html#method-i-dasherize) functions from the Inflector.
 
 ## Usage
