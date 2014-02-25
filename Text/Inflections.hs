@@ -3,6 +3,8 @@
 module Text.Inflections
     ( dasherize
     , parameterize
+    , transliterate
+    , transliterateCustom
     , defaultTransliterations
     ) where
 
@@ -29,9 +31,12 @@ data PChar =   UCase Char
              deriving (Eq, Show)
 
 -- |Replaces special characters in a string so that it may be used as part of a
--- 'pretty' URL.
-parameterize :: Transliterations -> String -> String
-parameterize ts s =
+-- 'pretty' URL. Uses the default transliterations in this library
+parameterize :: String -> String
+parameterize = parameterizeCustom defaultTransliterations
+
+parameterizeCustom :: Transliterations -> String -> String
+parameterizeCustom ts s =
     case parsed of
       Right ast -> (concatMap pCharToC . squeezeSeparators .
                     trimUnwanted wanted . mapMaybe (parameterizeChar ts))
@@ -51,56 +56,24 @@ parameterize ts s =
 dasherize :: String -> String
 dasherize = map (\c -> if c == ' ' then '-' else c)
 
+-- |Returns a String after default approximations for changing Unicode characters
+-- to a valid ASCII range are applied. If you want to supplement the default
+-- approximations with your own, you should use the transliterateCustom
+-- function instead of transliterate.
+transliterate :: String -> String
+transliterate = transliterateCustom "?" defaultTransliterations
 
--- Private functions
-
--- |Matches 'acceptable' characters for parameterization purposes.
-acceptableParser :: P.Stream s m Char => P.ParsecT s u m PChar
-acceptableParser = do
-  c <- C.satisfy isValidParamChar
-  return $ Acceptable [c]
-
-parameterizableString :: P.Stream s m Char => P.ParsecT s u m [PChar]
-parameterizableString = P.many $ P.choice [
-           acceptableParser
-         , UCase      <$> C.satisfy isAsciiUpper
-         , Separator  <$  C.char '-'
-         , Underscore <$  C.char '_'
-         , OtherAscii <$> C.satisfy isAscii
-         , NonAscii   <$> C.satisfy (not . isAscii)
-         ]
-
--- |Look up character in transliteration list.
-transliterate :: Transliterations -> Char -> Maybe PChar
-transliterate ts c = do
-  -- We may have expanded into multiple characters during
-  -- transliteration, so check validity of all characters in
-  -- result.
-  v <- Map.lookup c ts
-  guard (all isValidParamChar v)
-  return (Acceptable v)
-
-isValidParamChar :: Char -> Bool
-isValidParamChar c = isAsciiLower c || isDigit c
-
--- |Given a Transliteration table and a PChar, returns Maybe PChar indicating
--- how this character should appear in a URL.
-parameterizeChar :: Transliterations -> PChar -> Maybe PChar
-parameterizeChar _  (UCase c)      = Just $ Acceptable [toLower c]
-parameterizeChar _  (Acceptable c) = Just $ Acceptable c
-parameterizeChar _  Separator      = Just Separator
-parameterizeChar _  Underscore     = Just Underscore
-parameterizeChar _  (OtherAscii _) = Just Separator
-parameterizeChar ts (NonAscii c)   = transliterate ts c
-
--- |Turns PChar tokens into their String representation.
-pCharToC :: PChar -> String
-pCharToC (UCase c)        = [c]
-pCharToC (Acceptable str) = str
-pCharToC Separator        = "-"
-pCharToC Underscore       = "_"
-pCharToC (OtherAscii c)   = [c]
-pCharToC (NonAscii c)     = [c]
+-- |Returns a String after default approximations for changing Unicode characters
+-- to a valid ASCII range are applied.
+transliterateCustom :: String -> Transliterations -> String -> String
+transliterateCustom replacement ts = concatMap lookupCharTransliteration
+  where lookupCharTransliteration c =
+          if isAscii c then -- Don't bother looking up Chars in ASCII range
+            [c]
+          else
+            case Map.lookup c ts of
+              Nothing  -> replacement
+              Just val -> val
 
 -- |These default transliterations stolen from the Ruby i18n library -
 -- https://github.com/svenfuchs/i18n/blob/master/lib/i18n/backend/transliterator.rb#L41:L69
@@ -138,6 +111,60 @@ defaultTransliterations = Map.fromList [
   ('ů', "u"), ('Ű', "U"), ('ű', "u"), ('Ų', "U"), ('ų', "u"), ('Ŵ', "W"),
   ('ŵ', "w"), ('Ŷ', "Y"), ('ŷ', "y"), ('Ÿ', "Y"), ('Ź', "Z"), ('ź', "z"),
   ('Ż', "Z"), ('ż', "z"), ('Ž', "Z"), ('ž', "z")]
+
+
+-- Private functions
+
+
+-- |Look up character in transliteration list. Accepts a Transliteration map
+-- which has Chars as keys and Strings as values for approximating common
+-- international Unicode characters within the ASCII range.
+transliteratePCharCustom :: Transliterations -> Char -> Maybe PChar
+transliteratePCharCustom ts c = do
+  -- We may have expanded into multiple characters during
+  -- transliteration, so check validity of all characters in
+  -- result.
+  v <- Map.lookup c ts
+  guard (all isValidParamChar v)
+  return (Acceptable v)
+
+-- |Matches 'acceptable' characters for parameterization purposes.
+acceptableParser :: P.Stream s m Char => P.ParsecT s u m PChar
+acceptableParser = do
+  c <- C.satisfy isValidParamChar
+  return $ Acceptable [c]
+
+parameterizableString :: P.Stream s m Char => P.ParsecT s u m [PChar]
+parameterizableString = P.many $ P.choice [
+           acceptableParser
+         , UCase      <$> C.satisfy isAsciiUpper
+         , Separator  <$  C.char '-'
+         , Underscore <$  C.char '_'
+         , OtherAscii <$> C.satisfy isAscii
+         , NonAscii   <$> C.satisfy (not . isAscii)
+         ]
+
+isValidParamChar :: Char -> Bool
+isValidParamChar c = isAsciiLower c || isDigit c
+
+-- |Given a Transliteration table and a PChar, returns Maybe PChar indicating
+-- how this character should appear in a URL.
+parameterizeChar :: Transliterations -> PChar -> Maybe PChar
+parameterizeChar _  (UCase c)      = Just $ Acceptable [toLower c]
+parameterizeChar _  (Acceptable c) = Just $ Acceptable c
+parameterizeChar _  Separator      = Just Separator
+parameterizeChar _  Underscore     = Just Underscore
+parameterizeChar _  (OtherAscii _) = Just Separator
+parameterizeChar ts (NonAscii c)   = transliteratePCharCustom ts c
+
+-- |Turns PChar tokens into their String representation.
+pCharToC :: PChar -> String
+pCharToC (UCase c)        = [c]
+pCharToC (Acceptable str) = str
+pCharToC Separator        = "-"
+pCharToC Underscore       = "_"
+pCharToC (OtherAscii c)   = [c]
+pCharToC (NonAscii c)     = [c]
 
 -- |Reduce sequences of separators down to only one separator.
 squeezeSeparators :: [PChar] -> [PChar]

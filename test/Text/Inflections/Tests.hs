@@ -3,6 +3,7 @@ module Text.Inflections.Tests where
 import Test.HUnit hiding (Test)
 
 import Test.Framework.Providers.QuickCheck2 (testProperty)
+import Test.Framework.Providers.HUnit (testCase)
 
 import Test.QuickCheck
 import Test.QuickCheck.Arbitrary
@@ -22,6 +23,12 @@ tests = [testGroup "dasherize"
          [ testProperty "Substitutes spaces for hyphens" prop_dasherize1
          ],
 
+         testGroup "transliterate"
+         [ testCase "Without substitutions" test_correctTransliterationWithoutSubs
+         , testCase "With substitutions" test_correctTransliterationWithSubs
+         , testCase "Missing subs" test_correctTransliterationMissingSubs
+         ],
+
          testGroup "parameterize"
          [ testProperty "Contains only valid chars"
                         prop_parameterize1
@@ -37,33 +44,42 @@ tests = [testGroup "dasherize"
         ]
 
 
+test_correctTransliterationWithoutSubs =
+    transliterate "this is a test" @?= "this is a test"
+
+test_correctTransliterationWithSubs =
+    transliterate "Feliz año nuevo" @?= "Feliz ano nuevo"
+
+test_correctTransliterationMissingSubs =
+    transliterate "Have a ❤ ñ!" @?= "Have a ? n!"
+
 prop_dasherize1 :: String -> Property
 prop_dasherize1 s =
     '-' `notElem` s ==> numMatching '-' (dasherize s) == numMatching ' ' s
 
 prop_parameterize1 :: String -> Bool
 prop_parameterize1 sf = all (`elem` (alphaNumerics ++ "-_")) $
-                        parameterize defaultTransliterations sf
+                        parameterize sf
 
 prop_parameterize2 :: String -> Property
 prop_parameterize2 s =
     (not . null) parameterized ==> head parameterized /= '-'
-    where parameterized = parameterize defaultTransliterations s
+    where parameterized = parameterize s
 
 prop_parameterize3 :: String -> Property
 prop_parameterize3 s =
     (not . null) parameterized ==> last parameterized /= '-'
-    where parameterized = parameterize defaultTransliterations s
+    where parameterized = parameterize s
 
 prop_parameterize4 :: String -> Bool
 prop_parameterize4 s = all (\c -> c `notElem` alphaNumerics ||
                               c `elem` (alphaNumerics ++ "-") &&
                               c `elem` parameterized) $ map toLower s
-    where parameterized = parameterize defaultTransliterations s
+    where parameterized = parameterize s
 
 prop_parameterize5 :: String -> Bool
 prop_parameterize5 s = longestSequenceOf '-' parameterized <= 1
-    where parameterized = parameterize defaultTransliterations s
+    where parameterized = parameterize s
 
 
 -- Helper functions and shared tests
