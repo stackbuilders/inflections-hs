@@ -9,6 +9,7 @@ module Text.Inflections
 import Data.Char (toLower, isAsciiLower, isAsciiUpper, isAscii, isDigit)
 import qualified Text.Parsec as P
 import Control.Applicative
+import Control.Monad (guard)
 import qualified Text.ParserCombinators.Parsec.Char as C
 import Data.List (group)
 import Data.Maybe (mapMaybe)
@@ -63,25 +64,21 @@ parameterizableString :: P.Stream s m Char => P.ParsecT s u m [PChar]
 parameterizableString = P.many $ P.choice [
            acceptableParser
          , UCase      <$> C.satisfy isAsciiUpper
-         , C.char '-' >> return Separator
-         , C.char '_' >> return Underscore
+         , Separator  <$  C.char '-'
+         , Underscore <$  C.char '_'
          , OtherAscii <$> C.satisfy isAscii
          , NonAscii   <$> C.satisfy (not . isAscii)
          ]
 
 -- |Look up character in transliteration list.
 transliterate :: Transliterations -> Char -> Maybe PChar
-transliterate ts c =
-    case Map.lookup c ts of
-      Just v  -> -- We may have expanded into multiple characters during
-                 -- transliteration, so check validity of all characters in
-                 -- result.
-                 if all isValidParamChar v then
-                     Just $ Acceptable v
-                 else
-                     Nothing
-
-      Nothing -> Nothing
+transliterate ts c = do
+  -- We may have expanded into multiple characters during
+  -- transliteration, so check validity of all characters in
+  -- result.
+  v <- Map.lookup c ts
+  guard (all isValidParamChar v)
+  return (Acceptable v)
 
 isValidParamChar :: Char -> Bool
 isValidParamChar c = isAsciiLower c || isDigit c
@@ -151,6 +148,6 @@ squeezeSeparators ps = concatMap squashSeparatorGroup $ group ps
 
 -- |Trim non-wanted elements from the beginning and end of list.
 trimUnwanted :: Eq a => [a] -> [a] -> [a]
-trimUnwanted wanted xs = dropWhile notWanted $ reverse $ dropWhile notWanted $
-                         reverse xs
-  where notWanted elt = elt `notElem` wanted
+trimUnwanted wanted = dropWhile notWanted . reverse . dropWhile notWanted
+                      . reverse
+  where notWanted = (`notElem` wanted)
