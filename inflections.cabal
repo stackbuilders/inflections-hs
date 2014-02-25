@@ -1,17 +1,22 @@
 name:                inflections
-version:             0.1.0.0
+version:             0.1.0.1
 synopsis:            Inflections library for Haskell
 description:
   Inflections provides methods for singularization, pluralization, dasherizing, etc. The library is based on Rails' inflections library.
 license:             MIT
 license-file:        LICENSE
 author:              Justin Leitgeb
+homepage:            https://github.com/stackbuilders/inflections-hs
 maintainer:          justin@stackbuilders.com
 copyright:           2014 Justin Leitgeb
 category:            Text
 build-type:          Simple
 -- extra-source-files:
 cabal-version:       >=1.10
+
+source-repository head
+  type:            git
+  location:        https://github.com/stackbuilders/inflections-hs.git
 
 library
   exposed-modules:     Text.Inflections
