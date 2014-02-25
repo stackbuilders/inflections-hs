@@ -17,6 +17,8 @@ import Data.List (group)
 import Data.Maybe (mapMaybe)
 import qualified Data.Map as Map
 
+-- |A Map containing mappings from international characters to sequences
+-- approximating these characters within the ASCII range.
 type Transliterations = Map.Map Char String
 
 data PChar =   UCase Char
