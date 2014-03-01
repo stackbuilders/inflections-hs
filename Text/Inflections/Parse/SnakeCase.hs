@@ -1,6 +1,6 @@
 {-# LANGUAGE FlexibleContexts, NoMonomorphismRestriction #-}
 
-module Text.Inflections.Parse.CamelCase ( Word(..), parser )
+module Text.Inflections.Parse.SnakeCase ( Word(..), parser )
 where
 
 import qualified Text.ParserCombinators.Parsec.Char as C
@@ -17,12 +17,11 @@ acronym as = do
 
 word :: P.Stream s m Char => P.ParsecT s u m Word
 word = do
-  firstChar <- C.upper P.<|> C.lower
-  restChars <- P.many C.lower
-  return $ Word $ firstChar : restChars
+  cs <- P.many1 C.lower
+  return $ Word cs
 
 parser :: P.Stream s m Char => [String] -> P.ParsecT s u m [Word]
 parser acronyms = do
-  ws <- P.many1 $ P.choice [ acronym acronyms, word ]
+  ws <- (acronym acronyms P.<|> word) `P.sepBy` (C.char '_')
   P.eof
   return ws

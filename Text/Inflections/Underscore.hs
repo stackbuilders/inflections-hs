@@ -15,6 +15,6 @@ underscoreCustom acronyms s =
     Right res -> Right $ intercalate "_" $ map toDowncasedString res
 
 toDowncasedString :: Word -> String
-toDowncasedString w = map toLower $ wordToS w
-  where wordToS (Word s)    = s
-        wordToS (Acronym s) = s
+toDowncasedString (Acronym s) = map toLower s
+toDowncasedString (Word s) = map toLower s
+

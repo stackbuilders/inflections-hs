@@ -1,5 +1,8 @@
 module Text.Inflections
-    ( dasherize
+    ( camelize
+    , camelizeCustom
+
+    , dasherize
 
     , underscore
     , underscoreCustom
@@ -23,8 +26,9 @@ import Text.Inflections.Parameterize ( Transliterations
                                      , parameterize
                                      , parameterizeCustom )
 
-import Text.Inflections.Underscore ( underscore
-                                   , underscoreCustom )
+import Text.Inflections.Underscore ( underscore, underscoreCustom )
+
+import Text.Inflections.Camelize ( camelize, camelizeCustom )
 
 -- |Replaces underscores with dashes in the string.
 dasherize :: String -> String
