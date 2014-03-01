@@ -8,7 +8,6 @@ import Data.Char (toLower)
 import Data.List (intercalate)
 
 
-
 underscore :: String -> Either ParseError String
 underscore s = underscoreCustom [] s
 

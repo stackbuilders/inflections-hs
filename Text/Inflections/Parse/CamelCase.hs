@@ -17,6 +17,6 @@ word = do
 
 parser :: P.Stream s m Char => [String] -> P.ParsecT s u m [Word]
 parser acronyms = do
-  ws <- P.many1 $ P.choice [ acronym acronyms, word ]
+  ws <- P.many $ P.choice [ acronym acronyms, word ]
   P.eof
   return ws
