@@ -5,15 +5,9 @@ where
 
 import qualified Text.ParserCombinators.Parsec.Char as C
 import qualified Text.Parsec as P
-import qualified Text.Parsec.Prim as Prim
 
-data Word = Word String
-          | Acronym String deriving (Show, Eq)
-
-acronym :: P.Stream s m Char => [String] -> P.ParsecT s u m Word
-acronym as = do
-  a <- P.choice $ map (Prim.try . C.string) as
-  return $ Acronym a
+import Text.Inflections.Parse.Types (Word(..))
+import Text.Inflections.Parse.Acronym (acronym)
 
 word :: P.Stream s m Char => P.ParsecT s u m Word
 word = do
