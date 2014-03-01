@@ -53,9 +53,21 @@ test_correctTransliterationWithSubs =
 test_correctTransliterationMissingSubs =
     transliterate "Have a ❤ ñ!" @?= "Have a ? n!"
 
+fromRight :: Either a b -> b
+fromRight (Left _)  =
+    error "Either.Unwrap.fromRight: Argument takes form 'Left _'"
+fromRight (Right x) = x
+
+isRight :: Either a b -> Bool
+isRight (Left _)  = False
+isRight (Right _) = True
+
+
 prop_dasherize1 :: String -> Property
 prop_dasherize1 s =
-    '-' `notElem` s ==> numMatching '-' (dasherize s) == numMatching ' ' s
+    isRight dasherized && '-' `notElem` (fromRight dasherized)
+    ==> numMatching '-' (fromRight dasherized) == numMatching '_' s
+  where dasherized = dasherize s
 
 prop_parameterize1 :: String -> Bool
 prop_parameterize1 sf = all (`elem` (alphaNumerics ++ "-_")) $

@@ -2,7 +2,13 @@
 
 [![Build Status](https://travis-ci.org/stackbuilders/inflections-hs.png)](https://travis-ci.org/stackbuilders/inflections-hs)
 
-This library is a partial port of the [String Inflector](http://api.rubyonrails.org/classes/ActiveSupport/Inflector.html) from Ruby on Rails. Specifically, it implements the [`parameterize`](http://api.rubyonrails.org/classes/ActiveSupport/Inflector.html#method-i-parameterize) and [`dasherize`](http://api.rubyonrails.org/classes/ActiveSupport/Inflector.html#method-i-dasherize) functions from the Inflector.
+This library is a partial port of the [String Inflector](http://api.rubyonrails.org/classes/ActiveSupport/Inflector.html) from Ruby on Rails. It currently
+implements methods such as `parameterize`, `transliterate`, `camelize`,
+`underscore` and `dasherize`. Please see the haddock documentation for a complete list of the functions implemented by this library.
+
+Unlike the ActiveSupport (Rails) and Ember implementations of inflections, this
+library uses a parser to verify the input to functions like `camelize`. This is
+done to ensure that the output strings adhere to the syntax that they are supposed to generate.
 
 ## Usage
 
@@ -15,6 +21,8 @@ The following examples demonstrate usage of the `parameterize` and `transliterat
 λ: transliterate "Hola. ¿Cómo estás?"
 "Hola. ?Como estas?"
 ```
+
+
 
 ## Customization
 
@@ -32,8 +40,7 @@ Justin Leitgeb <justin@stackbuilders.com>
 
 ## Contributing
 
-You may submit pull requests to this repository on GitHub. Please add property
-tests for any functional changes that you make to this library.
+You may submit pull requests to this repository on GitHub. Tests are appreciated with your contribution.
 
 ## License
 

@@ -17,6 +17,7 @@ import Text.Parsec
 import Data.Maybe (fromJust)
 
 import Text.Inflections.Parse.CamelCase
+import Text.Inflections.Parse.Types
 
 {-# ANN module "HLint: ignore Use camelCase" #-}
 

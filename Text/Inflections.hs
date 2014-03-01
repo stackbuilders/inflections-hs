@@ -3,6 +3,7 @@ module Text.Inflections
     , camelizeCustom
 
     , dasherize
+    , dasherizeCustom
 
     , underscore
     , underscoreCustom
@@ -30,9 +31,7 @@ import Text.Inflections.Underscore ( underscore, underscoreCustom )
 
 import Text.Inflections.Camelize ( camelize, camelizeCustom )
 
--- |Replaces underscores with dashes in the string.
-dasherize :: String -> String
-dasherize = map (\c -> if c == ' ' then '-' else c)
+import Text.Inflections.Dasherize ( dasherize, dasherizeCustom )
 
 -- |Returns a String after default approximations for changing Unicode characters
 -- to a valid ASCII range are applied. If you want to supplement the default
