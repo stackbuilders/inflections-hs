@@ -1,15 +1,15 @@
-module Text.Inflections.Decamelize (decamelize, decamelizeCustom) where
+module Text.Inflections.Underscore (underscore, underscoreCustom) where
 
 import Text.Inflections.Parse.CamelCase (Word(..), parser)
 import Text.Parsec (ParseError, parse)
 import Data.Char (toLower)
 import Data.List (intercalate)
 
-decamelize :: String -> Either ParseError String
-decamelize s = decamelizeCustom [] s
+underscore :: String -> Either ParseError String
+underscore s = underscoreCustom [] s
 
-decamelizeCustom :: [String] -> String -> Either ParseError String
-decamelizeCustom acronyms s =
+underscoreCustom :: [String] -> String -> Either ParseError String
+underscoreCustom acronyms s =
   case parse (parser acronyms) "(unknown)" s of
     Left errs -> Left errs
     Right res -> Right $ intercalate "_" $ map toDowncasedString res
