@@ -1,6 +1,6 @@
 {-# LANGUAGE FlexibleContexts, NoMonomorphismRestriction #-}
 
-module Text.Inflections.Parse.CamelCase ( Word(..), parser )
+module Text.Inflections.Parse.CamelCase ( parser )
 where
 
 import qualified Text.ParserCombinators.Parsec.Char as C

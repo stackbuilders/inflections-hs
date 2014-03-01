@@ -1,9 +1,13 @@
 module Text.Inflections.Underscore (underscore, underscoreCustom) where
 
-import Text.Inflections.Parse.CamelCase (Word(..), parser)
+import Text.Inflections.Parse.CamelCase (parser)
+import Text.Inflections.Parse.Types (Word(..))
+
 import Text.Parsec (ParseError, parse)
 import Data.Char (toLower)
 import Data.List (intercalate)
+
+
 
 underscore :: String -> Either ParseError String
 underscore s = underscoreCustom [] s
