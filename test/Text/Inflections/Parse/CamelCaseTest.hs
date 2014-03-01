@@ -28,8 +28,8 @@ tests = [testGroup "parsing"
         ]
 
 fromRight :: Either a b -> b
-fromRight (Left _)  = error
-                      "Either.Unwrap.fromRight: Argument takes form 'Left _'"
+fromRight (Left _)  =
+    error "Either.Unwrap.fromRight: Argument takes form 'Left _'"
 fromRight (Right x) = x
 
 test_lowerCamelCase = fromRight (parse (parser []) "" "testThis") @?=

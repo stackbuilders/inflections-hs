@@ -1,12 +1,17 @@
 module Text.Inflections
     ( dasherize
-    , transliterate
-    , transliterateCustom
+
+    , decamelize
+    , decamelizeCustom
 
     , defaultMap
 
     , parameterize
-    , parameterizeCustom )
+    , parameterizeCustom
+
+    , transliterate
+    , transliterateCustom
+    )
 where
 
 import Data.Char (isAscii)
@@ -17,6 +22,9 @@ import Text.Inflections.Data (defaultMap)
 import Text.Inflections.Parameterize ( Transliterations
                                      , parameterize
                                      , parameterizeCustom )
+
+import Text.Inflections.Decamelize ( decamelize
+                                    , decamelizeCustom )
 
 -- |Replaces underscores with dashes in the string.
 dasherize :: String -> String
