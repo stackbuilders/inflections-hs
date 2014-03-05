@@ -15,6 +15,9 @@ module Text.Inflections
 
     , transliterate
     , transliterateCustom
+
+    , ordinal
+    , ordinalize
     )
 where
 
@@ -32,6 +35,8 @@ import Text.Inflections.Underscore ( underscore, underscoreCustom )
 import Text.Inflections.Camelize ( camelize, camelizeCustom )
 
 import Text.Inflections.Dasherize ( dasherize, dasherizeCustom )
+
+import Text.Inflections.Ordinal ( ordinal, ordinalize )
 
 -- |Returns a String after default approximations for changing Unicode characters
 -- to a valid ASCII range are applied. If you want to supplement the default
