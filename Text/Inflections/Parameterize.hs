@@ -27,6 +27,7 @@ type Transliterations = Map.Map Char String
 parameterize :: String -> String
 parameterize = parameterizeCustom defaultMap
 
+-- |Transliterate a String with a custom transliteration table.
 parameterizeCustom :: Transliterations -> String -> String
 parameterizeCustom ts s =
     case parsed of
