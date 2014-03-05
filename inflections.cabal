@@ -20,16 +20,19 @@ source-repository head
 
 library
   exposed-modules:       Text.Inflections
-                       , Text.Inflections.Parse.CamelCase
-                       , Text.Inflections.Parse.SnakeCase
-                       , Text.Inflections.Parse.Parameterizable
-                       , Text.Inflections.Parse.Types
+
   other-modules:         Text.Inflections.Data
                        , Text.Inflections.Parameterize
                        , Text.Inflections.Underscore
                        , Text.Inflections.Camelize
-                       , Text.Inflections.Parse.Acronym
                        , Text.Inflections.Dasherize
+
+                       , Text.Inflections.Parse.Acronym
+                       , Text.Inflections.Parse.SnakeCase
+                       , Text.Inflections.Parse.Parameterizable
+                       , Text.Inflections.Parse.CamelCase
+                       , Text.Inflections.Parse.Types
+
   ghc-options:         -Wall
   build-depends:       base >=4.5 && <4.7, parsec, containers
   default-language:    Haskell2010

@@ -1,4 +1,4 @@
-module Text.Inflections.Parse.CamelCaseTest where
+module Text.Inflections.UnderscoreTest where
 
 import Test.HUnit hiding (Test)
 
@@ -16,8 +16,7 @@ import Data.Map (fromList)
 import Text.Parsec
 import Data.Maybe (fromJust)
 
-import Text.Inflections.Parse.CamelCase
-import Text.Inflections.Parse.Types
+import Text.Inflections (underscore)
 
 {-# ANN module "HLint: ignore Use camelCase" #-}
 
@@ -25,6 +24,7 @@ tests :: [Test]
 tests = [testGroup "parsing"
           [ testCase "lower-camel case" test_lowerCamelCase
           , testCase "upper-camel case" test_upperCamelCase
+          , testCase "invalid camel case" test_failedUnderscore
           ]
         ]
 
@@ -33,8 +33,11 @@ fromRight (Left _)  =
     error "Either.Unwrap.fromRight: Argument takes form 'Left _'"
 fromRight (Right x) = x
 
-test_lowerCamelCase = fromRight (parse (parser []) "" "testThis") @?=
-                      [Word "test", Word "This"]
+isLeft :: Either a b -> Bool
+isLeft (Left _)  = True
+isLeft (Right _) = False
 
-test_upperCamelCase = fromRight (parse (parser []) "" "TestThis") @?=
-                      [Word "Test", Word "This"]
+test_lowerCamelCase = fromRight (underscore "testThis") @?= "test_this"
+test_upperCamelCase = fromRight (underscore "TestThis") @?= "test_this"
+
+test_failedUnderscore = True @?= (isLeft $ underscore "hey there")
