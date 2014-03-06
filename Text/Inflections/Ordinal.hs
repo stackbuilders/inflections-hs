@@ -1,4 +1,4 @@
-module Text.Inflections.Ordinal (ordinal, ordinalize )
+module Text.Inflections.Ordinal (ordinal, ordinalize)
 where
 
 -- |Returns the suffix that should be added to a number to denote the position
@@ -18,3 +18,4 @@ ordinal number
 -- ordered sequence such as 1st, 2nd, 3rd, 4th.
 ordinalize :: Integer -> String
 ordinalize n = show n ++ ordinal n
+

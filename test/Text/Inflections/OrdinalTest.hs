@@ -29,11 +29,11 @@ tests = [ testGroup "ordinal"
           , testCase "-11 -> th" test_ordinalNegative11
           , testCase "-1021 -> st" test_ordinalNegative1021
           , testProperty "notEmpty" prop_ordinalReturnsNotEmpty
-          , testProperty "result contains number" prop_ordinalizeSamePrefix
           ]
         , testGroup "ordinalize"
           [ testCase "1 -> st" test_ordinalize1
           , testCase "-1021 -> st" test_ordinalizeNegative1021
+          , testProperty "result contains number" prop_ordinalizeSamePrefix
           ]
         ]
 
@@ -64,3 +64,4 @@ prop_ordinalReturnsNotEmpty = not . null . ordinal
 
 prop_ordinalizeSamePrefix :: Integer -> Bool
 prop_ordinalizeSamePrefix n = show n == take (length $ show n) (ordinalize n)
+
