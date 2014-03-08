@@ -24,10 +24,12 @@ library
 
   other-modules:         Text.Inflections.Data
                        , Text.Inflections.Parameterize
+                       , Text.Inflections.Humanize
                        , Text.Inflections.Underscore
                        , Text.Inflections.Camelize
                        , Text.Inflections.Dasherize
                        , Text.Inflections.Ordinal
+                       , Text.Inflections.Titleize
 
                        , Text.Inflections.Parse.Acronym
                        , Text.Inflections.Parse.SnakeCase

@@ -21,8 +21,14 @@ module Text.Inflections
     , dasherize
     , dasherizeCustom
 
+    , humanize
+    , humanizeCustom
+
     , underscore
     , underscoreCustom
+
+    , titleize
+    , titleizeCustom
 
     , defaultMap
 
@@ -49,6 +55,10 @@ import Text.Inflections.Parameterize ( Transliterations
 import Text.Inflections.Underscore ( underscore, underscoreCustom )
 
 import Text.Inflections.Camelize ( camelize, camelizeCustom )
+
+import Text.Inflections.Humanize ( humanize, humanizeCustom )
+
+import Text.Inflections.Titleize ( titleize, titleizeCustom )
 
 import Text.Inflections.Dasherize ( dasherize, dasherizeCustom )
 
