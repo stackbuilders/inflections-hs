@@ -5,7 +5,7 @@ import Text.Inflections.Parse.Types (Word(..))
 import Data.List (intercalate)
 import Data.Char (toUpper)
 
--- |Capitalizes Capitalizes all the words.
+-- | Capitalizes all the Words in the input 'Data.List'.
 titleize
   :: [Word] -- ^ List of Words, first of which will be capitalized
   -> String -- ^ The titleized String
