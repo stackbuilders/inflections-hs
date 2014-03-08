@@ -20,7 +20,7 @@ String when given any input, this library tries to output strings that make
 sense according to the function that is called.
 
 When you look closely at many of the functions in Rails' inflections
-library, you will notice that many of them are "partial." That is, they only
+library, you will notice that many of them are partial. That is, they only
 have well-defined output for some of the possible inputs to the function allowed
 by the type system. As an example, let's take the @underscore@ function. In
 Rails, it works like this:
@@ -40,15 +40,15 @@ String type.
 
 In the Haskell inflections library, we aim to deliver more predictable results
 by separating the parsing of strings into tokens from the application of
-transformations. Let's see an example:
+transformations. Let's see an example.
 
-First, we tokenize an underscored String:
+First, we tokenize an underscored String using 'parseSnakeCase':
 
 >>> parseSnakeCase [] "foo_bar"
 Right [Word "foo",Word "bar"]
 
 We can chain together the tokenization of the input String and the
-transformation to CamelCase by using LiftM:
+transformation to CamelCase by using 'Control.Monad.LiftM':
 
 >>> import Control.Monad (liftM)
 >>> liftM camelize $ parseSnakeCase "foo_bar"
@@ -95,13 +95,16 @@ module Text.Inflections
 
     , parseSnakeCase
     , parseCamelCase
+    , Transliterations
     )
 where
 
 
-import Text.Inflections.Data (defaultMap)
+import Text.Inflections.Data ( defaultMap )
 
-import Text.Inflections.Parameterize ( parameterize, parameterizeCustom )
+import Text.Inflections.Parameterize ( Transliterations
+                                     , parameterize
+                                     , parameterizeCustom )
 
 import Text.Inflections.Underscore ( underscore )
 

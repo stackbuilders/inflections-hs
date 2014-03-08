@@ -2,8 +2,8 @@ module Text.Inflections.Data where
 
 import Data.Map (Map, fromList)
 
--- |These default transliterations stolen from the Ruby i18n library -
--- https://github.com/svenfuchs/i18n/blob/master/lib/i18n/backend/transliterator.rb#L41:L69
+-- |These default transliterations stolen from the Ruby i18n library - see
+-- <https://github.com/svenfuchs/i18n/blob/master/lib/i18n/backend/transliterator.rb#L41:L69>.
 defaultMap :: Map Char String
 defaultMap = fromList [
   ('À', "A"), ('Á', "A"), ('Â', "A"), ('Ã', "A"), ('Ä', "A"), ('Å', "A"),

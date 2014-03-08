@@ -18,8 +18,8 @@ import Text.Inflections.Parse.Parameterizable ( PChar(..)
                                               , parser
                                               , isValidParamChar )
 
--- |A Map containing mappings from international characters to sequences
--- approximating these characters within the ASCII range.
+-- |A 'Data.Map.Map' containing mappings from international characters to
+-- sequences approximating these characters within the ASCII range.
 type Transliterations = Map.Map Char String
 
 -- |Replaces special characters in a string so that it may be used as part of a
