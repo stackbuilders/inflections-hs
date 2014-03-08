@@ -1,3 +1,19 @@
+{- |
+Module      :  Text.Inflections
+Description :  Rails-like inflections library for common String transformations.
+Copyright   :  (c) Justin Leitgeb
+License     :  MIT
+
+Maintainer  :  justin@stackbuilders.com
+Stability   :  unstable
+Portability :  portable
+
+This module provides methods for common String transformations, similar to the
+"Inflections" library found in Rails:
+
+<http://api.rubyonrails.org/classes/ActiveSupport/Inflector.html>
+-}
+
 module Text.Inflections
     ( camelize
     , camelizeCustom
