@@ -9,7 +9,7 @@ import Data.List (intercalate)
 underscore
   :: [Word] -- ^ Input Words to separate with underscores
   -> String -- ^ The underscored String
-underscore ws = intercalate "_" $ map toDowncasedString ws
+underscore = intercalate "_" . map toDowncasedString
 
 
 toDowncasedString :: Word -> String
