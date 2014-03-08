@@ -16,6 +16,7 @@ import Data.Map (fromList)
 import Text.Parsec
 
 import Text.Inflections (titleize)
+import Text.Inflections.Parse.Types (Word(..))
 
 {-# ANN module "HLint: ignore Use camelCase" #-}
 
@@ -28,10 +29,6 @@ tests = [ testGroup "titleize"
 
 ----------------------------------------------------
 
-fromRight :: Either a b -> b
-fromRight (Left _)  =
-    error "Either.Unwrap.fromRight: Argument takes form 'Left _'"
-fromRight (Right x) = x
-
-test_titleize1 = "Employee Salary" @?= fromRight (titleize "employee_salary")
-test_titleize2 = "Underground" @?= fromRight (titleize "underground")
+test_titleize1 = "Employee Salary" @?=
+                 (titleize [Word "Employee", Word "Salary"])
+test_titleize2 = "Underground" @?= (titleize [Word "underground"])

@@ -1,23 +1,26 @@
 {-# LANGUAGE FlexibleContexts, NoMonomorphismRestriction #-}
 
-module Text.Inflections.Parse.CamelCase ( parser )
+module Text.Inflections.Parse.CamelCase ( parseCamelCase )
 where
 
-import qualified Text.ParserCombinators.Parsec.Char as C
-import qualified Text.Parsec as P
+import Text.Parsec
 
 import Text.Inflections.Parse.Types (Word(..))
 import Text.Inflections.Parse.Acronym (acronym)
 
+parseCamelCase :: [String] -> String -> Either ParseError [Word]
+parseCamelCase acronyms = parse (parser acronyms) "(unknown)"
+
+
 -- |Recognizes an input String in CamelCase.
-parser :: P.Stream s m Char => [String] -> P.ParsecT s u m [Word]
+parser :: Stream s m Char => [String] -> ParsecT s u m [Word]
 parser acronyms = do
-  ws <- P.many $ P.choice [ acronym acronyms, word ]
-  P.eof
+  ws <- many $ choice [ acronym acronyms, word ]
+  eof
   return ws
 
-word :: P.Stream s m Char => P.ParsecT s u m Word
+word :: Stream s m Char => ParsecT s u m Word
 word = do
-  firstChar <- C.upper P.<|> C.lower
-  restChars <- P.many C.lower
+  firstChar <- upper <|> lower
+  restChars <- many lower
   return $ Word $ firstChar : restChars

@@ -16,6 +16,7 @@ import Data.Map (fromList)
 import Text.Parsec
 
 import Text.Inflections (humanize)
+import Text.Inflections.Parse.Types (Word(..))
 
 {-# ANN module "HLint: ignore Use camelCase" #-}
 
@@ -28,10 +29,7 @@ tests = [ testGroup "humanize"
 
 ----------------------------------------------------
 
-fromRight :: Either a b -> b
-fromRight (Left _)  =
-    error "Either.Unwrap.fromRight: Argument takes form 'Left _'"
-fromRight (Right x) = x
+test_humanize1 = "Employee salary" @?=
+                 (humanize [Word "employee", Word "salary"])
 
-test_humanize1 = "Employee salary" @?= fromRight (humanize "employee_salary")
-test_humanize2 = "Underground" @?= fromRight (humanize "underground")
+test_humanize2 = "Underground" @?= (humanize [Word "underground"])

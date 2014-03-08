@@ -15,12 +15,13 @@ import Data.Char (toLower)
 import Data.Map (fromList)
 
 import Text.Inflections
+import Text.Inflections.Parse.Types (Word(..))
 
 {-# ANN module "HLint: ignore Use camelCase" #-}
 
 tests :: [Test]
 tests = [testGroup "dasherize"
-         [ testProperty "Substitutes spaces for hyphens" prop_dasherize1
+         [ testCase "foo bar -> foo-bar" test_dasherize1
          ],
 
          testGroup "transliterate"
@@ -63,11 +64,7 @@ isRight (Left _)  = False
 isRight (Right _) = True
 
 
-prop_dasherize1 :: String -> Property
-prop_dasherize1 s =
-    isRight dasherized && '-' `notElem` (fromRight dasherized)
-    ==> numMatching '-' (fromRight dasherized) == numMatching '_' s
-  where dasherized = dasherize s
+test_dasherize1 = "foo-bar" @?= (dasherize [Word "foo", Word "bar"])
 
 prop_parameterize1 :: String -> Bool
 prop_parameterize1 sf = all (`elem` (alphaNumerics ++ "-_")) $
