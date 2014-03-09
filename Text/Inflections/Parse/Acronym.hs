@@ -11,4 +11,4 @@ import Text.Inflections.Parse.Types
 import Control.Applicative ((<$>))
 
 acronym :: P.Stream s m Char => [String] -> P.ParsecT s u m Word
-acronym as = Acronym <$> (P.choice $ map (Prim.try . C.string) as)
+acronym as = Acronym <$> P.choice (map (Prim.try . C.string) as)

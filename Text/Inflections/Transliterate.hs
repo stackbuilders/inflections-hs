@@ -8,6 +8,7 @@ import Text.Inflections.Parameterize ( Transliterations )
 import Text.Inflections.Data (defaultMap)
 
 import Data.Char (isAscii)
+import Data.Maybe(fromMaybe)
 
 import qualified Data.Map as Map
 
@@ -26,6 +27,4 @@ transliterateCustom replacement ts = concatMap lookupCharTransliteration
           if isAscii c then -- Don't bother looking up Chars in ASCII range
             [c]
           else
-            case Map.lookup c ts of
-              Nothing  -> replacement
-              Just val -> val
+            fromMaybe replacement (Map.lookup c ts)

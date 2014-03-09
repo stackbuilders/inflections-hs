@@ -64,7 +64,7 @@ isRight (Left _)  = False
 isRight (Right _) = True
 
 
-test_dasherize1 = "foo-bar" @?= (dasherize [Word "foo", Word "bar"])
+test_dasherize1 = "foo-bar" @?= dasherize [Word "foo", Word "bar"]
 
 prop_parameterize1 :: String -> Bool
 prop_parameterize1 sf = all (`elem` (alphaNumerics ++ "-_")) $

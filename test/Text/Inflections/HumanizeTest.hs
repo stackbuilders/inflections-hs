@@ -30,6 +30,6 @@ tests = [ testGroup "humanize"
 ----------------------------------------------------
 
 test_humanize1 = "Employee salary" @?=
-                 (humanize [Word "employee", Word "salary"])
+                 humanize [Word "employee", Word "salary"]
 
-test_humanize2 = "Underground" @?= (humanize [Word "underground"])
+test_humanize2 = "Underground" @?= humanize [Word "underground"]

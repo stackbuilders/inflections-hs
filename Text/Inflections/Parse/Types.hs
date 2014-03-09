@@ -1,6 +1,6 @@
 module Text.Inflections.Parse.Types ( Word(..) ) where
 
--- |A 'String' that should be kept whole through applied inflections
+-- | A 'String' that should be kept whole through applied inflections
 data Word
 
     -- | A word that may be transformed by inflection
