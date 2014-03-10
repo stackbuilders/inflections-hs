@@ -8,7 +8,7 @@ import Data.Char (toUpper, toLower)
 camelize
   :: [Word] -- ^ Input Words to separate with underscores
   -> String -- ^ The camelized String
-camelize ws = camelizeCustom True ws
+camelize = camelizeCustom True
 
 -- |Turns an input Word List into a CamelCase String.
 camelizeCustom

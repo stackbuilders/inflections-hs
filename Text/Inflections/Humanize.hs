@@ -10,7 +10,7 @@ import Data.Char (toUpper)
 humanize
   :: [Word] -- ^ List of Words, first of which will be capitalized
   -> String -- ^ The humanized output
-humanize = intercalate " " . map caseForWord . isFirstList
+humanize = unwords . map caseForWord . isFirstList
 
 -- |Returns list with Bool indicating if an element is first.
 isFirstList :: [a] -> [(a, Bool)]

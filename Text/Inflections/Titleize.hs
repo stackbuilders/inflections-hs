@@ -9,7 +9,7 @@ import Data.Char (toUpper)
 titleize
   :: [Word] -- ^ List of Words, first of which will be capitalized
   -> String -- ^ The titleized String
-titleize s = intercalate " " $ map upperCaseWord s
+titleize s = unwords $ map upperCaseWord s
 
 upperCaseWord :: Word -> String
 upperCaseWord (Word (c:cs))  = toUpper c : cs

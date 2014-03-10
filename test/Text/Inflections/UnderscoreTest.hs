@@ -27,4 +27,4 @@ tests = [testGroup "underscore"
           ]
         ]
 
-test_underscore = "test_this" @?= (underscore [Word "test", Word "this"])
+test_underscore = "test_this" @?= underscore [Word "test", Word "this"]
