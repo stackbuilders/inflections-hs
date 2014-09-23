@@ -5,7 +5,7 @@ import Text.Inflections.Parse.Types (Word(..))
 import Data.List (intercalate)
 import Data.Char (toUpper)
 
--- |Capitalizes the first word and turns underscores into spaces Like titleize,
+-- |Capitalizes the first word and turns underscores into spaces. Like titleize,
 -- this is meant for creating pretty output.
 humanize
   :: [Word] -- ^ List of Words, first of which will be capitalized
