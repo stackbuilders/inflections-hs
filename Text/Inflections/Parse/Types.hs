@@ -1,4 +1,4 @@
-module Text.Inflections.Parse.Types ( Word(..) ) where
+module Text.Inflections.Parse.Types ( Word(..), mapWord ) where
 
 -- | A 'String' that should be kept whole through applied inflections
 data Word
@@ -10,3 +10,7 @@ data Word
     | Acronym String
 
     deriving (Show, Eq)
+
+mapWord :: (String -> String) -> Word -> Word
+mapWord f (Word s) = Word $ f s
+mapWord f (Acronym s) = Acronym $ f s
