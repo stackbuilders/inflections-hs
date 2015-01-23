@@ -96,6 +96,10 @@ module Text.Inflections
     , parseSnakeCase
     , parseCamelCase
     , Transliterations
+    -- * Often used combinators
+    , toUnderscore
+    , toDashed
+    , toCamelCased
     )
 where
 
@@ -122,4 +126,35 @@ import Text.Inflections.Ordinal ( ordinal, ordinalize )
 
 import Text.Inflections.Parse.SnakeCase ( parseSnakeCase )
 
+import Text.Inflections.Parse.Types ( mapWord )
+
 import Text.Inflections.Parse.CamelCase ( parseCamelCase )
+
+import Data.Char ( toLower )
+
+-- | Transforms CamelCasedString to
+-- snake_cased_string_with_underscores. Throws exception if parsing failed
+toUnderscore :: String -> String
+toUnderscore =
+    underscore
+    . either (error .  ("toUnderscore: " ++) . show) id
+    . parseCamelCase []
+
+-- | Transforms CamelCasedString to snake-cased-string-with-dashes. Throws
+-- exception if parsing failed.
+toDashed :: String -> String
+toDashed =
+    dasherize
+    . map (mapWord (map toLower))
+    . either (error . ("toDashed: " ++) . show) id
+    . parseCamelCase []
+
+-- | Transforms underscored_text to CamelCasedText. If first argument is
+-- 'True' then FirstCharacter in result string will be in upper case. If
+-- 'False' then firstCharacter will be in lower case. Throws exception if
+-- parsing failed
+toCamelCased :: Bool -> String -> String
+toCamelCased t =
+    camelizeCustom t
+    . either (error . ("toCamelCased: " ++) . show) id
+    . parseSnakeCase []
