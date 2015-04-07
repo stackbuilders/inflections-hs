@@ -8,6 +8,8 @@ import Text.Parsec
 import Text.Inflections.Parse.Types (Word(..))
 import Text.Inflections.Parse.Acronym (acronym)
 
+import Prelude (Char, String, Either, return, ($))
+
 parseCamelCase :: [String] -> String -> Either ParseError [Word]
 parseCamelCase acronyms = parse (parser acronyms) "(unknown)"
 

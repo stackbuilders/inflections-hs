@@ -1,5 +1,7 @@
 module Text.Inflections.Parse.Types ( Word(..), mapWord ) where
 
+import Prelude (String, Show, Eq, ($))
+
 -- | A 'String' that should be kept whole through applied inflections
 data Word
 

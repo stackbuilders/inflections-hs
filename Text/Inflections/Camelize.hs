@@ -4,6 +4,8 @@ import Text.Inflections.Parse.Types (Word(..))
 
 import Data.Char (toUpper, toLower)
 
+import Prelude (String, Bool(..), concatMap, (.), zip, ($), repeat)
+
 -- |Turns a an input Word List in into CamelCase. Returns the CamelCase String.
 camelize
   :: [Word] -- ^ Input Words to separate with underscores

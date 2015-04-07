@@ -4,6 +4,8 @@ import Text.Inflections.Parse.Types (Word(..))
 
 import Data.List (intercalate)
 
+import Prelude (String, (.), map)
+
 -- | Replaces underscores in a snake_cased string with dashes (hyphens).
 dasherize
   :: [Word] -- ^ Input Words to separate with dashes

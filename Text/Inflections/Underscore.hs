@@ -5,6 +5,8 @@ import Text.Inflections.Parse.Types (Word(..))
 import Data.Char (toLower)
 import Data.List (intercalate)
 
+import Prelude (String, (.), map)
+
 -- |Turns a CamelCase string into an underscore_separated String.
 underscore
   :: [Word] -- ^ Input Words to separate with underscores
