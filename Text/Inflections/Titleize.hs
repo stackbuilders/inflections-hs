@@ -2,7 +2,6 @@ module Text.Inflections.Titleize (titleize) where
 
 import Text.Inflections.Parse.Types (Word(..))
 
-import Data.List (intercalate)
 import Data.Char (toUpper)
 
 import Prelude (String, unwords, map, ($))

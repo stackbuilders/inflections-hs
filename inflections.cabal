@@ -58,4 +58,5 @@ test-suite test
       , test-framework-quickcheck2
       , parsec
       , containers
+  ghc-options:         -Wall
   default-language:    Haskell2010

@@ -2,22 +2,11 @@ module Text.InflectionsTest where
 
 import Test.HUnit hiding (Test)
 
-import Test.Framework.Providers.QuickCheck2 (testProperty)
 import Test.Framework.Providers.HUnit (testCase)
-
-import Test.QuickCheck
-import Test.QuickCheck.Arbitrary
 
 import Test.Framework (Test, testGroup)
 
-import Data.List (all, group)
-import Data.Char (toLower)
-import Data.Map (fromList)
-import Text.Parsec
-import Data.Maybe (fromJust)
-
 import Text.Inflections (toUnderscore, toDashed, toCamelCased)
-import Text.Inflections.Parse.Types (Word(..))
 
 {-# ANN module "HLint: ignore Use camelCase" #-}
 

@@ -2,7 +2,6 @@ module Text.Inflections.Humanize (humanize) where
 
 import Text.Inflections.Parse.Types (Word(..))
 
-import Data.List (intercalate)
 import Data.Char (toUpper)
 
 import Prelude (String, Bool(..), (.), map, zip, ($), unwords, repeat)
