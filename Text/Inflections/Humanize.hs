@@ -5,6 +5,8 @@ import Text.Inflections.Parse.Types (Word(..))
 import Data.List (intercalate)
 import Data.Char (toUpper)
 
+import Prelude (String, Bool(..), (.), map, zip, ($), unwords, repeat)
+
 -- |Capitalizes the first word and turns underscores into spaces. Like titleize,
 -- this is meant for creating pretty output.
 humanize

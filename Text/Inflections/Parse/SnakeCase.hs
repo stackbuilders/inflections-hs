@@ -9,6 +9,8 @@ import Text.Parsec
 import Text.Inflections.Parse.Types (Word(..))
 import Text.Inflections.Parse.Acronym (acronym)
 
+import Prelude (Char, String, Either, return)
+
 parseSnakeCase :: [String] -> String -> Either ParseError [Word]
 parseSnakeCase acronyms = parse (parser acronyms) "(unknown)"
 

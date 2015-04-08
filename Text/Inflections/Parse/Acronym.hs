@@ -10,5 +10,7 @@ import Text.Inflections.Parse.Types
 
 import Control.Applicative ((<$>))
 
+import Prelude (Char, String, (.), map)
+
 acronym :: P.Stream s m Char => [String] -> P.ParsecT s u m Word
 acronym as = Acronym <$> P.choice (map (Prim.try . C.string) as)
