@@ -1,5 +1,5 @@
 name:                inflections
-version:             0.1.0.10
+version:             0.2.0.0
 synopsis:            Inflections library for Haskell
 description:
   Inflections provides methods for singularization, pluralization,
