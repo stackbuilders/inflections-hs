@@ -20,7 +20,9 @@ tests = [ testGroup "humanize"
 
 ----------------------------------------------------
 
+test_humanize1 :: Assertion
 test_humanize1 = "Employee salary" @?=
                  humanize [Word "employee", Word "salary"]
 
+test_humanize2 :: Assertion
 test_humanize2 = "Underground" @?= humanize [Word "underground"]

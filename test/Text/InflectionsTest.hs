@@ -22,6 +22,11 @@ tests = [ testGroup "toUnderscore"
           ]
         ]
 
+test_to_underscore :: Assertion
 test_to_underscore = "camel_cased_text" @?= toUnderscore "camelCasedText"
+
+test_to_dashed :: Assertion
 test_to_dashed = "camel-cased-text" @?= toDashed "camelCasedText"
+
+test_to_camel_cased :: Assertion
 test_to_camel_cased = "underscoredText" @?= toCamelCased False "underscored_text"
