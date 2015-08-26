@@ -17,4 +17,5 @@ tests = [testGroup "underscore"
           ]
         ]
 
+test_underscore :: Assertion
 test_underscore = "test_this" @?= underscore [Word "test", Word "this"]

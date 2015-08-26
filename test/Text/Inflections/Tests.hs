@@ -42,13 +42,15 @@ tests = [testGroup "dasherize"
          ]
         ]
 
-
+test_correctTransliterationWithoutSubs :: Assertion
 test_correctTransliterationWithoutSubs =
     transliterate "this is a test" @?= "this is a test"
 
+test_correctTransliterationWithSubs :: Assertion
 test_correctTransliterationWithSubs =
     transliterate "Feliz año nuevo" @?= "Feliz ano nuevo"
 
+test_correctTransliterationMissingSubs :: Assertion
 test_correctTransliterationMissingSubs =
     transliterate "Have a ❤ ñ!" @?= "Have a ? n!"
 
@@ -61,7 +63,7 @@ isRight :: Either a b -> Bool
 isRight (Left _)  = False
 isRight (Right _) = True
 
-
+test_dasherize1 :: Assertion
 test_dasherize1 = "foo-bar" @?= dasherize [Word "foo", Word "bar"]
 
 prop_parameterize1 :: String -> Bool
@@ -92,12 +94,13 @@ prop_parameterize5 s = longestSequenceOf '-' parameterized <= 1
 -- Helper functions and shared tests
 
 longestSequenceOf :: Char -> String -> Int
-longestSequenceOf c [] = 0
+longestSequenceOf _ [] = 0
 longestSequenceOf c s =
     if null subseqLengths then 0 else maximum subseqLengths
 
   where subseqLengths = (map length . filter (\str -> head str == c) . group) s
 
+numMatching :: Eq a => a -> [a] -> Int
 numMatching char str = length $ filter (== char) str
 
 alphaNumerics :: String

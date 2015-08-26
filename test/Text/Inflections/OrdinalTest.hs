@@ -30,22 +30,30 @@ tests = [ testGroup "ordinal"
 
 ----------------------------------------------------
 
+test_ordinal1 :: Assertion
 test_ordinal1 = "st" @?= ordinal 1
 
+test_ordinal2 :: Assertion
 test_ordinal2 = "nd" @?= ordinal 2
 
+test_ordinal1002 :: Assertion
 test_ordinal1002 = "nd" @?= ordinal 1002
 
+test_ordinal1003 :: Assertion
 test_ordinal1003 = "rd" @?= ordinal 1003
 
+test_ordinalNegative11 :: Assertion
 test_ordinalNegative11 = "th" @?= ordinal (-11)
 
+test_ordinalNegative1021 :: Assertion
 test_ordinalNegative1021 = "st" @?= ordinal (-1021)
 
 ----------------------------------------------------
 
+test_ordinalize1 :: Assertion
 test_ordinalize1 = "1st" @?= ordinalize 1
 
+test_ordinalizeNegative1021 :: Assertion
 test_ordinalizeNegative1021 = "-1021st" @?= ordinalize (-1021)
 
 ----------------------------------------------------
