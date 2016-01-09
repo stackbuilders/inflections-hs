@@ -1,2 +1,3 @@
 # Ignore compiled dist directory
 /dist
+/.stack-work
