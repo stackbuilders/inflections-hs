@@ -1,5 +1,6 @@
 module Text.Inflections.OrdinalSpec (spec) where
 
+import Control.Applicative ((<$>))
 import Test.Hspec
 import Test.QuickCheck.Property
 
