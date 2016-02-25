@@ -5,6 +5,12 @@ language: c
 
 sudo: false
 
+# GHC depends on GMP. You can add other dependencies here as well.
+addons:
+  apt:
+    packages:
+    - libgmp-dev
+
 cache:
   directories:
     - $HOME/.stack
