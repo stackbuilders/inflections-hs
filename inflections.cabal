@@ -41,7 +41,7 @@ library
                        , Text.Inflections.Parse.CamelCase
 
   ghc-options:         -Wall
-  build-depends:       base >=4.2 && <4.9, parsec, containers
+  build-depends:       base >=4.2 && <4.10, parsec, containers
   default-language:    Haskell2010
 
 test-suite test
@@ -50,7 +50,7 @@ test-suite test
   main-is: Suite.hs
   build-depends:
       inflections
-      , base >=4.2 && <4.9
+      , base >=4.2 && <4.10
       , test-framework
       , HUnit
       , QuickCheck
