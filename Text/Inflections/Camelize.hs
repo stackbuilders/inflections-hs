@@ -7,12 +7,22 @@ import Data.Char (toUpper, toLower)
 import Prelude (String, Bool(..), concatMap, (.), zip, ($), repeat)
 
 -- |Turns a an input Word List in into CamelCase. Returns the CamelCase String.
+
+-- |
+-- >>> camelize [ Word "foo", Acronym "bar", Word "bazz" ]
+-- "FoobarBazz"
+
 camelize
   :: [Word] -- ^ Input Words to separate with underscores
   -> String -- ^ The camelized String
 camelize = camelizeCustom True
 
 -- |Turns an input Word List into a CamelCase String.
+
+-- |
+-- >>> camelizeCustom False [ Word "foo", Acronym "bar", Word "bazz" ]
+-- "foobarBazz"
+
 camelizeCustom
   :: Bool   -- ^ Whether to capitalize the first character in the output String
   -> [Word] -- ^ The input Words
