@@ -22,6 +22,11 @@ source-repository head
   type:            git
   location:        https://github.com/stackbuilders/inflections-hs.git
 
+flag dev
+  description:        Turn on development settings.
+  manual:             True
+  default:            False
+
 library
   exposed-modules:     Text.Inflections
                      , Text.Inflections.Parse.Types
@@ -40,7 +45,10 @@ library
                      , Text.Inflections.Parse.SnakeCase
                      , Text.Inflections.Parse.CamelCase
 
-  ghc-options:         -Wall
+  if flag(dev)
+    ghc-options:      -Wall -Werror
+  else
+    ghc-options:      -O2 -Wall
   build-depends:       base         >= 4.6   && < 4.10
                      , containers   >= 0.5   && < 0.6
                      , parsec       >= 3.1.9 && < 4.0
@@ -56,7 +64,10 @@ test-suite test
                      , containers   >= 0.5   && < 0.6
                      , hspec        >= 2.0   && < 3.0
                      , parsec       >= 3.1.9 && < 4.0
-  ghc-options:         -Wall
+  if flag(dev)
+    ghc-options:      -Wall -Werror
+  else
+    ghc-options:      -O2 -Wall
   default-language:    Haskell2010
   other-modules:       Text.Inflections.HumanizeSpec
                      , Text.Inflections.OrdinalSpec
