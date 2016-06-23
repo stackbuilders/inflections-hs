@@ -29,12 +29,15 @@ install:
 
 script:
  - case "$CABALVER" in
-    "1.16") cabal configure --enable-tests -v2 -f dev ;;
+    "1.16") cabal configure -v2 -f dev ;;
     "1.18") cabal configure --enable-tests --enable-library-coverage -v2 -f dev ;;
     *)      cabal configure --enable-tests --enable-coverage -v2 -f dev ;;
    esac
  - cabal build
- - cabal test --show-details=always
+ - case "$GHCVER" in
+    "7.6.3") true ;;
+    *)       cabal test --show-details=always ;;
+   esac
  - cabal sdist
  - cabal haddock | grep "100%" | wc -l | grep "15"
 

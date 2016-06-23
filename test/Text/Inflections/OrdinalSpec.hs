@@ -1,10 +1,15 @@
+{-# LANGUAGE CPP #-}
+
 module Text.Inflections.OrdinalSpec (spec) where
 
-import Control.Applicative ((<$>))
 import Test.Hspec
 import Test.QuickCheck.Property
 
 import Text.Inflections (ordinal, ordinalize)
+
+#if !MIN_VERSION_base(4,8,0)
+import Control.Applicative
+#endif
 
 spec :: Spec
 spec = do
