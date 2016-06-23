@@ -1,6 +1,10 @@
 # String Inflections for Haskell
 
-[![Build Status](https://travis-ci.org/stackbuilders/inflections-hs.png)](https://travis-ci.org/stackbuilders/inflections-hs) [![Hackage version](https://img.shields.io/hackage/v/inflections.svg)](http://hackage.haskell.org/package/inflections)
+[![License MIT](https://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
+[![Hackage](https://img.shields.io/hackage/v/inflections.svg)](http://hackage.haskell.org/package/inflections)
+[![Stackage Nightly](http://stackage.org/package/inflections/badge/nightly)](http://stackage.org/nightly/package/inflections)
+[![Stackage LTS](http://stackage.org/package/inflections/badge/lts)](http://stackage.org/lts/package/inflections)
+[![Build Status](https://travis-ci.org/stackbuilders/inflections-hs.png)](https://travis-ci.org/stackbuilders/inflections-hs)
 
 This library is a partial port of the
 [String Inflector](http://api.rubyonrails.org/classes/ActiveSupport/Inflector.html)
