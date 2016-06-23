@@ -11,6 +11,13 @@ import Text.Inflections.Parse.Acronym (acronym)
 
 import Prelude (Char, String, Either, return)
 
+-- |Parses a snake_case string.
+--
+-- >>> parseSnakeCase ["bar"] "foo_bar_bazz"
+-- Right [Word "foo",Acronym "bar",Word "bazz"]
+-- >>> parseSnakeCase [] "fooBarBazz"
+-- Left "(unknown)" (line 1, column 4):
+-- unexpected 'B'
 parseSnakeCase :: [String] -> String -> Either ParseError [Word]
 parseSnakeCase acronyms = parse (parser acronyms) "(unknown)"
 
