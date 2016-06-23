@@ -1,4 +1,4 @@
-{-# LANGUAGE FlexibleContexts, NoMonomorphismRestriction #-}
+{-# LANGUAGE CPP, FlexibleContexts, NoMonomorphismRestriction #-}
 
 module Text.Inflections.Parse.Parameterizable
   ( parser
@@ -7,9 +7,12 @@ module Text.Inflections.Parse.Parameterizable
 where
 
 import Data.Char (isAsciiLower, isAsciiUpper, isAscii, isDigit)
-import Control.Applicative
 import qualified Text.Parsec as P
 import qualified Text.ParserCombinators.Parsec.Char as C
+
+#if !MIN_VERSION_base(4,8,0)
+import Control.Applicative
+#endif
 
 data PChar =   UCase Char
              -- Since some of the transliterating approximations expand from
