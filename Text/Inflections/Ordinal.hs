@@ -1,3 +1,14 @@
+-- |
+-- Module      :  Text.Inflections.Ordinal
+-- Copyright   :  © 2016 Justin Leitgeb
+-- License     :  MIT
+--
+-- Maintainer  :  Justin Leitgeb <justin@stackbuilders.com>
+-- Stability   :  experimental
+-- Portability :  portable
+--
+-- Conversion to spelled ordinal numbers.
+
 module Text.Inflections.Ordinal (ordinal, ordinalize)
 where
 
@@ -32,4 +43,3 @@ ordinal number
 -- "10th"
 ordinalize :: Integer -> String
 ordinalize n = show n ++ ordinal n
-

@@ -1,3 +1,14 @@
+-- |
+-- Module      :  Text.Inflections.Underscore
+-- Copyright   :  © 2016 Justin Leitgeb
+-- License     :  MIT
+--
+-- Maintainer  :  Justin Leitgeb <justin@stackbuilders.com>
+-- Stability   :  experimental
+-- Portability :  portable
+--
+-- Conversion to phrases separated by underscores.
+
 module Text.Inflections.Underscore ( underscore ) where
 
 import Text.Inflections.Parse.Types (Word(..))
@@ -11,13 +22,12 @@ import Prelude (String, (.), map)
 --
 -- >>> underscore [ Word "foo", Acronym "bar", Word "bazz" ]
 -- "foo_bar_bazz"
-
 underscore
   :: [Word] -- ^ Input Words to separate with underscores
   -> String -- ^ The underscored String
 underscore = intercalate "_" . map toDowncasedString
 
-
+-- | Transform 'Word' into a down-cased 'String'.
 toDowncasedString :: Word -> String
 toDowncasedString (Acronym s) = map toLower s
 toDowncasedString (Word s)    = map toLower s

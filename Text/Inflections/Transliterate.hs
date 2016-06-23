@@ -1,3 +1,14 @@
+-- |
+-- Module      :  Text.Inflections.Transliterate
+-- Copyright   :  © 2016 Justin Leitgeb
+-- License     :  MIT
+--
+-- Maintainer  :  Justin Leitgeb <justin@stackbuilders.com>
+-- Stability   :  experimental
+-- Portability :  portable
+--
+-- Support for transliteration.
+
 module Text.Inflections.Transliterate
     ( transliterate
     , transliterateCustom

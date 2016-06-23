@@ -1,3 +1,14 @@
+-- |
+-- Module      :  Text.Inflections.Data
+-- Copyright   :  © 2016 Justin Leitgeb
+-- License     :  MIT
+--
+-- Maintainer  :  Justin Leitgeb <justin@stackbuilders.com>
+-- Stability   :  experimental
+-- Portability :  portable
+--
+-- Auxiliary data used in the library.
+
 module Text.Inflections.Data where
 
 import Data.Map (Map, fromList)

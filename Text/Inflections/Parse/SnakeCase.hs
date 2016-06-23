@@ -1,3 +1,14 @@
+-- |
+-- Module      :  Text.Inflections.Parse.SnakeCase
+-- Copyright   :  © 2016 Justin Leitgeb
+-- License     :  MIT
+--
+-- Maintainer  :  Justin Leitgeb <justin@stackbuilders.com>
+-- Stability   :  experimental
+-- Portability :  portable
+--
+-- Parser for snake case “symbols”.
+
 {-# LANGUAGE FlexibleContexts, NoMonomorphismRestriction #-}
 
 module Text.Inflections.Parse.SnakeCase ( parseSnakeCase )
@@ -20,7 +31,6 @@ import Prelude (Char, String, Either, return)
 -- unexpected 'B'
 parseSnakeCase :: [String] -> String -> Either ParseError [Word]
 parseSnakeCase acronyms = parse (parser acronyms) "(unknown)"
-
 
 parser :: Stream s m Char => [String] -> ParsecT s u m [Word]
 parser acronyms = do

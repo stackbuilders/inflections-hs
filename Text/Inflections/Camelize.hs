@@ -1,3 +1,14 @@
+-- |
+-- Module      :  Text.Inflections.Camelize
+-- Copyright   :  © 2016 Justin Leitgeb
+-- License     :  MIT
+--
+-- Maintainer  :  Justin Leitgeb <justin@stackbuilders.com>
+-- Stability   :  experimental
+-- Portability :  portable
+--
+-- Conversion to CamelCased phrases.
+
 module Text.Inflections.Camelize ( camelize, camelizeCustom ) where
 
 import Text.Inflections.Parse.Types (Word(..))
@@ -10,7 +21,6 @@ import Prelude (String, Bool(..), concatMap, (.), zip, ($), repeat)
 --
 -- >>> camelize [ Word "foo", Acronym "bar", Word "bazz" ]
 -- "FoobarBazz"
-
 camelize
   :: [Word] -- ^ Input Words to separate with underscores
   -> String -- ^ The camelized String
@@ -20,13 +30,11 @@ camelize = camelizeCustom True
 --
 -- >>> camelizeCustom False [ Word "foo", Acronym "bar", Word "bazz" ]
 -- "foobarBazz"
-
 camelizeCustom
   :: Bool   -- ^ Whether to capitalize the first character in the output String
   -> [Word] -- ^ The input Words
   -> String -- ^ The camelized String
 camelizeCustom isFirstCap = concatMap (caseForWord isFirstCap) . isFirstList
-
 
 caseForWord :: Bool -> (Word, Bool) -> String
 caseForWord True (Word (c:cs), True)  = toUpper c : cs

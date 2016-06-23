@@ -1,3 +1,14 @@
+-- |
+-- Module      :  Text.Inflections.Parametrize
+-- Copyright   :  © 2016 Justin Leitgeb
+-- License     :  MIT
+--
+-- Maintainer  :  Justin Leitgeb <justin@stackbuilders.com>
+-- Stability   :  experimental
+-- Portability :  portable
+--
+-- Parametrization for strings, useful for transliteration.
+
 module Text.Inflections.Parameterize
   ( parameterize
   , parameterizeCustom
