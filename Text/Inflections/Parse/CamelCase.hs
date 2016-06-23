@@ -10,6 +10,13 @@ import Text.Inflections.Parse.Acronym (acronym)
 
 import Prelude (Char, String, Either, return, ($))
 
+-- |Parses a CamelCase string.
+--
+-- >>> parseCamelCase ["Bar"] "FooBarBazz"
+-- Right [Word "Foo",Acronym "Bar",Word "Bazz"]
+-- >>> parseCamelCase [] "foo_bar_bazz"
+-- Left "(unknown)" (line 1, column 4):
+-- unexpected '_'
 parseCamelCase :: [String] -> String -> Either ParseError [Word]
 parseCamelCase acronyms = parse (parser acronyms) "(unknown)"
 
