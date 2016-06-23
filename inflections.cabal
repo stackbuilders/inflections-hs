@@ -23,51 +23,44 @@ source-repository head
   location:        https://github.com/stackbuilders/inflections-hs.git
 
 library
-  exposed-modules:       Text.Inflections
-                       , Text.Inflections.Parse.Types
+  exposed-modules:     Text.Inflections
+                     , Text.Inflections.Parse.Types
 
-  other-modules:         Text.Inflections.Data
-                       , Text.Inflections.Parameterize
-                       , Text.Inflections.Humanize
-                       , Text.Inflections.Underscore
-                       , Text.Inflections.Camelize
-                       , Text.Inflections.Dasherize
-                       , Text.Inflections.Ordinal
-                       , Text.Inflections.Titleize
-                       , Text.Inflections.Transliterate
-
-                       , Text.Inflections.Parse.Acronym
-                       , Text.Inflections.Parse.Parameterizable
-
-                       , Text.Inflections.Parse.SnakeCase
-                       , Text.Inflections.Parse.CamelCase
+  other-modules:       Text.Inflections.Data
+                     , Text.Inflections.Parameterize
+                     , Text.Inflections.Humanize
+                     , Text.Inflections.Underscore
+                     , Text.Inflections.Camelize
+                     , Text.Inflections.Dasherize
+                     , Text.Inflections.Ordinal
+                     , Text.Inflections.Titleize
+                     , Text.Inflections.Transliterate
+                     , Text.Inflections.Parse.Acronym
+                     , Text.Inflections.Parse.Parameterizable
+                     , Text.Inflections.Parse.SnakeCase
+                     , Text.Inflections.Parse.CamelCase
 
   ghc-options:         -Wall
-  build-depends:       base >=4.2 && <4.10, parsec, containers
+  build-depends:       base         >= 4.6   && < 4.10
+                     , containers   >= 0.5   && < 0.6
+                     , parsec       >= 3.1.9 && < 4.0
   default-language:    Haskell2010
 
 test-suite test
   type: exitcode-stdio-1.0
   hs-source-dirs: test
   main-is: Spec.hs
-  build-depends:
-      inflections
-      , base >=4.2 && <4.10
-      , test-framework
-      , HUnit
-      , hspec
-      , hspec-discover
-      , QuickCheck
-      , test-framework-hunit
-      , test-framework-quickcheck2
-      , parsec
-      , containers
+  build-depends:       inflections
+                     , base         >= 4.2   && < 4.10
+                     , QuickCheck   >= 2.7.6 && < 3.0
+                     , containers   >= 0.5   && < 0.6
+                     , hspec        >= 2.0   && < 3.0
+                     , parsec       >= 3.1.9 && < 4.0
   ghc-options:         -Wall
   default-language:    Haskell2010
-  other-modules:
-        Text.Inflections.HumanizeSpec
-      , Text.Inflections.OrdinalSpec
-      , Text.Inflections.PropertiesSpec
-      , Text.Inflections.TitleizeSpec
-      , Text.Inflections.UnderscoreSpec
-      , Text.InflectionsSpec
+  other-modules:       Text.Inflections.HumanizeSpec
+                     , Text.Inflections.OrdinalSpec
+                     , Text.Inflections.PropertiesSpec
+                     , Text.Inflections.TitleizeSpec
+                     , Text.Inflections.UnderscoreSpec
+                     , Text.InflectionsSpec
