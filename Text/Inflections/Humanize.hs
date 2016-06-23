@@ -8,6 +8,9 @@ import Prelude (String, Bool(..), (.), map, zip, ($), unwords, repeat)
 
 -- |Capitalizes the first word and turns underscores into spaces. Like titleize,
 -- this is meant for creating pretty output.
+--
+-- >>> humanize [ Word "foo", Acronym "bar", Word "bazz" ]
+-- "Foo bar bazz"
 humanize
   :: [Word] -- ^ List of Words, first of which will be capitalized
   -> String -- ^ The humanized output

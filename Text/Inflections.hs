@@ -134,6 +134,9 @@ import Data.Char ( toLower )
 
 -- | Transforms CamelCasedString to
 -- snake_cased_string_with_underscores. Throws exception if parsing failed
+--
+-- >>> toUnderscore "FooBarBazz"
+-- "foo_bar_bazz"
 toUnderscore :: String -> String
 toUnderscore =
     underscore
@@ -142,6 +145,9 @@ toUnderscore =
 
 -- | Transforms CamelCasedString to snake-cased-string-with-dashes. Throws
 -- exception if parsing failed.
+--
+-- >>> toDashed "FooBarBazz"
+-- "foo-bar-bazz"
 toDashed :: String -> String
 toDashed =
     dasherize
@@ -153,6 +159,11 @@ toDashed =
 -- 'True' then FirstCharacter in result string will be in upper case. If
 -- 'False' then firstCharacter will be in lower case. Throws exception if
 -- parsing failed
+--
+-- >>> toCamelCased True "foo_bar_bazz"
+-- "FooBarBazz"
+-- >>> toCamelCased False "foo_bar_bazz"
+-- "fooBarBazz"
 toCamelCased :: Bool -> String -> String
 toCamelCased t =
     camelizeCustom t
