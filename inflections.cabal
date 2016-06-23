@@ -7,13 +7,16 @@ description:
 
 license:             MIT
 license-file:        LICENSE
-author:              Justin Leitgeb
+author:              Justin Leitgeb <justin@stackbuilders.com>
 homepage:            https://github.com/stackbuilders/inflections-hs
-maintainer:          justin@stackbuilders.com
-copyright:           2014 Justin Leitgeb
+bug-reports:         https://github.com/stackbuilders/inflections-hs/issues
+maintainer:          Justin Leitgeb <justin@stackbuilders.com>
+copyright:           2014–2016 Justin Leitgeb
 category:            Text
 build-type:          Simple
 cabal-version:       >=1.10
+extra-source-files:  CHANGELOG.md
+                   , README.md
 
 source-repository head
   type:            git
