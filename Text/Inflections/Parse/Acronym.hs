@@ -9,21 +9,19 @@
 --
 -- Parser for acronyms.
 
-{-# LANGUAGE FlexibleContexts, NoMonomorphismRestriction #-}
+{-# LANGUAGE CPP #-}
 
 module Text.Inflections.Parse.Acronym ( acronym ) where
 
-import qualified Text.ParserCombinators.Parsec.Char as C
-import qualified Text.Parsec as P
-import qualified Text.Parsec.Prim as Prim
-
 import Text.Inflections.Parse.Types
+import Text.Megaparsec
+import Text.Megaparsec.String
 
-import Control.Applicative ((<$>))
-
-import Prelude (Char, String, (.), map)
+#if MIN_VERSION_base(4,8,0)
+import Prelude hiding (Word)
+#endif
 
 -- | Parser that accepts a string from given collection and turns it into
 -- an 'Acronym'.
-acronym :: P.Stream s m Char => [String] -> P.ParsecT s u m Word
-acronym as = Acronym <$> P.choice (map (Prim.try . C.string) as)
+acronym :: [String] -> Parser Word
+acronym = fmap Acronym . choice . fmap string

@@ -15,12 +15,9 @@ module Text.Inflections.Transliterate
     )
 where
 
-import Text.Inflections.Parameterize ( Transliterations )
-import Text.Inflections.Data (defaultMap)
-
 import Data.Char (isAscii)
 import Data.Maybe(fromMaybe)
-
+import Text.Inflections.Data
 import qualified Data.Map as Map
 
 -- |Returns a String after default approximations for changing Unicode characters

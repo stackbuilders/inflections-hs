@@ -4,6 +4,8 @@
 
 * Switched test suite to Hspec.
 
+* Switched to Megaparsec 5 for parsing.
+
 * Improved documentation.
 
 ## Inflections 0.2.0.1

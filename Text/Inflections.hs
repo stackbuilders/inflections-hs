@@ -82,6 +82,7 @@ module Text.Inflections
 
     , titleize
 
+    , Transliterations
     , defaultMap
 
     , parameterize
@@ -95,7 +96,6 @@ module Text.Inflections
 
     , parseSnakeCase
     , parseCamelCase
-    , Transliterations
     -- * Often used combinators
     , toUnderscore
     , toDashed
@@ -103,12 +103,9 @@ module Text.Inflections
     )
 where
 
+import Text.Inflections.Data ( Transliterations, defaultMap )
 
-import Text.Inflections.Data ( defaultMap )
-
-import Text.Inflections.Parameterize ( Transliterations
-                                     , parameterize
-                                     , parameterizeCustom )
+import Text.Inflections.Parameterize ( parameterize, parameterizeCustom )
 
 import Text.Inflections.Underscore ( underscore )
 

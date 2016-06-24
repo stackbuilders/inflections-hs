@@ -9,17 +9,21 @@
 --
 -- Parser for camel case “symbols”.
 
-{-# LANGUAGE FlexibleContexts, NoMonomorphismRestriction #-}
+{-# LANGUAGE CPP #-}
 
 module Text.Inflections.Parse.CamelCase ( parseCamelCase )
 where
 
-import Text.Parsec
-
-import Text.Inflections.Parse.Types (Word(..))
 import Text.Inflections.Parse.Acronym (acronym)
+import Text.Inflections.Parse.Types (Word(..))
+import Text.Megaparsec
+import Text.Megaparsec.String
 
-import Prelude (Char, String, Either, return, ($))
+#if MIN_VERSION_base(4,8,0)
+import Prelude hiding (Word)
+#else
+import Control.Applicative
+#endif
 
 -- |Parses a CamelCase string.
 --
@@ -28,19 +32,19 @@ import Prelude (Char, String, Either, return, ($))
 -- >>> parseCamelCase [] "foo_bar_bazz"
 -- Left "(unknown)" (line 1, column 4):
 -- unexpected '_'
-parseCamelCase :: [String] -> String -> Either ParseError [Word]
-parseCamelCase acronyms = parse (parser acronyms) "(unknown)"
+parseCamelCase
+  :: [String]          -- ^ Collection of acronyms
+  -> String            -- ^ Input
+  -> Either (ParseError Char Dec) [Word] -- ^ Result of parsing
+parseCamelCase acronyms = parse (parser acronyms) ""
 
--- |Recognizes an input String in CamelCase.
-parser :: Stream s m Char => [String] -> ParsecT s u m [Word]
-parser acronyms = do
-  ws <- many $ choice [ acronym acronyms, word ]
-  eof
-  return ws
+parser
+  :: [String]          -- ^ Collection of acronyms
+  -> Parser [Word]     -- ^ CamelCase parser
+parser acronyms = many (acronym acronyms <|> word) <* eof
 
--- | Parser that accepts lower-cased and capitalized words.
-word :: Stream s m Char => ParsecT s u m Word
+word :: Parser Word
 word = do
-  firstChar <- upper <|> lower
-  restChars <- many lower
-  return $ Word $ firstChar : restChars
+  firstChar <- upperChar <|> lowerChar
+  restChars <- many lowerChar
+  return . Word $ firstChar : restChars
