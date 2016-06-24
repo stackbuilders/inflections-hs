@@ -9,18 +9,21 @@
 --
 -- Parser for snake case “symbols”.
 
-{-# LANGUAGE FlexibleContexts, NoMonomorphismRestriction #-}
+{-# LANGUAGE CPP #-}
 
 module Text.Inflections.Parse.SnakeCase ( parseSnakeCase )
 where
 
-import Control.Applicative ((<$>))
-import Text.Parsec
-
-import Text.Inflections.Parse.Types (Word(..))
 import Text.Inflections.Parse.Acronym (acronym)
+import Text.Inflections.Parse.Types (Word(..))
+import Text.Megaparsec
+import Text.Megaparsec.String
 
-import Prelude (Char, String, Either, return)
+#if MIN_VERSION_base(4,8,0)
+import Prelude hiding (Word)
+#else
+import Control.Applicative
+#endif
 
 -- |Parses a snake_case string.
 --
@@ -29,14 +32,18 @@ import Prelude (Char, String, Either, return)
 -- >>> parseSnakeCase [] "fooBarBazz"
 -- Left "(unknown)" (line 1, column 4):
 -- unexpected 'B'
-parseSnakeCase :: [String] -> String -> Either ParseError [Word]
-parseSnakeCase acronyms = parse (parser acronyms) "(unknown)"
+parseSnakeCase
+  :: [String]          -- ^ Collection of acronyms
+  -> String            -- ^ Input
+  -> Either (ParseError Char Dec) [Word] -- ^ Result of parsing
+parseSnakeCase acronyms = parse (parser acronyms) ""
 
-parser :: Stream s m Char => [String] -> ParsecT s u m [Word]
+parser
+  :: [String] -> Parser [Word]
 parser acronyms = do
   ws <- (acronym acronyms <|> word) `sepBy` char '_'
   eof
   return ws
 
-word :: Stream s m Char => ParsecT s u m Word
-word = Word <$> (many1 lower <|> many1 digit)
+word :: Parser Word
+word = Word <$> (some lowerChar <|> some digitChar)
