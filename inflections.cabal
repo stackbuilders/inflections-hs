@@ -33,10 +33,13 @@ library
 
   other-modules:       Text.Inflections.Data
                      , Text.Inflections.Camelize
+                     , Text.Inflections.Countable
                      , Text.Inflections.Dasherize
                      , Text.Inflections.Humanize
                      , Text.Inflections.Ordinal
                      , Text.Inflections.Parameterize
+                     , Text.Inflections.Titleize
+                     , Text.Inflections.Transliterate
                      , Text.Inflections.Parse.Acronym
                      , Text.Inflections.Parse.CamelCase
                      , Text.Inflections.Parse.SnakeCase
@@ -53,6 +56,7 @@ library
                      , megaparsec   >= 5.0   && < 6.0
                      , text         >= 0.2   && < 1.3
                      , unordered-containers >= 0.2.7 && < 0.3
+                     , text
   default-language:    Haskell2010
 
 test-suite test
@@ -71,9 +75,11 @@ test-suite test
     ghc-options:      -O2 -Wall
   default-language:    Haskell2010
   other-modules:       Text.Inflections.DasherizeSpec
+                     , Text.Inflections.CountableSpec
                      , Text.Inflections.HumanizeSpec
                      , Text.Inflections.OrdinalSpec
                      , Text.Inflections.ParametrizeSpec
+                     , Text.Inflections.PropertiesSpec
                      , Text.Inflections.TitleizeSpec
                      , Text.Inflections.TransliterateSpec
                      , Text.Inflections.UnderscoreSpec
