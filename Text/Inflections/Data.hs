@@ -14,7 +14,6 @@ module Text.Inflections.Data where
 
 import Data.HashMap.Strict (HashMap)
 import qualified Data.HashMap.Strict as M
-import Data.Map (Map)
 import qualified Data.Map as M
 import Data.Text
 
@@ -116,8 +115,8 @@ defaultMap = M.fromList [
   -- (/(quiz)zes$/i, '\1')
   -- (/(database)s$/i, '\1')
 
-simpleCountableMap :: Bimap.Bimap Text Text
-simpleCountableMap = Bimap.fromList [
+simpleCountableMap :: [(Text, Text)]
+simpleCountableMap = [
   -- irregular
   -- from singular to plural
     ("person", "people")

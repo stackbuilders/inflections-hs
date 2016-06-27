@@ -6,7 +6,15 @@ import Data.Text
 import Text.Inflections.Data
 
 pluralize :: Text -> Text
-pluralize t = fromMaybe t (Bimap.lookup t simpleCountableMap)
+pluralize = pluralizeWith simpleCountableMap
 
 singularize :: Text -> Text
-singularize t = fromMaybe t (Bimap.lookupR t simpleCountableMap)
+singularize = singularizeWith simpleCountableMap
+
+pluralizeWith :: [(Text, Text)] -> Text -> Text
+pluralizeWith mapping t =
+  fromMaybe t (Bimap.lookup t (Bimap.fromList mapping))
+
+singularizeWith :: [(Text, Text)] -> Text -> Text
+singularizeWith mapping t =
+  fromMaybe t (Bimap.lookupR t (Bimap.fromList mapping))

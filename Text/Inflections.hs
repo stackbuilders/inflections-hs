@@ -104,6 +104,8 @@ module Text.Inflections
     -- countable
     , singularize
     , pluralize
+    , singularizeWith
+    , pluralizeWith
     )
 where
 
@@ -151,7 +153,8 @@ import Text.Inflections.Parse.Types (mapWord)
 
 import Text.Inflections.Parse.CamelCase (parseCamelCase)
 
-import Text.Inflections.Countable (pluralize, singularize)
+import Text.Inflections.Countable (pluralize, pluralizeWith, singularize,
+                                   singularizeWith)
 
 import Data.Char (toLower)
 
