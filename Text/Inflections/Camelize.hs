@@ -9,13 +9,23 @@
 --
 -- Conversion to CamelCased phrases.
 
-module Text.Inflections.Camelize ( camelize, camelizeCustom ) where
+{-# LANGUAGE CPP               #-}
+{-# LANGUAGE OverloadedStrings #-}
 
-import Text.Inflections.Parse.Types (Word(..))
+module Text.Inflections.Camelize
+  ( camelize
+  , camelizeCustom )
+where
 
-import Data.Char (toUpper, toLower)
+import Data.Text (Text)
+import Text.Inflections.Parse.Types
+import qualified Data.Text as T
 
-import Prelude (String, Bool(..), concatMap, (.), zip, ($), repeat)
+#if MIN_VERSION_base(4,8,0)
+import Prelude hiding (Word)
+#else
+import Control.Applicative
+#endif
 
 -- |Turns a an input Word List in into CamelCase. Returns the CamelCase String.
 --
@@ -23,8 +33,9 @@ import Prelude (String, Bool(..), concatMap, (.), zip, ($), repeat)
 -- "FoobarBazz"
 camelize
   :: [Word] -- ^ Input Words to separate with underscores
-  -> String -- ^ The camelized String
+  -> Text   -- ^ The camelized 'Text'
 camelize = camelizeCustom True
+{-# INLINE camelize #-}
 
 -- |Turns an input Word List into a CamelCase String.
 --
@@ -33,16 +44,8 @@ camelize = camelizeCustom True
 camelizeCustom
   :: Bool   -- ^ Whether to capitalize the first character in the output String
   -> [Word] -- ^ The input Words
-  -> String -- ^ The camelized String
-camelizeCustom isFirstCap = concatMap (caseForWord isFirstCap) . isFirstList
-
-caseForWord :: Bool -> (Word, Bool) -> String
-caseForWord True (Word (c:cs), True)  = toUpper c : cs
-caseForWord False (Word (c:cs), True) = toLower c : cs
-caseForWord _ (Word (c:cs), _)        = toUpper c : cs
-caseForWord _ (Word [], _)            = []
-caseForWord _ (Acronym s, _)          = s
-
--- |Returns list with Bool indicating if an element is first.
-isFirstList :: [a] -> [(a, Bool)]
-isFirstList xs = zip xs $ True : repeat False
+  -> Text   -- ^ The camelized 'Text'
+camelizeCustom _ []     = ""
+camelizeCustom c (x:xs) = T.concat $
+  (mapWord (if c then T.toTitle else T.toLower) x) : (mapWord T.toTitle <$> xs)
+{-# INLINE camelizeCustom #-}

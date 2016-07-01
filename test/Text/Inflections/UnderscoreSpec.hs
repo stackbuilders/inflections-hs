@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Text.Inflections.UnderscoreSpec (spec) where
 
 import Test.Hspec

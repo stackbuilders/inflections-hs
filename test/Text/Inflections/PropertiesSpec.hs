@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Text.Inflections.PropertiesSpec (spec) where
 
 import Data.Char (toLower)

@@ -9,8 +9,16 @@
 --
 -- Conversion to spelled ordinal numbers.
 
-module Text.Inflections.Ordinal (ordinal, ordinalize)
+{-# LANGUAGE OverloadedStrings #-}
+
+module Text.Inflections.Ordinal
+  ( ordinal
+  , ordinalize )
 where
+
+import Data.Monoid ((<>))
+import Data.Text (Text)
+import qualified Data.Text as T
 
 -- |Returns the suffix that should be added to a number to denote the position
 -- in an ordered sequence such as 1st, 2nd, 3rd, 4th.
@@ -21,7 +29,7 @@ where
 -- "nd"
 -- >>> ordinal 10
 -- "th"
-ordinal :: Integral a => a -> String
+ordinal :: Integral a => a -> Text
 ordinal number
         | remainder100 `elem` [11..13] = "th"
         | remainder10 == 1             = "st"
@@ -41,5 +49,6 @@ ordinal number
 -- "2nd"
 -- >>> ordinalize 10
 -- "10th"
-ordinalize :: (Integral a, Show a) => a -> String
-ordinalize n = show n ++ ordinal n
+ordinalize :: (Integral a, Show a) => a -> Text
+ordinalize n = T.pack (show n) <> ordinal n
+{-# INLINE ordinalize #-}

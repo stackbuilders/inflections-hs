@@ -23,7 +23,7 @@ import Data.Maybe (mapMaybe)
 import Text.Inflections.Data
 import Text.Megaparsec
 import Text.Megaparsec.String
-import qualified Data.Map as Map
+import qualified Data.HashMap.Strict as M
 
 #if !MIN_VERSION_base(4,8,0)
 import Control.Applicative
@@ -82,7 +82,7 @@ transliteratePCharCustom ts c = do
   -- We may have expanded into multiple characters during
   -- transliteration, so check validity of all characters in
   -- result.
-  v <- Map.lookup c ts
+  v <- M.lookup c ts
   guard (all isValidParamChar v)
   return (Acceptable v)
 

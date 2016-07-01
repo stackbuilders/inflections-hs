@@ -11,12 +11,12 @@
 
 module Text.Inflections.Data where
 
-import Data.Map (Map)
-import qualified Data.Map as M
+import Data.HashMap.Strict (HashMap)
+import qualified Data.HashMap.Strict as M
 
 -- |A 'Data.Map.Map' containing mappings from international characters to
 -- sequences approximating these characters within the ASCII range.
-type Transliterations = Map Char String
+type Transliterations = HashMap Char String
 
 -- |These default transliterations stolen from the Ruby i18n library - see
 -- <https://github.com/svenfuchs/i18n/blob/master/lib/i18n/backend/transliterator.rb#L41:L69>.

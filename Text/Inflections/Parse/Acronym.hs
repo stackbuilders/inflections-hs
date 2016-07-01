@@ -11,17 +11,22 @@
 
 {-# LANGUAGE CPP #-}
 
-module Text.Inflections.Parse.Acronym ( acronym ) where
+module Text.Inflections.Parse.Acronym
+  ( acronym )
+where
 
+import Data.Text (Text)
 import Text.Inflections.Parse.Types
 import Text.Megaparsec
-import Text.Megaparsec.String
+import Text.Megaparsec.Text
+import qualified Data.Text as T
 
 #if MIN_VERSION_base(4,8,0)
 import Prelude hiding (Word)
 #endif
 
--- | Parser that accepts a string from given collection and turns it into
+-- | Parser that accepts a 'Text' from given collection and turns it into
 -- an 'Acronym'.
-acronym :: [String] -> Parser Word
-acronym = fmap Acronym . choice . fmap string
+acronym :: [Text] -> Parser Word
+acronym = fmap (Acronym . T.pack) . choice . fmap (string . T.unpack)
+{-# INLINE acronym #-}

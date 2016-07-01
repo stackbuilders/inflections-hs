@@ -9,12 +9,14 @@
 --
 -- Conversion to dasherized phrases.
 
-{-# LANGUAGE CPP #-}
+{-# LANGUAGE CPP               #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module Text.Inflections.Dasherize ( dasherize ) where
 
-import Data.List (intercalate)
+import Data.Text (Text)
 import Text.Inflections.Parse.Types
+import qualified Data.Text as T
 
 #if MIN_VERSION_base(4,8,0)
 import Prelude hiding (Word)
@@ -26,5 +28,6 @@ import Prelude hiding (Word)
 -- "foo-bar-bazz"
 dasherize
   :: [Word] -- ^ Input Words to separate with dashes
-  -> String -- ^ The dasherized String
-dasherize = intercalate "-" . fmap unWord
+  -> Text   -- ^ The dasherized String
+dasherize = T.intercalate "-" . fmap (mapWord T.toLower)
+{-# INLINE dasherize #-}

@@ -9,25 +9,26 @@
 --
 -- Conversion to titleized phrases.
 
-module Text.Inflections.Titleize (titleize) where
+{-# LANGUAGE CPP #-}
 
-import Text.Inflections.Parse.Types (Word(..))
+module Text.Inflections.Titleize
+  ( titleize )
+where
 
-import Data.Char (toUpper)
+import Data.Text (Text)
+import Text.Inflections.Parse.Types
+import qualified Data.Text as T
 
-import Prelude (String, unwords, map, ($))
+#if MIN_VERSION_base(4,8,0)
+import Prelude hiding (Word)
+#endif
 
--- | Capitalizes all the Words in the input list.
+-- | Capitalize all the Words in the input list.
 --
 -- >>> titleize [ Word "foo", Acronym "bar", Word "bazz" ]
 -- "Foo bar Bazz"
 titleize
   :: [Word] -- ^ List of Words, first of which will be capitalized
-  -> String -- ^ The titleized String
-titleize s = unwords $ map upperCaseWord s
-
--- | Transform 'Word' into an upper-cased 'String'.
-upperCaseWord :: Word -> String
-upperCaseWord (Word (c:cs))  = toUpper c : cs
-upperCaseWord (Word [])      = []
-upperCaseWord (Acronym s)    = s  -- Acronyms are left intact
+  -> Text   -- ^ The titleized String
+titleize = T.unwords . fmap (mapWord T.toTitle)
+{-# INLINE titleize #-}

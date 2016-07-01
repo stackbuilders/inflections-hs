@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Text.Inflections.HumanizeSpec (spec) where
 
 import Test.Hspec

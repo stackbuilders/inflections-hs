@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Text.Inflections.TitleizeSpec (spec) where
 
 import Test.Hspec
