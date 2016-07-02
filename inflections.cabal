@@ -64,9 +64,9 @@ test-suite test
                      , hspec        >= 2.0   && < 3.0
                      , megaparsec   >= 5.0   && < 6.0
   if flag(dev)
-    ghc-options:      -Wall -Werror
+    ghc-options:      -Wall -Werror -fno-warn-type-defaults
   else
-    ghc-options:      -O2 -Wall
+    ghc-options:      -O2 -Wall -fno-warn-type-defaults
   default-language:    Haskell2010
   other-modules:       Text.Inflections.HumanizeSpec
                      , Text.Inflections.OrdinalSpec

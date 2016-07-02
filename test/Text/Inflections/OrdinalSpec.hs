@@ -57,7 +57,7 @@ fullOrdinals = do
 ordinalReturnsNotEmpty :: Spec
 ordinalReturnsNotEmpty =
   it "never returns empty" $ property $
-    property <$> not . null . ordinal
+    property <$> not . null . (ordinal :: Integer -> String)
 
 ordinalizeContainsTheSameNumber :: Spec
 ordinalizeContainsTheSameNumber =
