@@ -21,7 +21,7 @@ where
 -- "nd"
 -- >>> ordinal 10
 -- "th"
-ordinal :: Integer -> String
+ordinal :: Integral a => a -> String
 ordinal number
         | remainder100 `elem` [11..13] = "th"
         | remainder10 == 1             = "st"
@@ -41,5 +41,5 @@ ordinal number
 -- "2nd"
 -- >>> ordinalize 10
 -- "10th"
-ordinalize :: Integer -> String
+ordinalize :: (Integral a, Show a) => a -> String
 ordinalize n = show n ++ ordinal n

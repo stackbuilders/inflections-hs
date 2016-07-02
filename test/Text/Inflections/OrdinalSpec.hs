@@ -26,38 +26,38 @@ spec = do
 one :: Spec
 one =
   it "returns the ordinal for 1" $
-    ordinal 1 `shouldBe` "st"
+    ordinal (1 :: Integer) `shouldBe` "st"
 
 two :: Spec
 two =
   it "returns the ordinal for 2" $
-    ordinal 2 `shouldBe` "nd"
+    ordinal (2 :: Integer) `shouldBe` "nd"
 
 thousands :: Spec
 thousands = do
   it "returns the ordinal for 1002" $
-    ordinal 1002 `shouldBe` "nd"
+    ordinal (1002 :: Integer) `shouldBe` "nd"
   it "returns the ordinal for 1003" $
-    ordinal 1003 `shouldBe` "rd"
+    ordinal (1003 :: Integer) `shouldBe` "rd"
 
 negatives :: Spec
 negatives = do
   it "returns the ordinal for -11" $
-    ordinal (-11) `shouldBe` "th"
+    ordinal (-11 :: Integer) `shouldBe` "th"
   it "returns the ordinal for -1021" $
-    ordinal (-1021) `shouldBe` "st"
+    ordinal (-1021 :: Integer) `shouldBe` "st"
 
 fullOrdinals :: Spec
 fullOrdinals = do
   it "returns the full ordinal for 1" $
-     ordinalize 1 `shouldBe` "1st"
+    ordinalize (1 :: Integer) `shouldBe` "1st"
   it "returns the full ordinal for -1021" $
-     ordinalize (-1021) `shouldBe` "-1021st"
+    ordinalize (-1021 :: Integer) `shouldBe` "-1021st"
 
 ordinalReturnsNotEmpty :: Spec
 ordinalReturnsNotEmpty =
   it "never returns empty" $ property $
-    property <$> not . null . ordinal
+    property <$> not . null . (ordinal :: Integer -> String)
 
 ordinalizeContainsTheSameNumber :: Spec
 ordinalizeContainsTheSameNumber =
