@@ -51,5 +51,5 @@ transliterateCustom replacement m txt = T.unfoldr f ("", txt)
         then (x, ("", xs))
         else
           case M.lookupDefault replacement x m of
-            "" -> ('?', ("",xs))
-            (y:ys) -> (y, (ys,xs))
+            ""     -> ('?', ("",xs))
+            (y:ys) -> (y,   (ys,xs))

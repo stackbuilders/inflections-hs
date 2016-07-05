@@ -6,6 +6,7 @@ import Data.Char (toLower)
 import Data.List (group)
 import Test.Hspec
 import Test.QuickCheck
+import qualified Data.Text as T
 
 import Text.Inflections
 import Text.Inflections.Parse.Types (Word(..))
@@ -48,44 +49,45 @@ dasherizeSpacedSentence =
 onlyValidCharacters :: Spec
 onlyValidCharacters =
   it "returns only valid characters" (property onlyValidCharactersPredicate)
-    where onlyValidCharactersPredicate sf = all (`elem` (alphaNumerics ++ "-_")) $ parameterize sf
+    where onlyValidCharactersPredicate sf
+            = T.all (`elem` (alphaNumerics ++ "-_")) $ parameterize (T.pack sf)
 
 notBeginWithSeparator :: Spec
 notBeginWithSeparator =
   it "never returns a string beginning ending with a separator" (property notBeginWithSeparatorPredicate)
       where
         notBeginWithSeparatorPredicate s =
-            let parameterized = parameterize s in
-            (not . null) parameterized ==> head parameterized /= '-'
+            let parameterized = parameterize (T.pack s) in
+            (not . T.null) parameterized ==> T.head parameterized /= '-'
 
 notEndWithSeparator :: Spec
 notEndWithSeparator =
   it "never returns a string beginning with a separator" (property notBeginWithSeparatorPredicate)
      where
        notBeginWithSeparatorPredicate s =
-            let parameterized = parameterize s in
-            (not . null) parameterized ==> last parameterized /= '-'
+            let parameterized = parameterize (T.pack s) in
+            (not . T.null) parameterized ==> T.last parameterized /= '-'
 
 noMissingAlphanumerics :: Spec
 noMissingAlphanumerics =
   it "returns every alphanumeric character from the input" (property noMissingAlphanumericsPredicate)
   where noMissingAlphanumericsPredicate s =
-            let parameterized = parameterize s in
+            let parameterized = parameterize (T.pack s) in
             all (\c -> c `notElem` alphaNumerics ||
                 c `elem` (alphaNumerics ++ "-") &&
-                c `elem` parameterized) $ map toLower s
+                c `elem` T.unpack parameterized) $ map toLower s
 
 noMoreThanOneHyphen :: Spec
 noMoreThanOneHyphen =
   it "never returns a string with a sequence of dashes" (property noMoreThanOneHyphenPredicate)
   where noMoreThanOneHyphenPredicate s =
-            let parameterized = parameterize s in longestSequenceOf '-' parameterized <= 1
+            let parameterized = parameterize (T.pack s)
+            in longestSequenceOf '-' (T.unpack parameterized) <= 1
 
 longestSequenceOf :: Char -> String -> Int
 longestSequenceOf _ [] = 0
 longestSequenceOf c s =
     if null subseqLengths then 0 else maximum subseqLengths
-
   where subseqLengths = (map length . filter (\str -> head str == c) . group) s
 
 alphaNumerics :: String
