@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Text.InflectionsSpec (spec) where
 
 import Test.Hspec
@@ -12,14 +14,14 @@ spec = do
 camelCaseToSnakeCase :: Spec
 camelCaseToSnakeCase =
   it "converts camel case snake case" $
-    toUnderscore "camelCasedText" `shouldBe` "camel_cased_text"
+    toUnderscore "camelCasedText" `shouldReturn` "camel_cased_text"
 
 camelCaseToDashed :: Spec
 camelCaseToDashed =
   it "converts camel case to dashed" $
-    toDashed "camelCasedText" `shouldBe` "camel-cased-text"
+    toDashed "camelCasedText" `shouldReturn` "camel-cased-text"
 
 snakeCaseToCamelCase :: Spec
 snakeCaseToCamelCase =
   it "converts snake case to camel case" $
-     toCamelCased False "underscored_text" `shouldBe` "underscoredText"
+     toCamelCased False "underscored_text" `shouldReturn` "underscoredText"

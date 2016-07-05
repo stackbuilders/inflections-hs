@@ -9,25 +9,27 @@
 --
 -- Conversion to phrases separated by underscores.
 
-module Text.Inflections.Underscore ( underscore ) where
+{-# LANGUAGE CPP               #-}
+{-# LANGUAGE OverloadedStrings #-}
 
-import Text.Inflections.Parse.Types (Word(..))
+module Text.Inflections.Underscore
+  ( underscore )
+where
 
-import Data.Char (toLower)
-import Data.List (intercalate)
+import Data.Text (Text)
+import Text.Inflections.Parse.Types
+import qualified Data.Text as T
 
-import Prelude (String, (.), map)
+#if MIN_VERSION_base(4,8,0)
+import Prelude hiding (Word)
+#endif
 
--- |Turns a CamelCase string into an underscore_separated String.
+-- |Turns a CamelCase string into an underscore_separated 'Text'.
 --
 -- >>> underscore [ Word "foo", Acronym "bar", Word "bazz" ]
 -- "foo_bar_bazz"
 underscore
   :: [Word] -- ^ Input Words to separate with underscores
-  -> String -- ^ The underscored String
-underscore = intercalate "_" . map toDowncasedString
-
--- | Transform 'Word' into a down-cased 'String'.
-toDowncasedString :: Word -> String
-toDowncasedString (Acronym s) = map toLower s
-toDowncasedString (Word s)    = map toLower s
+  -> Text   -- ^ The underscored String
+underscore = T.intercalate "_" . fmap (mapWord T.toLower)
+{-# INLINE underscore #-}

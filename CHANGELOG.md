@@ -6,6 +6,12 @@
 
 * Switched to Megaparsec 5 for parsing.
 
+* Made the API use `Text` instead of `String` (which significally improved
+  speed).
+
+* The `toUnderscore`, `toDashed`, and `toCamelCased` are not partial
+  anymore, now they operate in `MonadThrow`.
+
 * Improved documentation.
 
 ## Inflections 0.2.0.1

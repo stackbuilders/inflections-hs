@@ -9,15 +9,19 @@
 --
 -- Parser for camel case “symbols”.
 
-{-# LANGUAGE CPP #-}
+{-# LANGUAGE CPP               #-}
+{-# LANGUAGE OverloadedStrings #-}
 
-module Text.Inflections.Parse.CamelCase ( parseCamelCase )
+module Text.Inflections.Parse.CamelCase
+  ( parseCamelCase )
 where
 
+import Data.Text (Text)
 import Text.Inflections.Parse.Acronym (acronym)
 import Text.Inflections.Parse.Types (Word(..))
 import Text.Megaparsec
-import Text.Megaparsec.String
+import Text.Megaparsec.Text
+import qualified Data.Text as T
 
 #if MIN_VERSION_base(4,8,0)
 import Prelude hiding (Word)
@@ -25,7 +29,7 @@ import Prelude hiding (Word)
 import Control.Applicative
 #endif
 
--- |Parses a CamelCase string.
+-- |Parse a CamelCase string.
 --
 -- >>> parseCamelCase ["Bar"] "FooBarBazz"
 -- Right [Word "Foo",Acronym "Bar",Word "Bazz"]
@@ -33,18 +37,20 @@ import Control.Applicative
 -- Left "(unknown)" (line 1, column 4):
 -- unexpected '_'
 parseCamelCase
-  :: [String]          -- ^ Collection of acronyms
-  -> String            -- ^ Input
+  :: [Text]          -- ^ Collection of acronyms
+  -> Text            -- ^ Input
   -> Either (ParseError Char Dec) [Word] -- ^ Result of parsing
 parseCamelCase acronyms = parse (parser acronyms) ""
 
 parser
-  :: [String]          -- ^ Collection of acronyms
+  :: [Text]            -- ^ Collection of acronyms
   -> Parser [Word]     -- ^ CamelCase parser
 parser acronyms = many (acronym acronyms <|> word) <* eof
+{-# INLINE parser #-}
 
 word :: Parser Word
 word = do
   firstChar <- upperChar <|> lowerChar
   restChars <- many lowerChar
-  return . Word $ firstChar : restChars
+  return . Word . T.pack $ firstChar : restChars
+{-# INLINE word #-}
