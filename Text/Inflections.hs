@@ -147,7 +147,10 @@ toDashed = liftM dasherize . handleEither . parseCamelCase []
 -- "FooBarBazz"
 -- >>> toCamelCased False "foo_bar_bazz"
 -- "fooBarBazz"
-toCamelCased :: MonadThrow m => Bool -> Text -> m Text
+toCamelCased :: MonadThrow m
+  => Bool              -- ^ Capitalize the first character
+  -> Text              -- ^ Input
+  -> m Text            -- ^ Ouput
 toCamelCased t = liftM (camelizeCustom t) . handleEither . parseSnakeCase []
 {-# INLINE toCamelCased #-}
 
