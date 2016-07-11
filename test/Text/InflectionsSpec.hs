@@ -7,21 +7,16 @@ import Text.Inflections (toUnderscore, toDashed, toCamelCased)
 
 spec :: Spec
 spec = do
-  camelCaseToSnakeCase
-  camelCaseToDashed
-  snakeCaseToCamelCase
-
-camelCaseToSnakeCase :: Spec
-camelCaseToSnakeCase =
-  it "converts camel case snake case" $
-    toUnderscore "camelCasedText" `shouldReturn` "camel_cased_text"
-
-camelCaseToDashed :: Spec
-camelCaseToDashed =
-  it "converts camel case to dashed" $
-    toDashed "camelCasedText" `shouldReturn` "camel-cased-text"
-
-snakeCaseToCamelCase :: Spec
-snakeCaseToCamelCase =
-  it "converts snake case to camel case" $
-     toCamelCased False "underscored_text" `shouldReturn` "underscoredText"
+  describe "toUnderscore" $
+    it "converts camel case to snake case" $
+      toUnderscore "camelCasedText" `shouldReturn` "camel_cased_text"
+  describe "toDashed" $
+    it "converts camel case to dashed" $
+      toDashed "camelCasedText" `shouldReturn` "camel-cased-text"
+  describe "toCamelCased" $ do
+    context "when the first argument is False" $
+      it "converts snake case to camel case" $
+        toCamelCased False "underscored_text" `shouldReturn` "underscoredText"
+    context "when the first argument is True" $
+      it "converts snake case to camel case" $
+        toCamelCased True "underscored_text" `shouldReturn` "UnderscoredText"

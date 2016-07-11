@@ -32,17 +32,17 @@ library
                      , Text.Inflections.Parse.Types
 
   other-modules:       Text.Inflections.Data
-                     , Text.Inflections.Parameterize
-                     , Text.Inflections.Humanize
-                     , Text.Inflections.Underscore
                      , Text.Inflections.Camelize
                      , Text.Inflections.Dasherize
+                     , Text.Inflections.Humanize
                      , Text.Inflections.Ordinal
+                     , Text.Inflections.Parameterize
+                     , Text.Inflections.Parse.Acronym
+                     , Text.Inflections.Parse.CamelCase
+                     , Text.Inflections.Parse.SnakeCase
                      , Text.Inflections.Titleize
                      , Text.Inflections.Transliterate
-                     , Text.Inflections.Parse.Acronym
-                     , Text.Inflections.Parse.SnakeCase
-                     , Text.Inflections.Parse.CamelCase
+                     , Text.Inflections.Underscore
 
   if flag(dev)
     ghc-options:      -Wall -Werror
@@ -70,9 +70,11 @@ test-suite test
   else
     ghc-options:      -O2 -Wall
   default-language:    Haskell2010
-  other-modules:       Text.Inflections.HumanizeSpec
+  other-modules:       Text.Inflections.DasherizeSpec
+                     , Text.Inflections.HumanizeSpec
                      , Text.Inflections.OrdinalSpec
-                     , Text.Inflections.PropertiesSpec
+                     , Text.Inflections.ParametrizeSpec
                      , Text.Inflections.TitleizeSpec
+                     , Text.Inflections.TransliterateSpec
                      , Text.Inflections.UnderscoreSpec
                      , Text.InflectionsSpec
