@@ -61,81 +61,85 @@ defaultMap = M.fromList [
 -- type Countables = Map Regex Text
 
 -- https://github.com/rails/rails/blob/master/activesupport/lib/active_support/inflections.rb
--- countableMap :: Countables
--- countableMap = M.fromList []
-  -- plural
-  -- (/$/, 's')
-  -- (/s$/i, 's')
-  -- (/^(ax|test)is$/i, '\1es')
-  -- (/(octop|vir)us$/i, '\1i')
-  -- (/(octop|vir)i$/i, '\1i')
-  -- (/(alias|status)$/i, '\1es')
-  -- (/(bu)s$/i, '\1ses')
-  -- (/(buffal|tomat)o$/i, '\1oes')
-  -- (/([ti])um$/i, '\1a')
-  -- (/([ti])a$/i, '\1a')
-  -- (/sis$/i, 'ses')
-  -- (/(?:([^f])fe|([lr])f)$/i, '\1\2ves')
-  -- (/(hive)$/i, '\1s')
-  -- (/([^aeiouy]|qu)y$/i, '\1ies')
-  -- (/(x|ch|ss|sh)$/i, '\1es')
-  -- (/(matr|vert|ind)(?:ix|ex)$/i, '\1ices')
-  -- (/^(m|l)ouse$/i, '\1ice')
-  -- (/^(m|l)ice$/i, '\1ice')
-  -- (/^(ox)$/i, '\1en')
-  -- (/^(oxen)$/i, '\1')
-  -- (/(quiz)$/i, '\1zes')
 
-  -- singular
-  -- (/s$/i, '')
-  -- (/(ss)$/i, '\1')
-  -- (/(n)ews$/i, '\1ews')
-  -- (/([ti])a$/i, '\1um')
-  -- (/((a)naly|(b)a|(d)iagno|(p)arenthe|(p)rogno|(s)ynop|(t)he)(sis|ses)$/i, '\1sis')
-  -- (/(^analy)(sis|ses)$/i, '\1sis')
-  -- (/([^f])ves$/i, '\1fe')
-  -- (/(hive)s$/i, '\1')
-  -- (/(tive)s$/i, '\1')
-  -- (/([lr])ves$/i, '\1f')
-  -- (/([^aeiouy]|qu)ies$/i, '\1y')
-  -- (/(s)eries$/i, '\1eries')
-  -- (/(m)ovies$/i, '\1ovie')
-  -- (/(x|ch|ss|sh)es$/i, '\1')
-  -- (/^(m|l)ice$/i, '\1ouse')
-  -- (/(bus)(es)?$/i, '\1')
-  -- (/(o)es$/i, '\1')
-  -- (/(shoe)s$/i, '\1')
-  -- (/(cris|test)(is|es)$/i, '\1is')
-  -- (/^(a)x[ie]s$/i, '\1xis')
-  -- (/(octop|vir)(us|i)$/i, '\1us')
-  -- (/(alias|status)(es)?$/i, '\1')
-  -- (/^(ox)en/i, '\1')
-  -- (/(vert|ind)ices$/i, '\1ex')
-  -- (/(matr)ices$/i, '\1ix')
-  -- (/(quiz)zes$/i, '\1')
-  -- (/(database)s$/i, '\1')
 
-simpleCountableMap :: [(Text, Text)]
-simpleCountableMap = [
-  -- irregular
+defaultPlurals' :: [(Text, Text)]
+defaultPlurals' =
+  [ ("$", "s")
+  , ("s$", "s")
+  , ("^(ax|test)is$", "\1es")
+  , ("(octop|vir)us$", "\1i")
+  , ("(octop|vir)i$", "\1i")
+  , ("(alias|status)$", "\1es")
+  , ("(bu)s$", "\1ses")
+  , ("(buffal|tomat)o$", "\1oes")
+  , ("([ti])um$", "\1a")
+  , ("([ti])a$", "\1a")
+  , ("sis$", "ses")
+  , ("(?:([^f])fe|([lr])f)$", "\1\2ves")
+  , ("(hive)$", "\1s")
+  , ("([^aeiouy]|qu)y$", "\1ies")
+  , ("(x|ch|ss|sh)$", "\1es")
+  , ("(matr|vert|ind)(?:ix|ex)$", "\1ices")
+  , ("^(m|l)ouse$", "\1ice")
+  , ("^(m|l)ice$", "\1ice")
+  , ("^(ox)$", "\1en")
+  , ("^(oxen)$", "\1")
+  , ("(quiz)$", "\1zes")
+  ]
+
+defaultSingulars' :: [(Text, Text)]
+defaultSingulars' =
+  [ ("s$", "")
+  , ("(ss)$", "\1")
+  , ("(n)ews$", "\1ews")
+  , ("([ti])a$", "\1um")
+  , ("((a)naly|(b)a|(d)iagno|(p)arenthe|(p)rogno|(s)ynop|(t)he)(sis|ses)$", "\1sis")
+  , ("(^analy)(sis|ses)$", "\1sis")
+  , ("([^f])ves$", "\1fe")
+  , ("(hive)s$", "\1")
+  , ("(tive)s$", "\1")
+  , ("([lr])ves$", "\1f")
+  , ("([^aeiouy]|qu)ies$", "\1y")
+  , ("(s)eries$", "\1eries")
+  , ("(m)ovies$", "\1ovie")
+  , ("(x|ch|ss|sh)es$", "\1")
+  , ("^(m|l)ice$", "\1ouse")
+  , ("(bus)(es)?$", "\1")
+  , ("(o)es$", "\1")
+  , ("(shoe)s$", "\1")
+  , ("(cris|test)(is|es)$", "\1is")
+  , ("^(a)x[ie]s$", "\1xis")
+  , ("(octop|vir)(us|i)$", "\1us")
+  , ("(alias|status)(es)?$", "\1")
+  , ("^(ox)en", "\1")
+  , ("(vert|ind)ices$", "\1ex")
+  , ("(matr)ices$", "\1ix")
+  , ("(quiz)zes$", "\1")
+  , ("(database)s$", "\1")
+  ]
+
+defaultIrregulars' :: [(Text, Text)]
+defaultIrregulars' =
   -- from singular to plural
-    ("person", "people")
+  [ ("person", "people")
   , ("man", "men")
   , ("child", "children")
   , ("sex", "sexes")
   , ("move", "moves")
   , ("zombie", "zombies")
-
-  -- uncountable
-  , ("equipment", "equipment")
-  , ("information", "information")
-  , ("rice", "rice")
-  , ("money", "money")
-  , ("species", "species")
-  , ("series", "series")
-  , ("fish", "fish")
-  , ("sheep", "sheep")
-  , ("jeans", "jeans")
-  , ("police", "police")
   ]
 
+defaultUncountables' :: [Text]
+defaultUncountables' =
+  [ "equipment"
+  , "information"
+  , "rice"
+  , "money"
+  , "species"
+  , "series"
+  , "fish"
+  , "sheep"
+  , "jeans"
+  , "police"
+  ]

@@ -129,7 +129,7 @@ import Text.Megaparsec
 -- | Transforms CamelCasedString to snake_cased_string_with_underscores. In
 -- case of failed parsing 'InflectionException' is thrown.
 
-import Text.Inflections.Data (Transliterations, defaultMap, simpleCountableMap)
+import Text.Inflections.Data (Transliterations, defaultMap)
 
 import Text.Inflections.Parameterize (parameterize, parameterizeCustom)
 
@@ -154,7 +154,13 @@ import Text.Inflections.Parse.Types (mapWord)
 import Text.Inflections.Parse.CamelCase (parseCamelCase)
 
 import Text.Inflections.Countable (pluralize, pluralizeWith, singularize,
-                                   singularizeWith)
+                                  singularizeWith,
+                                  defaultPlurals, defaultSingulars,
+                                  defaultUncountables, defaultIrregulars,
+                                  makeMatchMapping,
+                                  makeIrregularMapping,
+                                  makeUncountableMapping
+                                  )
 
 import Data.Char (toLower)
 
