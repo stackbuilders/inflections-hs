@@ -57,8 +57,9 @@ defaultMap = M.fromList [
   ('ŵ', "w"), ('Ŷ', "Y"), ('ŷ', "y"), ('Ÿ', "Y"), ('Ź', "Z"), ('ź', "z"),
   ('Ż', "Z"), ('ż', "z"), ('Ž', "Z"), ('ž', "z")]
 
--- https://github.com/rails/rails/blob/master/activesupport/lib/active_support/inflections.rb
 
+-- |These default inflections stolen from the Ruby inflection library - see
+-- https://github.com/rails/rails/blob/master/activesupport/lib/active_support/inflections.rb
 defaultPlurals' :: [(Text, Text)]
 defaultPlurals' =
   [ ("$", "s")
@@ -84,6 +85,8 @@ defaultPlurals' =
   , ("(quiz)$", "\1zes")
   ]
 
+-- |These default inflections stolen from the Ruby inflection library - see
+-- https://github.com/rails/rails/blob/master/activesupport/lib/active_support/inflections.rb
 defaultSingulars' :: [(Text, Text)]
 defaultSingulars' =
   [ ("s$", "")
@@ -115,6 +118,8 @@ defaultSingulars' =
   , ("(database)s$", "\1")
   ]
 
+-- |These default irregular inflections stolen from the Ruby inflection library - see
+-- https://github.com/rails/rails/blob/master/activesupport/lib/active_support/inflections.rb
 defaultIrregulars' :: [(Text, Text)]
 defaultIrregulars' =
   -- from singular to plural
@@ -126,6 +131,8 @@ defaultIrregulars' =
   , ("zombie", "zombies")
   ]
 
+-- |These default uncountable inflections stolen from the Ruby inflection library - see
+-- https://github.com/rails/rails/blob/master/activesupport/lib/active_support/inflections.rb
 defaultUncountables' :: [Text]
 defaultUncountables' =
   [ "equipment"

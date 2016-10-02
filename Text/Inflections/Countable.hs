@@ -1,4 +1,16 @@
+-- |
+-- Module      :  Text.Inflections.Camelize
+-- Copyright   :  © 2016 Justin Leitgeb
+-- License     :  MIT
+--
+-- Maintainer  :  Justin Leitgeb <justin@stackbuilders.com>
+-- Stability   :  experimental
+-- Portability :  portable
+--
+-- Conversion to CamelCased phrases.
+
 {-# LANGUAGE OverloadedStrings #-}
+
 module Text.Inflections.Countable
   ( pluralize
   , pluralizeWith
