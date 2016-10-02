@@ -1,14 +1,23 @@
 {-# LANGUAGE OverloadedStrings #-}
-module Text.Inflections.Countable where
+module Text.Inflections.Countable
+  ( pluralize
+  , pluralizeWith
+  , singularize
+  , singularizeWith
+  , makeMatchMapping
+  , makeIrregularMapping
+  , makeUncountableMapping
+  )
+where
 
-import Data.Maybe (fromJust, fromMaybe, catMaybes)
+import Data.Maybe (fromMaybe, catMaybes)
 import Data.Text as T
 import Data.Text.Encoding (encodeUtf8, decodeUtf8)
 import Text.Inflections.Data
 import Text.Regex.PCRE.Light
 import Data.Monoid ((<>))
-import Data.ByteString.Char8
 
+type RegexPattern = T.Text
 type RegexReplace = T.Text
 type Singular = T.Text
 type Plural = T.Text
@@ -17,25 +26,62 @@ data Inflection
   = Simple (Singular, Plural)
   | Match (Maybe Regex, RegexReplace)
 
+-- | pluralize a word given a default mapping
 pluralize :: T.Text -> T.Text
 pluralize = pluralizeWith mapping
   where
     mapping = defaultIrregulars ++ defaultUncountables ++ defaultPlurals
 
+-- | singularize a word given a default mapping
 singularize :: T.Text -> T.Text
 singularize = singularizeWith mapping
   where
     mapping = defaultIrregulars ++ defaultUncountables ++ defaultSingulars
 
+-- | pluralize a word given a custom mapping.
+-- Build the [Inflection] with a combination of
+-- `makeUncountableMapping` `makeIrregularMapping` `makeMatchMapping`
 pluralizeWith :: [Inflection] -> T.Text -> T.Text
 pluralizeWith mapping t = fromMaybe t $ headMaybe matches
   where
     matches = catMaybes $ fmap (pluralLookup t) (Prelude.reverse mapping)
 
+-- | singularize a word given a custom mapping.
+-- Build the [Inflection] with a combination of
+-- `makeUncountableMapping` `makeIrregularMapping` `makeMatchMapping`
 singularizeWith :: [Inflection] -> T.Text -> T.Text
 singularizeWith mapping t = fromMaybe t $ headMaybe matches
   where
     matches = catMaybes $ fmap (singularLookup t) (Prelude.reverse mapping)
+
+-- | Makes a simple list of mappings from singular to plural, e.g [("person", "people")]
+-- the output of [Inflection] should be consumed by `singularizeWith` or `pluralizeWith`
+makeMatchMapping :: [(RegexPattern, RegexReplace)] -> [Inflection]
+makeMatchMapping = fmap (\(pattern, rep) -> Match (regexPattern pattern, rep))
+
+-- | Makes a simple list of mappings from singular to plural, e.g [("person", "people")]
+-- the output of [Inflection] should be consumed by `singularizeWith` or `pluralizeWith`
+makeIrregularMapping :: [(Singular, Plural)] -> [Inflection]
+makeIrregularMapping = fmap Simple
+
+-- | Makes a simple list of uncountables which don't have
+-- singular plural versions, e.g ["fish", "money"]
+-- the output of [Inflection] should be consumed by `singularizeWith` or `pluralizeWith`
+makeUncountableMapping :: [T.Text] -> [Inflection]
+makeUncountableMapping = fmap (\a -> (Simple (a,a)))
+
+
+defaultPlurals :: [Inflection]
+defaultPlurals = makeMatchMapping defaultPlurals'
+
+defaultSingulars :: [Inflection]
+defaultSingulars = makeMatchMapping defaultSingulars'
+
+defaultIrregulars :: [Inflection]
+defaultIrregulars = makeIrregularMapping defaultIrregulars'
+
+defaultUncountables :: [Inflection]
+defaultUncountables = makeUncountableMapping defaultUncountables'
 
 pluralLookup :: T.Text -> Inflection -> Maybe T.Text
 pluralLookup t (Match (r1,r2)) = runSub (r1,r2) t
@@ -46,7 +92,7 @@ singularLookup t (Match (r1,r2)) = runSub (r1,r2) t
 singularLookup t (Simple (a,b)) = if t == b then (Just a) else Nothing
 
 runSub :: (Maybe Regex, RegexReplace) -> T.Text -> Maybe T.Text
-runSub (Nothing, _) t = Nothing
+runSub (Nothing, _) _ = Nothing
 runSub (Just reg, rep) t = matchWithReplace (reg, rep) t
 
 matchWithReplace :: (Regex, RegexReplace) -> T.Text -> Maybe T.Text
@@ -60,7 +106,7 @@ groupReplace :: [T.Text] -> T.Text -> T.Text
 groupReplace g rep =
   case g of
     [] -> rep
-    (g:gs) -> g <> additions
+    (g':_) -> g' <> additions
     where
       rep' = tailMaybe $ T.split ((==) '\1') rep
       additions = T.concat $ fromMaybe [] rep'
@@ -71,34 +117,13 @@ regexMatch t r = do
   pure $ fmap decodeUtf8 bs
 
 regexPattern :: T.Text -> Maybe Regex
-regexPattern pat =
-  case compileM (encodeUtf8 pat) [caseless] of
-    Left _ -> Nothing
-    Right r -> Just r
+regexPattern pat = toMaybe $ compileM (encodeUtf8 pat) [caseless]
+  where toMaybe = either (const Nothing) Just
 
+headMaybe :: [a] -> Maybe a
 headMaybe [] = Nothing
 headMaybe (x:_) = Just x
 
+tailMaybe :: [a] -> Maybe [a]
 tailMaybe [] = Nothing
 tailMaybe (_:xs) = Just xs
-
-makeMatchMapping :: [(T.Text, T.Text)] -> [Inflection]
-makeMatchMapping = fmap (\(pattern, rep) -> Match (regexPattern pattern, rep))
-
-makeIrregularMapping :: [(T.Text, T.Text)] -> [Inflection]
-makeIrregularMapping = fmap Simple
-
-makeUncountableMapping :: [T.Text] -> [Inflection]
-makeUncountableMapping = fmap (\a -> (Simple (a,a)))
-
-defaultPlurals :: [Inflection]
-defaultPlurals = makeMatchMapping defaultPlurals'
-
-defaultSingulars :: [Inflection]
-defaultSingulars = makeMatchMapping defaultSingulars'
-
-defaultIrregulars :: [Inflection]
-defaultIrregulars = makeIrregularMapping defaultIrregulars'
-
-defaultUncountables :: [Inflection]
-defaultUncountables = makeUncountableMapping defaultUncountables'

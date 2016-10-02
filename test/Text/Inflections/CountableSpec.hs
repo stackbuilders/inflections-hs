@@ -18,7 +18,6 @@ reg (p, r) = matchWithReplace (pat, r)
     pat = fromJust $ regexPattern p
 matchingCases :: Spec
 matchingCases = do
-  -- TODO stop lazy eval?
   describe "laws" $ do
     let equality1 a = a `shouldBe` (singularize . pluralize) a
     let equality2 a = a `shouldBe` (pluralize . singularize) a
@@ -62,19 +61,6 @@ matchingCases = do
 
 
 irregularCases :: Spec
-irregularCases = do
-
-  -- let singlePlural =
-  --       fmap Simple
-  --       [ ("person", "people")
-  --       , ("ox", "oxen")
-  --       , ("quiz", "quizes")
-  --       , ("tomato", "tomatoes")
-  --       , ("octopus", "octopi")
-  --       ]
-
-  -- it "takes a custom mapping" $
-  --   pluralizeWith singlePlural "quiz" `shouldBe` "quizes"
-
+irregularCases =
   it "can singularize irregulars" $
     singularize "people" `shouldBe` "person"

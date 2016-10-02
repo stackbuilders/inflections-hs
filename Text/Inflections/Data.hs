@@ -14,8 +14,7 @@ module Text.Inflections.Data where
 
 import Data.HashMap.Strict (HashMap)
 import qualified Data.HashMap.Strict as M
-import qualified Data.Map as M
-import Data.Text
+import Data.Text (Text)
 
 -- |A 'Data.Map.Map' containing mappings from international characters to
 -- sequences approximating these characters within the ASCII range.
@@ -58,10 +57,7 @@ defaultMap = M.fromList [
   ('ŵ', "w"), ('Ŷ', "Y"), ('ŷ', "y"), ('Ÿ', "Y"), ('Ź', "Z"), ('ź', "z"),
   ('Ż', "Z"), ('ż', "z"), ('Ž', "Z"), ('ž', "z")]
 
--- type Countables = Map Regex Text
-
 -- https://github.com/rails/rails/blob/master/activesupport/lib/active_support/inflections.rb
-
 
 defaultPlurals' :: [(Text, Text)]
 defaultPlurals' =

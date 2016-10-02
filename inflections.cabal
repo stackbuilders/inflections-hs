@@ -30,7 +30,6 @@ flag dev
 library
   exposed-modules:     Text.Inflections
                      , Text.Inflections.Parse.Types
-                     , Text.Inflections.Countable
 
   other-modules:       Text.Inflections.Data
                      , Text.Inflections.Camelize
@@ -39,8 +38,6 @@ library
                      , Text.Inflections.Humanize
                      , Text.Inflections.Ordinal
                      , Text.Inflections.Parameterize
-                     , Text.Inflections.Titleize
-                     , Text.Inflections.Transliterate
                      , Text.Inflections.Parse.Acronym
                      , Text.Inflections.Parse.CamelCase
                      , Text.Inflections.Parse.SnakeCase
@@ -81,7 +78,6 @@ test-suite test
                      , Text.Inflections.HumanizeSpec
                      , Text.Inflections.OrdinalSpec
                      , Text.Inflections.ParametrizeSpec
-                     , Text.Inflections.PropertiesSpec
                      , Text.Inflections.TitleizeSpec
                      , Text.Inflections.TransliterateSpec
                      , Text.Inflections.UnderscoreSpec

@@ -106,6 +106,9 @@ module Text.Inflections
     , pluralize
     , singularizeWith
     , pluralizeWith
+    , makeMatchMapping
+    , makeIrregularMapping
+    , makeUncountableMapping
     )
 where
 
@@ -113,6 +116,12 @@ import Control.Monad (liftM)
 import Control.Monad.Catch (MonadThrow (..))
 import Data.Text (Text)
 import Text.Inflections.Camelize (camelize, camelizeCustom)
+import Text.Inflections.Countable (pluralize, pluralizeWith,
+                                  singularize, singularizeWith,
+                                  makeMatchMapping,
+                                  makeIrregularMapping,
+                                  makeUncountableMapping
+                                  )
 import Text.Inflections.Dasherize (dasherize)
 import Text.Inflections.Data (Transliterations, defaultMap)
 import Text.Inflections.Humanize (humanize)
@@ -128,45 +137,6 @@ import Text.Megaparsec
 
 -- | Transforms CamelCasedString to snake_cased_string_with_underscores. In
 -- case of failed parsing 'InflectionException' is thrown.
-
-import Text.Inflections.Data (Transliterations, defaultMap)
-
-import Text.Inflections.Parameterize (parameterize, parameterizeCustom)
-
-import Text.Inflections.Underscore (underscore)
-
-import Text.Inflections.Camelize (camelize, camelizeCustom)
-
-import Text.Inflections.Humanize (humanize)
-
-import Text.Inflections.Titleize (titleize)
-
-import Text.Inflections.Transliterate (transliterate, transliterateCustom)
-
-import Text.Inflections.Dasherize (dasherize)
-
-import Text.Inflections.Ordinal (ordinal, ordinalize)
-
-import Text.Inflections.Parse.SnakeCase (parseSnakeCase)
-
-import Text.Inflections.Parse.Types (mapWord)
-
-import Text.Inflections.Parse.CamelCase (parseCamelCase)
-
-import Text.Inflections.Countable (pluralize, pluralizeWith, singularize,
-                                  singularizeWith,
-                                  defaultPlurals, defaultSingulars,
-                                  defaultUncountables, defaultIrregulars,
-                                  makeMatchMapping,
-                                  makeIrregularMapping,
-                                  makeUncountableMapping
-                                  )
-
-import Data.Char (toLower)
-
--- | Transforms CamelCasedString to
--- snake_cased_string_with_underscores. Throws exception if parsing failed
->>>>>>> irregular direct mapping working
 --
 -- >>> toUnderscore "FooBarBazz"
 -- "foo_bar_bazz"
