@@ -52,23 +52,25 @@ runSub (pat, rep) t = case (regexPattern pat, rep) of
   (Just reg, rep) -> matchWithReplace (reg, rep) t
 
 matchWithReplace :: (Regex, RegexReplace) -> T.Text -> Maybe T.Text
-matchWithReplace (reg, rep) t = case regexMatch t reg of
-  Nothing -> Nothing
-  Just (matched : grouping) ->
-    pure $ (t `without` matched) <> groupReplace grouping
+matchWithReplace (reg, rep) t = do
+  matched : grouping <- regexMatch t reg
+  pure $ (t `without` matched) <> groupReplace grouping rep
   where
-    groupReplace g = fromMaybe "" $ headMaybe g <> addition
-    addition = headMaybe $ fromMaybe [] $ tailMaybe $ T.split ((==) '\1') rep
+    without t1 t2 = if t2 == "" then t1 else T.replace t2 "" t1
 
-without :: T.Text -> T.Text -> T.Text
-without t1 t2 = if t2 == "" then t1 else T.replace t2 "" t1
+groupReplace :: [T.Text] -> T.Text -> T.Text
+groupReplace g rep =
+  case g of
+    [] -> rep
+    (g:gs) -> g <> additions
+    where
+      rep' = tailMaybe $ T.split ((==) '\1') rep
+      additions = T.concat $ fromMaybe [] rep'
 
 regexMatch :: T.Text -> Regex -> Maybe [T.Text]
-regexMatch t r = case match r t' [] of
-  Just bs -> Just $ fmap decodeUtf8 bs
-  Nothing -> Nothing
-  where
-    t' = encodeUtf8 t
+regexMatch t r = do
+  bs <- match r (encodeUtf8 t) []
+  pure $ fmap decodeUtf8 bs
 
 regexPattern :: T.Text -> Maybe Regex
 regexPattern pat = eitherToMaybe $ compileM (encodeUtf8 pat) [caseless]
