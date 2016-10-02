@@ -98,7 +98,7 @@ runSub (Just reg, rep) t = matchWithReplace (reg, rep) t
 matchWithReplace :: (Regex, RegexReplace) -> T.Text -> Maybe T.Text
 matchWithReplace (reg, rep) t = do
   matched : grouping <- regexMatch t reg
-  pure $ (t `without` matched) <> groupReplace grouping rep
+  return $ (t `without` matched) <> groupReplace grouping rep
   where
     without t1 t2 = if t2 == "" then t1 else T.replace t2 "" t1
 
@@ -114,7 +114,7 @@ groupReplace g rep =
 regexMatch :: T.Text -> Regex -> Maybe [T.Text]
 regexMatch t r = do
   bs <- match r (encodeUtf8 t) []
-  pure $ fmap decodeUtf8 bs
+  return $ fmap decodeUtf8 bs
 
 regexPattern :: T.Text -> Maybe Regex
 regexPattern pat = toMaybe $ compileM (encodeUtf8 pat) [caseless]
