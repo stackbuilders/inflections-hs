@@ -9,14 +9,13 @@ import Text.Regex.PCRE.Light
 import Data.Monoid ((<>))
 import Data.ByteString.Char8
 
-type RegexPattern = T.Text
 type RegexReplace = T.Text
 type Singular = T.Text
 type Plural = T.Text
 
 data Inflection
   = Simple (Singular, Plural)
-  | Match (RegexPattern, RegexReplace)
+  | Match (Maybe Regex, RegexReplace)
 
 pluralize :: T.Text -> T.Text
 pluralize = pluralizeWith mapping
@@ -46,10 +45,9 @@ singularLookup :: T.Text -> Inflection -> Maybe T.Text
 singularLookup t (Match (r1,r2)) = runSub (r1,r2) t
 singularLookup t (Simple (a,b)) = if t == b then (Just a) else Nothing
 
-runSub :: (RegexPattern, RegexReplace) -> T.Text -> Maybe T.Text
-runSub (pat, rep) t = case (regexPattern pat, rep) of
-  (Nothing, _) -> Nothing
-  (Just reg, rep) -> matchWithReplace (reg, rep) t
+runSub :: (Maybe Regex, RegexReplace) -> T.Text -> Maybe T.Text
+runSub (Nothing, _) t = Nothing
+runSub (Just reg, rep) t = matchWithReplace (reg, rep) t
 
 matchWithReplace :: (Regex, RegexReplace) -> T.Text -> Maybe T.Text
 matchWithReplace (reg, rep) t = do
@@ -73,11 +71,10 @@ regexMatch t r = do
   pure $ fmap decodeUtf8 bs
 
 regexPattern :: T.Text -> Maybe Regex
-regexPattern pat = eitherToMaybe $ compileM (encodeUtf8 pat) [caseless]
-
-eitherToMaybe e = case e of
-  Left _ -> Nothing
-  Right r -> Just r
+regexPattern pat =
+  case compileM (encodeUtf8 pat) [caseless] of
+    Left _ -> Nothing
+    Right r -> Just r
 
 headMaybe [] = Nothing
 headMaybe (x:_) = Just x
@@ -86,8 +83,7 @@ tailMaybe [] = Nothing
 tailMaybe (_:xs) = Just xs
 
 makeMatchMapping :: [(T.Text, T.Text)] -> [Inflection]
-makeMatchMapping = fmap Match
-  --TODO compile the regex
+makeMatchMapping = fmap (\(pattern, rep) -> Match (regexPattern pattern, rep))
 
 makeIrregularMapping :: [(T.Text, T.Text)] -> [Inflection]
 makeIrregularMapping = fmap Simple
