@@ -45,7 +45,7 @@ transliterateCustom
 transliterateCustom replacement m txt = T.unfoldr f ("", txt)
   where
     f ("", t) = uncurry g <$> T.uncons t
-    f ((x:xs), t) = Just (x, (xs, t))
+    f (x:xs, t) = Just (x, (xs, t))
     g x xs =
       if isAscii x
         then (x, ("", xs))

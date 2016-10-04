@@ -47,5 +47,5 @@ camelizeCustom
   -> Text   -- ^ The camelized 'Text'
 camelizeCustom _ []     = ""
 camelizeCustom c (x:xs) = T.concat $
-  (mapWord (if c then T.toTitle else T.toLower) x) : (mapWord T.toTitle <$> xs)
+  mapWord (if c then T.toTitle else T.toLower) x : (mapWord T.toTitle <$> xs)
 {-# INLINE camelizeCustom #-}

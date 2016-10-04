@@ -38,7 +38,7 @@ parameterizeCustom :: Transliterations -> Text -> Text
 parameterizeCustom m txt = (T.intercalate "-" . T.words) (T.unfoldr f ("", txt))
   where
     f ("", t) = uncurry g <$> T.uncons t
-    f ((x:xs), t) = Just (x, (xs, t))
+    f (x:xs, t) = Just (x, (xs, t))
     g x xs
       | (isAscii x && isAlphaNum x) || x == '_' = (toLower x, ("", xs))
       | isPunctuation x = (' ', ("", xs))
