@@ -7,9 +7,11 @@ import Text.Inflections (toUnderscore, toDashed, toCamelCased)
 
 spec :: Spec
 spec = do
-  describe "toUnderscore" $
+  describe "toUnderscore" $ do
     it "converts camel case to snake case" $
       toUnderscore "camelCasedText" `shouldReturn` "camel_cased_text"
+    it "converts camel case to snake case with numbers" $
+      toUnderscore "ipv4Address" `shouldReturn` "ipv4_address"
   describe "toDashed" $
     it "converts camel case to dashed" $
       toDashed "camelCasedText" `shouldReturn` "camel-cased-text"

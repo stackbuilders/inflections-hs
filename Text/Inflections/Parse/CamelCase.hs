@@ -51,6 +51,6 @@ parser acronyms = many (acronym acronyms <|> word) <* eof
 word :: Parser Word
 word = do
   firstChar <- upperChar <|> lowerChar
-  restChars <- many lowerChar
+  restChars <- many $ lowerChar <|> digitChar
   return . Word . T.pack $ firstChar : restChars
 {-# INLINE word #-}
