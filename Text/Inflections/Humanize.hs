@@ -17,12 +17,10 @@ module Text.Inflections.Humanize
 where
 
 import Data.Text (Text)
-import Text.Inflections.Parse.Types
+import Text.Inflections.Types
 import qualified Data.Text as T
 
-#if MIN_VERSION_base(4,8,0)
-import Prelude hiding (Word)
-#else
+#if !MIN_VERSION_base(4,8,0)
 import Control.Applicative
 #endif
 
@@ -30,13 +28,15 @@ import Control.Applicative
 -- 'Text.Inflections.Titleize.titleize', this is meant for creating pretty
 -- output.
 --
--- >>> humanize [ Word "foo", Acronym "bar", Word "bazz" ]
+-- >>> humanize [Word "foo", Acronym "bar", Word "bazz"]
 -- "Foo bar bazz"
+--
+-- Note that as of version 0.3.0.0 @Word@ and @Acronym@ constructors are
+-- hidden, but you still can construct them with 'mkWord' and 'mkAcronym'.
 humanize
-  :: [Word] -- ^ List of Words, first of which will be capitalized
-  -> Text   -- ^ The humanized output
+  :: [SomeWord]  -- ^ List of Words, first of which will be capitalized
+  -> Text        -- ^ The humanized output
 humanize xs' =
-  case mapWord (T.replace "_" " ") <$> xs' of
+  case unSomeWord (T.replace "_" " ") <$> xs' of
     []     -> ""
     (x:xs) -> T.unwords $ T.toTitle x : (T.toLower <$> xs)
-{-# INLINE humanize #-}

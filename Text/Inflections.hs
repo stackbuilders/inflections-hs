@@ -71,36 +71,26 @@ code or bug reports:
 -}
 
 module Text.Inflections
-    ( camelize
-    , camelizeCustom
-
-    , dasherize
-
-    , humanize
-
-    , underscore
-
-    , titleize
-
-    , Transliterations
-    , defaultMap
-
-    , parameterize
-    , parameterizeCustom
-
-    , transliterate
-    , transliterateCustom
-
-    , ordinal
-    , ordinalize
-
-    , parseSnakeCase
-    , parseCamelCase
+  ( camelize
+  , camelizeCustom
+  , dasherize
+  , humanize
+  , underscore
+  , titleize
+  , Transliterations
+  , defaultMap
+  , parameterize
+  , parameterizeCustom
+  , transliterate
+  , transliterateCustom
+  , ordinal
+  , ordinalize
+  , parseSnakeCase
+  , parseCamelCase
     -- * Often used combinators
-    , toUnderscore
-    , toDashed
-    , toCamelCased
-    )
+  , toUnderscore
+  , toDashed
+  , toCamelCased )
 where
 
 import Control.Monad (liftM)
@@ -114,9 +104,9 @@ import Text.Inflections.Ordinal (ordinal, ordinalize)
 import Text.Inflections.Parameterize (parameterize, parameterizeCustom)
 import Text.Inflections.Parse.CamelCase (parseCamelCase)
 import Text.Inflections.Parse.SnakeCase (parseSnakeCase)
-import Text.Inflections.Parse.Types
 import Text.Inflections.Titleize (titleize)
 import Text.Inflections.Transliterate (transliterate, transliterateCustom)
+import Text.Inflections.Types
 import Text.Inflections.Underscore (underscore)
 import Text.Megaparsec
 

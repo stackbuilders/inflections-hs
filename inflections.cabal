@@ -29,7 +29,7 @@ flag dev
 
 library
   exposed-modules:     Text.Inflections
-                     , Text.Inflections.Parse.Types
+                     , Text.Inflections.Types
 
   other-modules:       Text.Inflections.Data
                      , Text.Inflections.Camelize
@@ -37,7 +37,6 @@ library
                      , Text.Inflections.Humanize
                      , Text.Inflections.Ordinal
                      , Text.Inflections.Parameterize
-                     , Text.Inflections.Parse.Acronym
                      , Text.Inflections.Parse.CamelCase
                      , Text.Inflections.Parse.SnakeCase
                      , Text.Inflections.Titleize

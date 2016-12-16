@@ -9,26 +9,19 @@
 --
 -- Conversion to titleized phrases.
 
-{-# LANGUAGE CPP #-}
-
 module Text.Inflections.Titleize
   ( titleize )
 where
 
 import Data.Text (Text)
-import Text.Inflections.Parse.Types
+import Text.Inflections.Types
 import qualified Data.Text as T
-
-#if MIN_VERSION_base(4,8,0)
-import Prelude hiding (Word)
-#endif
 
 -- | Capitalize all the Words in the input list.
 --
 -- >>> titleize [ Word "foo", Acronym "bar", Word "bazz" ]
 -- "Foo bar Bazz"
 titleize
-  :: [Word] -- ^ List of Words, first of which will be capitalized
-  -> Text   -- ^ The titleized String
-titleize = T.unwords . fmap (mapWord T.toTitle)
-{-# INLINE titleize #-}
+  :: [SomeWord] -- ^ List of Words, first of which will be capitalized
+  -> Text       -- ^ The titleized String
+titleize = T.unwords . fmap (unSomeWord T.toTitle)
