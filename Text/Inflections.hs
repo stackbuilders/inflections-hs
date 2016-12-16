@@ -100,6 +100,16 @@ module Text.Inflections
     , toUnderscore
     , toDashed
     , toCamelCased
+
+    -- * Countable
+    , singularize
+    , pluralize
+    , singularizeWith
+    , pluralizeWith
+    , makeMatchMapping
+    , makeIrregularMapping
+    , makeUncountableMapping
+    , Inflection(..)
     )
 where
 
@@ -107,6 +117,12 @@ import Control.Monad (liftM)
 import Control.Monad.Catch (MonadThrow (..))
 import Data.Text (Text)
 import Text.Inflections.Camelize (camelize, camelizeCustom)
+import Text.Inflections.Countable ( pluralize, pluralizeWith
+                                  , singularize, singularizeWith
+                                  , makeMatchMapping, makeIrregularMapping
+                                  , makeUncountableMapping
+                                  , Inflection(..)
+                                  )
 import Text.Inflections.Dasherize (dasherize)
 import Text.Inflections.Data (Transliterations, defaultMap)
 import Text.Inflections.Humanize (humanize)
