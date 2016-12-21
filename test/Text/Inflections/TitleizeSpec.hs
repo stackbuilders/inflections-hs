@@ -4,8 +4,7 @@
 module Text.Inflections.TitleizeSpec (spec) where
 
 import Test.Hspec
-import Text.Inflections (titleize)
-import Text.Inflections.Types
+import Text.Inflections
 
 #if !MIN_VERSION_base(4,8,0)
 import Control.Applicative

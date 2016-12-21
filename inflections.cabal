@@ -29,7 +29,6 @@ flag dev
 
 library
   exposed-modules:     Text.Inflections
-                     , Text.Inflections.Types
 
   other-modules:       Text.Inflections.Data
                      , Text.Inflections.Camelize
@@ -41,6 +40,7 @@ library
                      , Text.Inflections.Parse.SnakeCase
                      , Text.Inflections.Titleize
                      , Text.Inflections.Transliterate
+                     , Text.Inflections.Types
                      , Text.Inflections.Underscore
 
   if flag(dev)

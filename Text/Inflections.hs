@@ -87,6 +87,15 @@ module Text.Inflections
   , ordinalize
   , parseSnakeCase
   , parseCamelCase
+    -- * Types and helpers
+  , Word
+  , WordType (..)
+  , mkWord
+  , mkAcronym
+  , unWord
+  , SomeWord (..)
+  , unSomeWord
+  , InflectionException (..)
     -- * Often used combinators
   , toUnderscore
   , toDashed
@@ -109,6 +118,10 @@ import Text.Inflections.Transliterate (transliterate, transliterateCustom)
 import Text.Inflections.Types
 import Text.Inflections.Underscore (underscore)
 import Text.Megaparsec
+
+#if MIN_VERSION_base(4,8,0)
+import Prelude hiding (Word)
+#endif
 
 -- | Transforms CamelCasedString to snake_cased_string_with_underscores. In
 -- case of failed parsing 'InflectionException' is thrown.

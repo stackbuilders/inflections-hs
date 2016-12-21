@@ -5,8 +5,7 @@ module Text.Inflections.HumanizeSpec (spec) where
 
 import Test.Hspec
 
-import Text.Inflections (humanize)
-import Text.Inflections.Types
+import Text.Inflections
 
 #if !MIN_VERSION_base(4,8,0)
 import Control.Applicative
