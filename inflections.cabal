@@ -78,5 +78,6 @@ test-suite test
                      , Text.Inflections.Parse.SnakeCaseSpec
                      , Text.Inflections.TitleizeSpec
                      , Text.Inflections.TransliterateSpec
+                     , Text.Inflections.TypesSpec
                      , Text.Inflections.UnderscoreSpec
                      , Text.InflectionsSpec

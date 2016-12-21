@@ -19,8 +19,9 @@ spec = describe "humazine" $ do
     humanize [employee,salary] `shouldBe` "Employee salary"
   it "turns underscores into spaces" $ do
     employee  <- SomeWord <$> mkWord "employee"
-    hasSalary <- SomeWord <$> mkWord "has_salary"
-    humanize [employee, hasSalary] `shouldBe` "Employee has salary"
+    has       <- SomeWord <$> mkWord "has"
+    salary    <- SomeWord <$> mkWord "salary"
+    humanize [employee, has, salary] `shouldBe` "Employee has salary"
   it "capitalizes the first word of a sentence" $ do
     underground <- SomeWord <$> mkWord "underground"
     humanize [underground] `shouldBe` "Underground"

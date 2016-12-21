@@ -31,7 +31,7 @@ module Text.Inflections.Types
 where
 
 import Control.Monad.Catch
-import Data.Char (isSpace)
+import Data.Char (isAlphaNum)
 import Data.Data (Data)
 import Data.Text (Text)
 import Data.Typeable (Typeable)
@@ -43,28 +43,30 @@ import qualified Data.Text as T
 import Prelude hiding (Word)
 #endif
 
--- | Create a word from given 'Text'. The input should not contain spaces or
+-- | Create a word from given 'Text'. The input should consist of only
+-- alpha-numeric characters (no white spaces or punctuation)
 -- 'InflectionInvalidWord' will be thrown.
 --
 -- /since 0.3.0.0/
 
 mkWord :: MonadThrow m => Text -> m (Word 'Normal)
 mkWord txt =
-  if T.any isSpace txt
-    then throwM (InflectionInvalidWord txt)
-    else return (Word txt)
+  if T.all isAlphaNum txt
+    then return (Word txt)
+    else throwM (InflectionInvalidWord txt)
 
--- | Create an acronym from given 'Text'. The input should not contain
--- spaces or 'InflectionInvalidAcronym' will be thrown. Acronym is different
--- from normal word by that it may not be transformed by inflections.
+-- | Create an acronym from given 'Text'. The input should consist of only
+-- alpha-numeric characters 'InflectionInvalidAcronym' will be thrown.
+-- Acronym is different from normal word by that it may not be transformed
+-- by inflections (also see 'unSomeWord').
 --
 -- /since 0.3.0.0/
 
 mkAcronym :: MonadThrow m => Text -> m (Word 'Acronym)
 mkAcronym txt =
-  if T.any isSpace txt
-    then throwM (InflectionInvalidAcronym txt)
-    else return (Word txt)
+  if T.all isAlphaNum txt
+    then return (Word txt)
+    else throwM (InflectionInvalidAcronym txt)
 
 -- | A 'Text' value that should be kept whole through applied inflections.
 
