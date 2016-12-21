@@ -25,6 +25,8 @@ import qualified Data.Text as T
 
 #if MIN_VERSION_base(4,8,0)
 import Prelude hiding (Word)
+#else
+import Data.Foldable
 #endif
 
 -- | Parse a snake_case string.
@@ -37,21 +39,23 @@ import Prelude hiding (Word)
 -- 1:4:
 -- unexpected 'B'
 -- expecting '_', end of input, or lowercase letter
-parseSnakeCase
-  :: [Word 'Acronym]   -- ^ Collection of acronyms
+parseSnakeCase :: (Foldable f, Functor f)
+  => f (Word 'Acronym) -- ^ Collection of acronyms
   -> Text              -- ^ Input
   -> Either (ParseError Char Dec) [SomeWord] -- ^ Result of parsing
 parseSnakeCase acronyms = parse (parser acronyms) ""
 
-parser
-  :: [Word 'Acronym]
+parser :: (Foldable f, Functor f)
+  => f (Word 'Acronym)
   -> Parser [SomeWord]
 parser acronyms = ((a <|> n) `sepBy` char '_') <* eof
   where
     n = SomeWord <$> word
     a = SomeWord <$> acronym acronyms
 
-acronym :: [Word 'Acronym] -> Parser (Word 'Acronym)
+acronym :: (Foldable f, Functor f)
+  => f (Word 'Acronym)
+  -> Parser (Word 'Acronym)
 acronym acronyms = do
   x <- T.pack <$> choice (string . T.unpack . unWord <$> acronyms)
   case mkAcronym x of

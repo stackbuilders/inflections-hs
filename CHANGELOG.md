@@ -9,6 +9,9 @@
 
 * Renamed `defaultMap` to `defaultTransliterations`.
 
+* `parseCamelCase` and `parseSnakeCase` take any instance of `Foldable` as a
+  collection of acronyms, not just lists.
+
 * Added the `CHANGELOG.md` file.
 
 * Switched test suite to Hspec.

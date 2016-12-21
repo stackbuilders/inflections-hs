@@ -26,6 +26,8 @@ import qualified Data.Text as T
 
 #if MIN_VERSION_base(4,8,0)
 import Prelude hiding (Word)
+#else
+import Data.Foldable
 #endif
 
 -- | Parse a CamelCase string.
@@ -38,21 +40,23 @@ import Prelude hiding (Word)
 -- 1:4:
 -- unexpected '_'
 -- expecting end of input, lowercase letter, or uppercase letter
-parseCamelCase
-  :: [Word 'Acronym]   -- ^ Collection of acronyms
+parseCamelCase :: (Foldable f, Functor f)
+  => f (Word 'Acronym) -- ^ Collection of acronyms
   -> Text              -- ^ Input
   -> Either (ParseError Char Dec) [SomeWord] -- ^ Result of parsing
 parseCamelCase acronyms = parse (parser acronyms) ""
 
-parser
-  :: [Word 'Acronym]   -- ^ Collection of acronyms
+parser :: (Foldable f, Functor f)
+  => f (Word 'Acronym) -- ^ Collection of acronyms
   -> Parser [SomeWord] -- ^ CamelCase parser
 parser acronyms = many (a <|> n) <* eof
   where
     n = SomeWord <$> word
     a = SomeWord <$> acronym acronyms
 
-acronym :: [Word 'Acronym] -> Parser (Word 'Acronym)
+acronym :: (Foldable f, Functor f)
+  => f (Word 'Acronym)
+  -> Parser (Word 'Acronym)
 acronym acronyms = do
   x <- T.pack <$> choice (string . T.unpack . unWord <$> acronyms)
   case mkAcronym x of
