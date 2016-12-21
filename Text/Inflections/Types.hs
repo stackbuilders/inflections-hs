@@ -64,7 +64,7 @@ mkAcronym txt =
 
 -- | A 'Text' value that should be kept whole through applied inflections.
 data Word (t :: WordType) = Word Text
-  deriving (Eq, Ord, Show)
+  deriving (Eq, Ord)
 
 instance Show (Word 'Normal) where
   show (Word x) = "Word " ++ show x
@@ -85,7 +85,7 @@ unWord (Word s) = s
 -- apply 'unWord' on it, of course. This is faciliated by 'unSomeWord'.
 
 data SomeWord where
-  SomeWord :: Transformable (Word t) => Word t -> SomeWord
+  SomeWord :: (Transformable (Word t), Show (Word t)) => Word t -> SomeWord
   -- NOTE The constraint is only needed because GHC is not smart enough
   -- (yet?) to figure out that t cannot be anything other than Normal and
   -- Acronym and thus all cases are already covered by the instances
