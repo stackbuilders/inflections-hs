@@ -27,13 +27,13 @@ import qualified Data.Text           as T
 import Control.Applicative
 #endif
 
--- |Replaces special characters in a string so that it may be used as part of a
--- 'pretty' URL. Uses the default transliterations in this library.
+-- | Replace special characters in a string so that it may be used as part
+-- of a 'pretty' URL. Uses the 'defaultTransliterations'.
 parameterize :: Text -> Text
-parameterize = parameterizeCustom defaultMap
+parameterize = parameterizeCustom defaultTransliterations
 {-# INLINE parameterize #-}
 
--- |Transliterate 'Text' with a custom transliteration table.
+-- | Transliterate 'Text' with a custom transliteration table.
 parameterizeCustom :: Transliterations -> Text -> Text
 parameterizeCustom m txt = (T.intercalate "-" . T.words) (T.unfoldr f ("", txt))
   where

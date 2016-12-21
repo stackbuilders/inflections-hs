@@ -19,11 +19,14 @@ import Data.Text (Text)
 import Text.Inflections.Types
 import qualified Data.Text as T
 
--- |Turns a CamelCase string into an underscore_separated 'Text'.
+-- | Separate given words by underscores.
 --
--- >>> underscore [ Word "foo", Acronym "bar", Word "bazz" ]
+-- >>> foo  <- SomeWord <$> mkWord "foo"
+-- >>> bar  <- SomeWord <$> mkAcronym "bar"
+-- >>> bazz <- SomeWord <$> mkWord "bazz"
+-- >>> underscore [foo,bar,bazz]
 -- "foo_bar_bazz"
 underscore
-  :: [SomeWord] -- ^ Input Words to separate with underscores
+  :: [SomeWord] -- ^ Input words to separate with underscores
   -> Text       -- ^ The underscored String
 underscore = T.intercalate "_" . fmap (unSomeWord T.toLower)

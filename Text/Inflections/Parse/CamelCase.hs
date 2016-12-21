@@ -30,11 +30,14 @@ import Prelude hiding (Word)
 
 -- | Parse a CamelCase string.
 --
--- >>> parseCamelCase ["Bar"] "FooBarBazz"
+-- >>> bar <- mkAcronym "bar"
+-- >>> parseCamelCase [bar] "FooBarBazz"
 -- Right [Word "Foo",Acronym "Bar",Word "Bazz"]
+--
 -- >>> parseCamelCase [] "foo_bar_bazz"
--- Left "(unknown)" (line 1, column 4):
+-- 1:4:
 -- unexpected '_'
+-- expecting end of input, lowercase letter, or uppercase letter
 parseCamelCase
   :: [Word 'Acronym]   -- ^ Collection of acronyms
   -> Text              -- ^ Input

@@ -27,7 +27,10 @@ import Control.Applicative
 
 -- | Turn an input word list in into CamelCase.
 --
--- >>> camelize [ Word "foo", Acronym "bar", Word "bazz" ]
+-- >>> foo  <- SomeWord <$> mkWord "foo"
+-- >>> bar  <- SomeWord <$> mkAcronym "bar"
+-- >>> bazz <- SomeWord <$> mkAcronym "bazz"
+-- >>> camelize [foo,bar,bazz]
 -- "FoobarBazz"
 camelize
   :: [SomeWord] -- ^ Input words
@@ -36,7 +39,10 @@ camelize = camelizeCustom True
 
 -- | Turn an input word list into a CamelCase String.
 --
--- >>> camelizeCustom False [ Word "foo", Acronym "bar", Word "bazz" ]
+-- >>> foo  <- SomeWord <$> mkWord "foo"
+-- >>> bar  <- SomeWord <$> mkAcronym "bar"
+-- >>> bazz <- SomeWord <$> mkAcronym "bazz"
+-- >>> camelizeCustom False [foo,bar,bazz]
 -- "foobarBazz"
 camelizeCustom
   :: Bool       -- ^ Whether to capitalize the first character in the output String

@@ -19,7 +19,7 @@ import Data.Text (Text)
 import Text.Inflections.Types
 import qualified Data.Text as T
 
--- | Replaces underscores in a snake_cased string with dashes (hyphens).
+-- | Produce a string with words separated by dashes (hyphens).
 --
 -- >>> foo  <- SomeWord <$> mkWord "foo"
 -- >>> bar  <- SomeWord <$> mkAcronym "bar"
@@ -27,6 +27,6 @@ import qualified Data.Text as T
 -- >>> dasherize [foo,bar,bazz]
 -- "foo-bar-bazz"
 dasherize
-  :: [SomeWord] -- ^ Input Words to separate with dashes
-  -> Text       -- ^ The dasherized String
+  :: [SomeWord] -- ^ Input words to separate with dashes
+  -> Text       -- ^ The dasherized 'Text'
 dasherize = T.intercalate "-" . fmap (unSomeWord T.toLower)

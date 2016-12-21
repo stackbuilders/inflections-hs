@@ -34,8 +34,9 @@ import Prelude hiding (Word)
 -- Right [Word "foo",Acronym "bar",Word "bazz"]
 --
 -- >>> parseSnakeCase [] "fooBarBazz"
--- Left "(unknown)" (line 1, column 4):
+-- 1:4:
 -- unexpected 'B'
+-- expecting '_', end of input, or lowercase letter
 parseSnakeCase
   :: [Word 'Acronym]   -- ^ Collection of acronyms
   -> Text              -- ^ Input

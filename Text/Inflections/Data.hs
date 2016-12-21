@@ -9,19 +9,25 @@
 --
 -- Auxiliary data used in the library.
 
-module Text.Inflections.Data where
+module Text.Inflections.Data
+  ( Transliterations
+  , defaultTransliterations )
+where
 
 import Data.HashMap.Strict (HashMap)
 import qualified Data.HashMap.Strict as M
 
--- |A 'Data.Map.Map' containing mappings from international characters to
+-- | A 'HashMap' containing mappings from international characters to
 -- sequences approximating these characters within the ASCII range.
 type Transliterations = HashMap Char String
 
--- |These default transliterations stolen from the Ruby i18n library - see
+-- | These default transliterations are stolen from the Ruby i18n library -
+-- see
 -- <https://github.com/svenfuchs/i18n/blob/master/lib/i18n/backend/transliterator.rb#L41:L69>.
-defaultMap :: Transliterations
-defaultMap = M.fromList [
+--
+-- NOTE: before version 0.3.0.0 this was called @defaultMap@.
+defaultTransliterations :: Transliterations
+defaultTransliterations = M.fromList [
   ('À', "A"), ('Á', "A"), ('Â', "A"), ('Ã', "A"), ('Ä', "A"), ('Å', "A"),
   ('Æ', "AE"), ('Ç', "C"), ('È', "E"), ('É', "E"), ('Ê', "E"), ('Ë', "E"),
   ('Ì', "I"), ('Í', "I"), ('Î', "I"), ('Ï', "I"), ('Ð', "D"), ('Ñ', "N"),

@@ -19,9 +19,12 @@ import qualified Data.Text as T
 
 -- | Capitalize all the Words in the input list.
 --
--- >>> titleize [ Word "foo", Acronym "bar", Word "bazz" ]
+-- >>> foo  <- SomeWord <$> mkWord "foo"
+-- >>> bar  <- SomeWord <$> mkAcronym "bar"
+-- >>> bazz <- SomeWord <$> mkWord "bazz"
+-- >>> titleize [foo,bar,bazz]
 -- "Foo bar Bazz"
 titleize
-  :: [SomeWord] -- ^ List of Words, first of which will be capitalized
-  -> Text       -- ^ The titleized String
+  :: [SomeWord] -- ^ List of words, first of which will be capitalized
+  -> Text       -- ^ The titleized 'Text'
 titleize = T.unwords . fmap (unSomeWord T.toTitle)

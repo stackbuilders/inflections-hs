@@ -24,17 +24,17 @@ import qualified Data.Text as T
 import Control.Applicative
 #endif
 
--- |Capitalizes the first word and turns underscores into spaces. Like
+-- | Capitalize the first word and separate words with spaces. Like
 -- 'Text.Inflections.Titleize.titleize', this is meant for creating pretty
 -- output.
 --
--- >>> humanize [Word "foo", Acronym "bar", Word "bazz"]
+-- >>> foo  <- SomeWord <$> mkWord "foo"
+-- >>> bar  <- SomeWord <$> mkAcronym "bar"
+-- >>> bazz <- SomeWord <$> mkWord "bazz"
+-- >>> humanize [foo,bar,bazz]
 -- "Foo bar bazz"
---
--- Note that as of version 0.3.0.0 @Word@ and @Acronym@ constructors are
--- hidden, but you still can construct them with 'mkWord' and 'mkAcronym'.
 humanize
-  :: [SomeWord]  -- ^ List of Words, first of which will be capitalized
+  :: [SomeWord]  -- ^ List of words, first of which will be capitalized
   -> Text        -- ^ The humanized output
 humanize xs' =
   case unSomeWord (T.replace "_" " ") <$> xs' of
