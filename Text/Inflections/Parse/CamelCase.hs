@@ -28,6 +28,7 @@ import qualified Data.Text as T
 import Prelude hiding (Word)
 #else
 import Data.Foldable
+import Prelude hiding (elem)
 #endif
 
 -- | Parse a CamelCase string.

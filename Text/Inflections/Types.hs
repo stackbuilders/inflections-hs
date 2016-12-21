@@ -106,6 +106,9 @@ data SomeWord where
 instance Show SomeWord where
   show (SomeWord w) = show w
 
+instance Eq SomeWord where
+  x == y = unSomeWord id x == unSomeWord id y
+
 -- | Extract 'Text' from 'SomeWord' and apply given function only if the
 -- word inside wasn't an acronym.
 --

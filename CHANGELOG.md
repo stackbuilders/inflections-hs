@@ -9,6 +9,13 @@
 
 * Renamed `defaultMap` to `defaultTransliterations`.
 
+* Words now can contain digits (recognized by all parsers).
+
+* `parseSnakeCase` now is not confused when a word happens to have prefix
+  coinciding with an acronym. This is harder to fix for `parseCamelCase`
+  because acronym may contain capital letters, so old behavior is preserved
+  for `parseCamelCase` for now.
+
 * `parseCamelCase` and `parseSnakeCase` take any instance of `Foldable` as a
   collection of acronyms, not just lists.
 

@@ -27,6 +27,7 @@ import qualified Data.Text as T
 import Prelude hiding (Word)
 #else
 import Data.Foldable
+import Prelude hiding (elem)
 #endif
 
 -- | Parse a snake_case string.
@@ -48,25 +49,14 @@ parseSnakeCase acronyms = parse (parser acronyms) ""
 parser :: (Foldable f, Functor f)
   => f (Word 'Acronym)
   -> Parser [SomeWord]
-parser acronyms = ((a <|> n) `sepBy` char '_') <* eof
-  where
-    n = SomeWord <$> word
-    a = SomeWord <$> acronym acronyms
+parser acronyms = (pWord acronyms `sepBy` char '_') <* eof
 
-acronym :: (Foldable f, Functor f)
+pWord :: (Foldable f, Functor f)
   => f (Word 'Acronym)
-  -> Parser (Word 'Acronym)
-acronym acronyms = do
-  x <- T.pack <$> choice (string . T.unpack . unWord <$> acronyms)
-  case mkAcronym x of
-    Nothing -> empty -- cannot happen if the system is sound
-    Just acr -> return acr
-{-# INLINE acronym #-}
-
-word :: Parser (Word 'Normal)
-word = do
-  x <- T.pack <$> (some lowerChar <|> some digitChar)
-  case mkWord x of
-    Nothing -> empty -- cannot happen if the system is sound
-    Just wrd -> return wrd
-{-# INLINE word #-}
+  -> Parser SomeWord
+pWord acronyms = do
+  let acs = unWord <$> acronyms
+  r <- T.pack <$> some alphaNumChar
+  if r `elem` acs
+    then maybe empty (return . SomeWord) (mkAcronym r)
+    else maybe empty (return . SomeWord) (mkWord    r)
