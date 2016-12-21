@@ -9,16 +9,16 @@ spec :: Spec
 spec = do
   describe "toUnderscore" $ do
     it "converts camel case to snake case" $
-      toUnderscore "camelCasedText" `shouldReturn` "camel_cased_text"
+      toUnderscore "camelCasedText" `shouldBe` Right "camel_cased_text"
     it "converts camel case to snake case with numbers" $
-      toUnderscore "ipv4Address" `shouldReturn` "ipv4_address"
+      toUnderscore "ipv4Address" `shouldBe` Right "ipv4_address"
   describe "toDashed" $
     it "converts camel case to dashed" $
-      toDashed "camelCasedText" `shouldReturn` "camel-cased-text"
+      toDashed "camelCasedText" `shouldBe` Right "camel-cased-text"
   describe "toCamelCased" $ do
     context "when the first argument is False" $
       it "converts snake case to camel case" $
-        toCamelCased False "underscored_text" `shouldReturn` "underscoredText"
+        toCamelCased False "underscored_text" `shouldBe` Right "underscoredText"
     context "when the first argument is True" $
       it "converts snake case to camel case" $
-        toCamelCased True "underscored_text" `shouldReturn` "UnderscoredText"
+        toCamelCased True "underscored_text" `shouldBe` Right "UnderscoredText"

@@ -48,10 +48,9 @@
 -- Right [Word "foo",Word "bar"]
 --
 -- We can chain together the tokenization of the input String and the
--- transformation to CamelCase by using 'Control.Monad.LiftM':
+-- transformation to CamelCase by using 'fmap':
 --
--- >>> import Control.Monad (liftM)
--- >>> liftM camelize $ parseSnakeCase "foo_bar"
+-- >>> camelize <$> parseSnakeCase [] "foo_bar"
 -- Right "FooBar"
 --
 -- By separating out the tokenization from the application of inflections,
@@ -110,10 +109,10 @@ module Text.Inflections
     -- * Often used combinators
   , toUnderscore
   , toDashed
-  , toCamelCased )
+  , toCamelCased
+  , betterThrow )
 where
 
-import Control.Monad (liftM)
 import Control.Monad.Catch (MonadThrow (..))
 import Data.Text (Text)
 import Text.Inflections.Camelize (camelize, camelizeCustom)
@@ -134,43 +133,48 @@ import Text.Megaparsec
 import Prelude hiding (Word)
 #endif
 
--- | Transforms CamelCasedString to snake_cased_string_with_underscores. In
--- case of failed parsing 'InflectionException' is thrown.
+-- | Transforms CamelCasedString to snake_cased_string_with_underscores.
+--
+-- > toUnderscore = fmap underscore . parseCamelCase []
 --
 -- >>> toUnderscore "FooBarBazz"
 -- "foo_bar_bazz"
-toUnderscore :: MonadThrow m => Text -> m Text
-toUnderscore = liftM underscore . handleEither . parseCamelCase []
-{-# INLINE toUnderscore #-}
+toUnderscore :: Text -> Either (ParseError Char Dec) Text
+toUnderscore = fmap underscore . parseCamelCase []
 
--- | Transforms CamelCasedString to snake-cased-string-with-dashes. In case
--- of failed parsing 'InflectionException' is thrown.
+-- | Transforms CamelCasedString to snake-cased-string-with-dashes.
+--
+-- > toDashed = fmap dasherize . parseCamelCase []
 --
 -- >>> toDashed "FooBarBazz"
 -- "foo-bar-bazz"
-toDashed :: MonadThrow m => Text -> m Text
-toDashed = liftM dasherize . handleEither . parseCamelCase []
-{-# INLINE toDashed #-}
+toDashed :: Text -> Either (ParseError Char Dec) Text
+toDashed = fmap dasherize . parseCamelCase []
 
 -- | Transforms underscored_text to CamelCasedText. If first argument is
 -- 'True' then FirstCharacter in result string will be in upper case. If
--- 'False' then firstCharacter will be in lower case. In case of failed
--- parsing 'InflectionException' is thrown.
+-- 'False' then firstCharacter will be in lower case.
+--
+-- > toCamelCased t = fmap (camelizeCustom t) . parseSnakeCase []
 --
 -- >>> toCamelCased True "foo_bar_bazz"
 -- "FooBarBazz"
 -- >>> toCamelCased False "foo_bar_bazz"
 -- "fooBarBazz"
-toCamelCased :: MonadThrow m
-  => Bool              -- ^ Capitalize the first character
+toCamelCased
+   :: Bool              -- ^ Capitalize the first character
   -> Text              -- ^ Input
-  -> m Text            -- ^ Ouput
-toCamelCased t = liftM (camelizeCustom t) . handleEither . parseSnakeCase []
-{-# INLINE toCamelCased #-}
+  -> Either (ParseError Char Dec) Text -- ^ Ouput
+toCamelCased t = fmap (camelizeCustom t) . parseSnakeCase []
 
--- | Take an 'Either' that can contain a parser error and throw it if
--- necessary. If everything is OK, just return 'Right' value.
-handleEither :: MonadThrow m => Either (ParseError Char Dec) a -> m a
-handleEither (Left err) = throwM (InflectionParsingFailed err)
-handleEither (Right  x) = return x
-{-# INLINE handleEither #-}
+-- | Lift something of type @'Either' ('ParseError' 'Char' 'Dec') a@ to
+-- an instance of 'MonadThrow'. Useful when you want to shortcut on parsing
+-- failures and you're in an instance of 'MonadThrow'.
+--
+-- This throws 'InflectionParsingFailed' if given value is inside 'Left'.
+--
+-- /since 0.3.0.0/
+
+betterThrow :: MonadThrow m => Either (ParseError Char Dec) a -> m a
+betterThrow (Left err) = throwM (InflectionParsingFailed err)
+betterThrow (Right  x) = return x

@@ -14,7 +14,9 @@
 * Switched test suite to Hspec.
 
 * The `toUnderscore`, `toDashed`, and `toCamelCased` are not partial
-  anymore, now they operate in `MonadThrow`.
+  anymore. They return parse error in `Left` just like parsing functions,
+  but this result can be lifted into any instance of `MonadThrow` with
+  `betterThrow` helper.
 
 * Improved documentation.
 
