@@ -1,13 +1,17 @@
 ## Inflections 0.3.0.0
 
-* Added the `CHANGELOG.md` file.
-
-* Switched test suite to Hspec.
-
-* Switched to Megaparsec 5 for parsing.
+* A more type-safe API forbidding creation of invalid words.
 
 * Made the API use `Text` instead of `String` (which significally improved
   speed).
+
+* Switched to Megaparsec 5 for parsing.
+
+* Renamed `defaultMap` to `defaultTransliterations`.
+
+* Added the `CHANGELOG.md` file.
+
+* Switched test suite to Hspec.
 
 * The `toUnderscore`, `toDashed`, and `toCamelCased` are not partial
   anymore, now they operate in `MonadThrow`.
