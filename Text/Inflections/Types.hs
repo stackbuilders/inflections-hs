@@ -46,7 +46,7 @@ import Prelude hiding (Word)
 -- | Create a word from given 'Text'. The input should not contain spaces or
 -- 'InflectionInvalidWord' will be thrown.
 --
--- @since 0.3.0.0
+-- /since 0.3.0.0/
 
 mkWord :: MonadThrow m => Text -> m (Word 'Normal)
 mkWord txt =
@@ -58,7 +58,7 @@ mkWord txt =
 -- spaces or 'InflectionInvalidAcronym' will be thrown. Acronym is different
 -- from normal word by that it may not be transformed by inflections.
 --
--- @since 0.3.0.0
+-- /since 0.3.0.0/
 
 mkAcronym :: MonadThrow m => Text -> m (Word 'Acronym)
 mkAcronym txt =
@@ -79,13 +79,13 @@ instance Show (Word 'Acronym) where
 
 -- | A type-level tag for words.
 --
--- @since 0.3.0.0
+-- /since 0.3.0.0/
 
 data WordType = Normal | Acronym
 
 -- | Get a 'Text' value from 'Word'.
 --
--- @since 0.3.0.0
+-- /since 0.3.0.0/
 
 unWord :: Word t -> Text
 unWord (Word s) = s
@@ -94,7 +94,7 @@ unWord (Word s) = s
 -- list for example. The only thing that receiver of 'SomeWord' can do is to
 -- apply 'unWord' on it, of course. This is faciliated by 'unSomeWord'.
 --
--- @since 0.3.0.0
+-- /since 0.3.0.0/
 
 data SomeWord where
   SomeWord :: (Transformable (Word t), Show (Word t)) => Word t -> SomeWord
@@ -109,7 +109,7 @@ instance Show SomeWord where
 -- | Extract 'Text' from 'SomeWord' and apply given function only if the
 -- word inside wasn't an acronym.
 --
--- @since 0.3.0.0
+-- /since 0.3.0.0/
 
 unSomeWord :: (Text -> Text) -> SomeWord -> Text
 unSomeWord f (SomeWord w) = transform f w
@@ -127,7 +127,7 @@ instance Transformable (Word 'Acronym) where
 
 -- | The exceptions that is thrown when parsing of input fails.
 --
--- @since 0.3.0.0
+-- /since 0.3.0.0/
 
 data InflectionException
   = InflectionParsingFailed (ParseError Char Dec)
