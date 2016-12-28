@@ -1,6 +1,6 @@
 -- |
 -- Module      :  Text.Inflections
--- Description :  Rails-like inflections library for common String transformations.
+-- Description :  Rails-like inflections library for common Text transformations.
 -- Copyright   :  (c) Justin Leitgeb
 -- License     :  MIT
 --
@@ -8,7 +8,7 @@
 -- Stability   :  unstable
 -- Portability :  portable
 --
--- This module provides methods for common String transformations, similar
+-- This module provides methods for common 'Text' transformations, similar
 -- to the Inflections library found in Rails:
 --
 -- <http://api.rubyonrails.org/classes/ActiveSupport/Inflector.html>
@@ -17,7 +17,7 @@
 -- implementations in Rails' ActiveSupport, the philosophy of this library
 -- is fundamentally different. Where Rails tries to be as permissive as
 -- possible, and return a String when given any input, this library tries to
--- output strings that make sense according to the function that is called.
+-- output 'Text' that makes sense according to the function that is called.
 --
 -- When you look closely at many of the functions in Rails' inflections
 -- library, you will notice that many of them are partial. That is, they
@@ -33,7 +33,7 @@
 -- >>> "foo bar".underscore
 -- "foo bar"
 --
--- The output isn't underscored - it contains a space! It turns out that
+-- The output isn't underscored — it contains a space! It turns out that
 -- some of the functions from Inflections in ActiveSupport are /partial/.
 -- I.e., the outputs are really only specified for a certain range of the
 -- inputs allowed by the String type.
@@ -42,7 +42,7 @@
 -- results by separating the parsing of strings into tokens from the
 -- application of transformations. Let's see an example.
 --
--- First, we tokenize an underscored String using 'parseSnakeCase':
+-- First, we tokenize an underscored 'Text' using 'parseSnakeCase':
 --
 -- >>> parseSnakeCase [] "foo_bar"
 -- Right [Word "foo",Word "bar"]
@@ -79,8 +79,17 @@
 {-# LANGUAGE CPP #-}
 
 module Text.Inflections
-  ( -- * Parsing
-    parseSnakeCase
+  ( -- * Types and helpers
+    Word
+  , WordType (..)
+  , mkWord
+  , mkAcronym
+  , unWord
+  , SomeWord (..)
+  , unSomeWord
+  , InflectionException (..)
+    -- * Parsing
+  , parseSnakeCase
   , parseCamelCase
     -- * Rendering
   , camelize
@@ -97,15 +106,6 @@ module Text.Inflections
   , transliterateCustom
   , ordinalize
   , ordinal
-    -- * Types and helpers
-  , Word
-  , WordType (..)
-  , mkWord
-  , mkAcronym
-  , unWord
-  , SomeWord (..)
-  , unSomeWord
-  , InflectionException (..)
     -- * Often used combinators
   , toUnderscore
   , toDashed

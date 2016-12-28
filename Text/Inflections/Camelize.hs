@@ -29,7 +29,7 @@ import Control.Applicative
 --
 -- >>> foo  <- SomeWord <$> mkWord "foo"
 -- >>> bar  <- SomeWord <$> mkAcronym "bar"
--- >>> bazz <- SomeWord <$> mkAcronym "bazz"
+-- >>> bazz <- SomeWord <$> mkWord "bazz"
 -- >>> camelize [foo,bar,bazz]
 -- "FoobarBazz"
 camelize
@@ -41,7 +41,7 @@ camelize = camelizeCustom True
 --
 -- >>> foo  <- SomeWord <$> mkWord "foo"
 -- >>> bar  <- SomeWord <$> mkAcronym "bar"
--- >>> bazz <- SomeWord <$> mkAcronym "bazz"
+-- >>> bazz <- SomeWord <$> mkWord "bazz"
 -- >>> camelizeCustom False [foo,bar,bazz]
 -- "foobarBazz"
 camelizeCustom
