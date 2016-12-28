@@ -27,15 +27,14 @@ import qualified Data.Text           as T
 import Control.Applicative
 #endif
 
--- |Returns a String after default approximations for changing Unicode
+-- | Returns a 'Text' after default approximations for changing Unicode
 -- characters to a valid ASCII range are applied. If you want to supplement
 -- the default approximations with your own, you should use the
 -- 'transliterateCustom' function instead of 'transliterate'.
 transliterate :: Text -> Text
-transliterate = transliterateCustom "?" defaultMap
-{-# INLINE transliterate #-}
+transliterate = transliterateCustom "?" defaultTransliterations
 
--- |Returns a String after default approximations for changing Unicode
+-- | Returns a 'Text' after default approximations for changing Unicode
 -- characters to a valid ASCII range are applied.
 transliterateCustom
   :: String            -- ^ The default replacement

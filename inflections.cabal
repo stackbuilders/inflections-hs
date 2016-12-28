@@ -29,7 +29,6 @@ flag dev
 
 library
   exposed-modules:     Text.Inflections
-                     , Text.Inflections.Parse.Types
 
   other-modules:       Text.Inflections.Data
                      , Text.Inflections.Camelize
@@ -37,11 +36,11 @@ library
                      , Text.Inflections.Humanize
                      , Text.Inflections.Ordinal
                      , Text.Inflections.Parameterize
-                     , Text.Inflections.Parse.Acronym
                      , Text.Inflections.Parse.CamelCase
                      , Text.Inflections.Parse.SnakeCase
                      , Text.Inflections.Titleize
                      , Text.Inflections.Transliterate
+                     , Text.Inflections.Types
                      , Text.Inflections.Underscore
 
   if flag(dev)
@@ -63,7 +62,8 @@ test-suite test
                      , QuickCheck   >= 2.7.6 && < 3.0
                      , base         >= 4.6   && < 5.0
                      , hspec        >= 2.0   && < 3.0
-                     , megaparsec   >= 5.0   && < 6.0
+                     , hspec-megaparsec >= 0.3 && < 0.4
+                     , megaparsec   >= 5.1   && < 6.0
                      , text         >= 0.2   && < 1.3
   if flag(dev)
     ghc-options:      -Wall -Werror
@@ -74,7 +74,10 @@ test-suite test
                      , Text.Inflections.HumanizeSpec
                      , Text.Inflections.OrdinalSpec
                      , Text.Inflections.ParametrizeSpec
+                     , Text.Inflections.Parse.CamelCaseSpec
+                     , Text.Inflections.Parse.SnakeCaseSpec
                      , Text.Inflections.TitleizeSpec
                      , Text.Inflections.TransliterateSpec
+                     , Text.Inflections.TypesSpec
                      , Text.Inflections.UnderscoreSpec
                      , Text.InflectionsSpec

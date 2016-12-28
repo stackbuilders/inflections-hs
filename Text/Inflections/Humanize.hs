@@ -17,26 +17,26 @@ module Text.Inflections.Humanize
 where
 
 import Data.Text (Text)
-import Text.Inflections.Parse.Types
+import Text.Inflections.Types
 import qualified Data.Text as T
 
-#if MIN_VERSION_base(4,8,0)
-import Prelude hiding (Word)
-#else
+#if !MIN_VERSION_base(4,8,0)
 import Control.Applicative
 #endif
 
--- |Capitalizes the first word and turns underscores into spaces. Like
+-- | Capitalize the first word and separate words with spaces. Like
 -- 'Text.Inflections.Titleize.titleize', this is meant for creating pretty
 -- output.
 --
--- >>> humanize [ Word "foo", Acronym "bar", Word "bazz" ]
+-- >>> foo  <- SomeWord <$> mkWord "foo"
+-- >>> bar  <- SomeWord <$> mkAcronym "bar"
+-- >>> bazz <- SomeWord <$> mkWord "bazz"
+-- >>> humanize [foo,bar,bazz]
 -- "Foo bar bazz"
 humanize
-  :: [Word] -- ^ List of Words, first of which will be capitalized
-  -> Text   -- ^ The humanized output
+  :: [SomeWord]  -- ^ List of words, first of which will be capitalized
+  -> Text        -- ^ The humanized output
 humanize xs' =
-  case mapWord (T.replace "_" " ") <$> xs' of
+  case unSomeWord (T.replace "_" " ") <$> xs' of
     []     -> ""
     (x:xs) -> T.unwords $ T.toTitle x : (T.toLower <$> xs)
-{-# INLINE humanize #-}

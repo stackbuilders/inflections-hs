@@ -1,16 +1,32 @@
 ## Inflections 0.3.0.0
 
-* Added the `CHANGELOG.md` file.
-
-* Switched test suite to Hspec.
-
-* Switched to Megaparsec 5 for parsing.
+* A more type-safe API forbidding creation of invalid words.
 
 * Made the API use `Text` instead of `String` (which significally improved
   speed).
 
+* Switched to Megaparsec 5 for parsing.
+
+* Renamed `defaultMap` to `defaultTransliterations`.
+
+* Words now can contain digits (recognized by all parsers).
+
+* `parseSnakeCase` now is not confused when a word happens to have prefix
+  coinciding with an acronym. This is harder to fix for `parseCamelCase`
+  because acronym may contain capital letters, so old behavior is preserved
+  for `parseCamelCase` for now.
+
+* `parseCamelCase` and `parseSnakeCase` take any instance of `Foldable` as a
+  collection of acronyms, not just lists.
+
+* Added the `CHANGELOG.md` file.
+
+* Switched test suite to Hspec.
+
 * The `toUnderscore`, `toDashed`, and `toCamelCased` are not partial
-  anymore, now they operate in `MonadThrow`.
+  anymore. They return parse error in `Left` just like parsing functions,
+  but this result can be lifted into any instance of `MonadThrow` with
+  `betterThrow` helper.
 
 * Improved documentation.
 

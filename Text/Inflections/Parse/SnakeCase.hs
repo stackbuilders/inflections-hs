@@ -9,15 +9,16 @@
 --
 -- Parser for snake case “symbols”.
 
-{-# LANGUAGE CPP #-}
+{-# LANGUAGE CPP       #-}
+{-# LANGUAGE DataKinds #-}
 
 module Text.Inflections.Parse.SnakeCase
   ( parseSnakeCase )
 where
 
+import Control.Applicative
 import Data.Text (Text)
-import Text.Inflections.Parse.Acronym (acronym)
-import Text.Inflections.Parse.Types (Word(..))
+import Text.Inflections.Types
 import Text.Megaparsec
 import Text.Megaparsec.Text
 import qualified Data.Text as T
@@ -25,31 +26,37 @@ import qualified Data.Text as T
 #if MIN_VERSION_base(4,8,0)
 import Prelude hiding (Word)
 #else
-import Control.Applicative
+import Data.Foldable
+import Prelude hiding (elem)
 #endif
 
--- |Parses a snake_case string.
+-- | Parse a snake_case string.
 --
--- >>> parseSnakeCase ["bar"] "foo_bar_bazz"
+-- >>> bar <- mkAcronym "bar"
+-- >>> parseSnakeCase [bar] "foo_bar_bazz"
 -- Right [Word "foo",Acronym "bar",Word "bazz"]
+--
 -- >>> parseSnakeCase [] "fooBarBazz"
--- Left "(unknown)" (line 1, column 4):
+-- 1:4:
 -- unexpected 'B'
-parseSnakeCase
-  :: [Text]            -- ^ Collection of acronyms
+-- expecting '_', end of input, or lowercase letter
+parseSnakeCase :: (Foldable f, Functor f)
+  => f (Word 'Acronym) -- ^ Collection of acronyms
   -> Text              -- ^ Input
-  -> Either (ParseError Char Dec) [Word] -- ^ Result of parsing
+  -> Either (ParseError Char Dec) [SomeWord] -- ^ Result of parsing
 parseSnakeCase acronyms = parse (parser acronyms) ""
 
-parser
-  :: [Text]
-  -> Parser [Word]
-parser acronyms = do
-  ws <- (acronym acronyms <|> word) `sepBy` char '_'
-  eof
-  return ws
-{-# INLINE parser #-}
+parser :: (Foldable f, Functor f)
+  => f (Word 'Acronym)
+  -> Parser [SomeWord]
+parser acronyms = (pWord acronyms `sepBy` char '_') <* eof
 
-word :: Parser Word
-word = Word . T.pack <$> (some lowerChar <|> some digitChar)
-{-# INLINE word #-}
+pWord :: (Foldable f, Functor f)
+  => f (Word 'Acronym)
+  -> Parser SomeWord
+pWord acronyms = do
+  let acs = unWord <$> acronyms
+  r <- T.pack <$> some alphaNumChar
+  if r `elem` acs
+    then maybe empty (return . SomeWord) (mkAcronym r)
+    else maybe empty (return . SomeWord) (mkWord    r)

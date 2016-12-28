@@ -9,7 +9,6 @@
 --
 -- Conversion to phrases separated by underscores.
 
-{-# LANGUAGE CPP               #-}
 {-# LANGUAGE OverloadedStrings #-}
 
 module Text.Inflections.Underscore
@@ -17,19 +16,17 @@ module Text.Inflections.Underscore
 where
 
 import Data.Text (Text)
-import Text.Inflections.Parse.Types
+import Text.Inflections.Types
 import qualified Data.Text as T
 
-#if MIN_VERSION_base(4,8,0)
-import Prelude hiding (Word)
-#endif
-
--- |Turns a CamelCase string into an underscore_separated 'Text'.
+-- | Separate given words by underscores.
 --
--- >>> underscore [ Word "foo", Acronym "bar", Word "bazz" ]
+-- >>> foo  <- SomeWord <$> mkWord "foo"
+-- >>> bar  <- SomeWord <$> mkAcronym "bar"
+-- >>> bazz <- SomeWord <$> mkWord "bazz"
+-- >>> underscore [foo,bar,bazz]
 -- "foo_bar_bazz"
 underscore
-  :: [Word] -- ^ Input Words to separate with underscores
-  -> Text   -- ^ The underscored String
-underscore = T.intercalate "_" . fmap (mapWord T.toLower)
-{-# INLINE underscore #-}
+  :: [SomeWord] -- ^ Input words to separate with underscores
+  -> Text       -- ^ The underscored String
+underscore = T.intercalate "_" . fmap (unSomeWord T.toLower)

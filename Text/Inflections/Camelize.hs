@@ -18,34 +18,36 @@ module Text.Inflections.Camelize
 where
 
 import Data.Text (Text)
-import Text.Inflections.Parse.Types
+import Text.Inflections.Types
 import qualified Data.Text as T
 
-#if MIN_VERSION_base(4,8,0)
-import Prelude hiding (Word)
-#else
+#if !MIN_VERSION_base(4,8,0)
 import Control.Applicative
 #endif
 
--- |Turns a an input Word List in into CamelCase. Returns the CamelCase String.
+-- | Turn an input word list in into CamelCase.
 --
--- >>> camelize [ Word "foo", Acronym "bar", Word "bazz" ]
+-- >>> foo  <- SomeWord <$> mkWord "foo"
+-- >>> bar  <- SomeWord <$> mkAcronym "bar"
+-- >>> bazz <- SomeWord <$> mkAcronym "bazz"
+-- >>> camelize [foo,bar,bazz]
 -- "FoobarBazz"
 camelize
-  :: [Word] -- ^ Input Words to separate with underscores
-  -> Text   -- ^ The camelized 'Text'
+  :: [SomeWord] -- ^ Input words
+  -> Text       -- ^ The camelized 'Text'
 camelize = camelizeCustom True
-{-# INLINE camelize #-}
 
--- |Turns an input Word List into a CamelCase String.
+-- | Turn an input word list into a CamelCase String.
 --
--- >>> camelizeCustom False [ Word "foo", Acronym "bar", Word "bazz" ]
+-- >>> foo  <- SomeWord <$> mkWord "foo"
+-- >>> bar  <- SomeWord <$> mkAcronym "bar"
+-- >>> bazz <- SomeWord <$> mkAcronym "bazz"
+-- >>> camelizeCustom False [foo,bar,bazz]
 -- "foobarBazz"
 camelizeCustom
-  :: Bool   -- ^ Whether to capitalize the first character in the output String
-  -> [Word] -- ^ The input Words
-  -> Text   -- ^ The camelized 'Text'
+  :: Bool       -- ^ Whether to capitalize the first character in the output String
+  -> [SomeWord] -- ^ The input Words
+  -> Text       -- ^ The camelized 'Text'
 camelizeCustom _ []     = ""
 camelizeCustom c (x:xs) = T.concat $
-  mapWord (if c then T.toTitle else T.toLower) x : (mapWord T.toTitle <$> xs)
-{-# INLINE camelizeCustom #-}
+  unSomeWord (if c then T.toTitle else T.toLower) x : (unSomeWord T.toTitle <$> xs)

@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP               #-}
 {-# LANGUAGE OverloadedStrings #-}
 
 module Text.Inflections.DasherizeSpec
@@ -6,10 +7,15 @@ where
 
 import Test.Hspec
 
-import Text.Inflections (dasherize)
-import Text.Inflections.Parse.Types (Word (..))
+import Text.Inflections
+
+#if !MIN_VERSION_base(4,8,0)
+import Control.Applicative
+#endif
 
 spec :: Spec
 spec = describe "dasherize" $
-  it "dasherizes a collection of words sentence" $
-    dasherize [Word "foo", Word "bar"] `shouldBe` "foo-bar"
+  it "dasherizes a collection of words sentence" $ do
+    foo <- SomeWord <$> mkWord "foo"
+    bar <- SomeWord <$> mkWord "bar"
+    dasherize [foo,bar] `shouldBe` "foo-bar"
