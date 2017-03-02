@@ -12,11 +12,6 @@ matrix:
       addons: {apt: {packages: [cabal-install-1.24,ghc-7.10.3],sources: [hvr-ghc]}}
     - env: CABALVER=1.24 GHCVER=8.0.2
       addons: {apt: {packages: [cabal-install-1.24,ghc-8.0.2],sources: [hvr-ghc]}}
-    - env: CABALVER=head GHCVER=head
-      addons: {apt: {packages: [cabal-install-head,ghc-head],  sources: [hvr-ghc]}}
-
-  allow_failures:
-    - env: CABALVER=head GHCVER=head
 
 before_install:
   - export PATH=/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:$PATH
@@ -30,8 +25,7 @@ install:
 script:
  - case "$CABALVER" in
     "1.16") cabal configure -v2 -f dev ;;
-    "1.18") cabal configure --enable-tests --enable-library-coverage -v2 -f dev ;;
-    *)      cabal configure --enable-tests --enable-coverage -v2 -f dev ;;
+    *)      cabal configure --enable-tests -v2 -f dev ;;
    esac
  - cabal build
  - case "$GHCVER" in
@@ -40,13 +34,6 @@ script:
    esac
  - cabal sdist
  - cabal haddock | grep "100%" | wc -l | grep "13"
-
-# after_script:
-#  - cabal install hpc-coveralls
-#  - export PATH=~/.cabal/bin:$PATH
-#  - hpc-coveralls --coverage-mode=StrictlyFullLines
-#                  --exclude-dir=tests
-#                  test
 
 notifications:
   email: false
