@@ -27,6 +27,14 @@ spec = do
       it "converts snake case to camel case with the first word capitalized" $
         toCamelCased True "underscored_text" `shouldBe` Right "UnderscoredText"
 
+  describe "toHumanized" $ do
+    context "when the first argument is False" $
+      it "converts snake case to human-readable form with lower-case initial letter" $
+        toHumanized False "underscored_text" `shouldBe` Right "underscored text"
+    context "when the first argument is True" $
+      it "converts snake case to human-readable form with the first word capitalized" $
+        toHumanized True "underscored_text" `shouldBe` Right "Underscored text"
+
   describe "betterThrow" $ do
     context "when given a parse error" $
       it "throws the correct exception" $

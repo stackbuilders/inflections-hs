@@ -111,6 +111,7 @@ module Text.Inflections
   , toUnderscore
   , toDashed
   , toCamelCased
+  , toHumanized
   , betterThrow )
 where
 
@@ -153,20 +154,39 @@ toDashed :: Text -> Either (ParseError Char Dec) Text
 toDashed = fmap dasherize . parseCamelCase []
 
 -- | Transforms underscored_text to CamelCasedText. If first argument is
--- 'True' then FirstCharacter in result string will be in upper case. If
--- 'False' then firstCharacter will be in lower case.
+-- 'True' then the first character in the result string will be in upper case. If
+-- 'False' then the first character will be in lower case.
 --
--- > toCamelCased t = fmap (camelizeCustom t) . parseSnakeCase []
+-- > toCamelCased c = fmap (camelizeCustom c) . parseSnakeCase []
 --
 -- >>> toCamelCased True "foo_bar_bazz"
 -- "FooBarBazz"
 -- >>> toCamelCased False "foo_bar_bazz"
 -- "fooBarBazz"
 toCamelCased
-   :: Bool              -- ^ Capitalize the first character
-  -> Text              -- ^ Input
-  -> Either (ParseError Char Dec) Text -- ^ Ouput
-toCamelCased t = fmap (camelizeCustom t) . parseSnakeCase []
+  :: Bool               -- ^ Capitalize the first character
+  -> Text               -- ^ Input
+  -> Either (ParseError Char Dec) Text -- ^ Output
+toCamelCased c = fmap (camelizeCustom c) . parseSnakeCase []
+
+-- | Transforms underscored_text to space-separated human-readable text.
+-- If first argument is 'True' then the first character in the result
+-- string will be in upper case. If 'False' then the first character will be
+-- in lower case.
+--
+-- > toHumanized c = fmap (humanizeCustom c) . parseSnakeCase []
+--
+-- >>> toHumanized True "foo_bar_bazz"
+-- "Foo bar bazz"
+-- >>> toHumanized False "foo_bar_bazz"
+-- "foo bar bazz"
+--
+-- /since 0.3.0.0/
+toHumanized
+  :: Bool               -- ^ Capitalize the first character
+  -> Text               -- ^ Input
+  -> Either (ParseError Char Dec) Text -- ^ Output
+toHumanized c = fmap (humanizeCustom c) . parseSnakeCase []
 
 -- | Lift something of type @'Either' ('ParseError' 'Char' 'Dec') a@ to
 -- an instance of 'MonadThrow'. Useful when you want to shortcut on parsing
