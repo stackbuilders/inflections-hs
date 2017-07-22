@@ -17,7 +17,7 @@ import Data.Text (Text)
 import Text.Inflections.Types
 import qualified Data.Text as T
 
--- | Capitalize all the Words in the input list.
+-- | Capitalize all the 'SomeWord' words in the input list.
 --
 -- >>> foo  <- SomeWord <$> mkWord "foo"
 -- >>> bar  <- SomeWord <$> mkAcronym "bar"
@@ -25,6 +25,6 @@ import qualified Data.Text as T
 -- >>> titleize [foo,bar,bazz]
 -- "Foo bar Bazz"
 titleize
-  :: [SomeWord] -- ^ List of words, first of which will be capitalized
+  :: [SomeWord] -- ^ List of words, of which all 'SomeWord' words will be capitalized and all acronyms will be left as is
   -> Text       -- ^ The titleized 'Text'
 titleize = T.unwords . fmap (unSomeWord T.toTitle)
