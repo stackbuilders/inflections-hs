@@ -96,6 +96,7 @@ module Text.Inflections
   , camelizeCustom
   , dasherize
   , humanize
+  , humanizeCustom
   , underscore
   , titleize
   , Transliterations
@@ -118,7 +119,7 @@ import Data.Text (Text)
 import Text.Inflections.Camelize (camelize, camelizeCustom)
 import Text.Inflections.Dasherize (dasherize)
 import Text.Inflections.Data (Transliterations, defaultTransliterations)
-import Text.Inflections.Humanize (humanize)
+import Text.Inflections.Humanize (humanize, humanizeCustom)
 import Text.Inflections.Ordinal (ordinal, ordinalize)
 import Text.Inflections.Parameterize (parameterize, parameterizeCustom)
 import Text.Inflections.Parse.CamelCase (parseCamelCase)
