@@ -13,7 +13,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module Text.Inflections.Humanize
-  ( humanize )
+  ( humanize
+  , humanizeCustom )
 where
 
 import Data.Text (Text)
@@ -36,7 +37,27 @@ import Control.Applicative
 humanize
   :: [SomeWord]  -- ^ List of words, first of which will be capitalized
   -> Text        -- ^ The humanized output
-humanize xs' =
+humanize = humanizeCustom True
+
+
+-- | Separate words with spaces, optionally capitalizing the first word. Like
+-- 'Text.Inflections.Titleize.titleize', this is meant for creating pretty
+-- output.
+--
+-- >>> foo  <- SomeWord <$> mkWord "foo"
+-- >>> bar  <- SomeWord <$> mkAcronym "bar"
+-- >>> bazz <- SomeWord <$> mkWord "bazz"
+-- >>> humanizeCustom True [foo,bar,bazz]
+-- "Foo bar bazz"
+-- >>> humanizeCustom False [foo,bar,bazz]
+-- "foo bar bazz"
+--
+-- /since 0.3.0.0/
+humanizeCustom
+  :: Bool       -- ^ Whether to capitalize the first character in the output String
+  -> [SomeWord]  -- ^ List of words, first of which will be capitalized
+  -> Text        -- ^ The humanized output
+humanizeCustom c xs' =
   case unSomeWord (T.replace "_" " ") <$> xs' of
     []     -> ""
-    (x:xs) -> T.unwords $ T.toTitle x : (T.toLower <$> xs)
+    (x:xs) -> T.unwords $ (if c then T.toTitle else T.toLower) x : (T.toLower <$> xs)
