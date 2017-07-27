@@ -1,5 +1,5 @@
 name:                inflections
-version:             0.3.0.0
+version:             0.4.0.0
 synopsis:            Inflections library for Haskell
 description:
   Inflections provides methods for singularization, pluralization,
@@ -47,9 +47,9 @@ library
     ghc-options:      -Wall -Werror
   else
     ghc-options:      -O2 -Wall
-  build-depends:       base         >= 4.6   && < 5.0
+  build-depends:       base         >= 4.7   && < 5.0
                      , exceptions   >= 0.6   && < 0.9
-                     , megaparsec   >= 5.0   && < 6.0
+                     , megaparsec   >= 6.0   && < 7.0
                      , text         >= 0.2   && < 1.3
                      , unordered-containers >= 0.2.7 && < 0.3
   default-language:    Haskell2010
@@ -62,8 +62,8 @@ test-suite test
                      , QuickCheck   >= 2.7.6 && < 3.0
                      , base         >= 4.6   && < 5.0
                      , hspec        >= 2.0   && < 3.0
-                     , hspec-megaparsec >= 0.3 && < 0.4
-                     , megaparsec   >= 5.1   && < 6.0
+                     , hspec-megaparsec >= 1.0 && < 2.0
+                     , megaparsec
                      , text         >= 0.2   && < 1.3
   if flag(dev)
     ghc-options:      -Wall -Werror

@@ -1,6 +1,7 @@
+---
 resolver: lts-7.13
-packages:
-- '.'
+
 extra-deps:
-- hspec-megaparsec-0.3.0
-- megaparsec-5.1.2
+  - hspec-megaparsec-1.0.0
+  - megaparsec-6.0.0
+  - parser-combinators-0.1.0
