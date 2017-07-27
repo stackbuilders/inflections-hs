@@ -1,3 +1,7 @@
+## Inflections 0.4.0.0
+
+* Update megaparsec to version 6.
+
 ## Inflections 0.3.0.0
 
 * A more type-safe API forbidding creation of invalid words.
