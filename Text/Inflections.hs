@@ -117,6 +117,7 @@ where
 
 import Control.Monad.Catch (MonadThrow (..))
 import Data.Text (Text)
+import Data.Void (Void)
 import Text.Inflections.Camelize (camelize, camelizeCustom)
 import Text.Inflections.Dasherize (dasherize)
 import Text.Inflections.Data (Transliterations, defaultTransliterations)
@@ -141,7 +142,7 @@ import Prelude hiding (Word)
 --
 -- >>> toUnderscore "FooBarBazz"
 -- "foo_bar_bazz"
-toUnderscore :: Text -> Either (ParseError Char Dec) Text
+toUnderscore :: Text -> Either (ParseError Char Void) Text
 toUnderscore = fmap underscore . parseCamelCase []
 
 -- | Transforms CamelCasedString to snake-cased-string-with-dashes.
@@ -150,7 +151,7 @@ toUnderscore = fmap underscore . parseCamelCase []
 --
 -- >>> toDashed "FooBarBazz"
 -- "foo-bar-bazz"
-toDashed :: Text -> Either (ParseError Char Dec) Text
+toDashed :: Text -> Either (ParseError Char Void) Text
 toDashed = fmap dasherize . parseCamelCase []
 
 -- | Transforms underscored_text to CamelCasedText. If first argument is
@@ -166,7 +167,7 @@ toDashed = fmap dasherize . parseCamelCase []
 toCamelCased
   :: Bool               -- ^ Capitalize the first character
   -> Text               -- ^ Input
-  -> Either (ParseError Char Dec) Text -- ^ Output
+  -> Either (ParseError Char Void) Text -- ^ Output
 toCamelCased c = fmap (camelizeCustom c) . parseSnakeCase []
 
 -- | Transforms underscored_text to space-separated human-readable text.
@@ -185,10 +186,10 @@ toCamelCased c = fmap (camelizeCustom c) . parseSnakeCase []
 toHumanized
   :: Bool               -- ^ Capitalize the first character
   -> Text               -- ^ Input
-  -> Either (ParseError Char Dec) Text -- ^ Output
+  -> Either (ParseError Char Void) Text -- ^ Output
 toHumanized c = fmap (humanizeCustom c) . parseSnakeCase []
 
--- | Lift something of type @'Either' ('ParseError' 'Char' 'Dec') a@ to
+-- | Lift something of type @'Either' ('ParseError' 'Char' 'Void') a@ to
 -- an instance of 'MonadThrow'. Useful when you want to shortcut on parsing
 -- failures and you're in an instance of 'MonadThrow'.
 --
@@ -196,6 +197,6 @@ toHumanized c = fmap (humanizeCustom c) . parseSnakeCase []
 --
 -- /since 0.3.0.0/
 
-betterThrow :: MonadThrow m => Either (ParseError Char Dec) a -> m a
+betterThrow :: MonadThrow m => Either (ParseError Char Void) a -> m a
 betterThrow (Left err) = throwM (InflectionParsingFailed err)
 betterThrow (Right  x) = return x

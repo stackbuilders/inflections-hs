@@ -19,9 +19,10 @@ where
 
 import Control.Applicative
 import Data.Text (Text)
+import Data.Void (Void)
 import Text.Inflections.Types
 import Text.Megaparsec
-import Text.Megaparsec.Text
+import Text.Megaparsec.Char
 import qualified Data.Text as T
 
 #if MIN_VERSION_base(4,8,0)
@@ -44,12 +45,12 @@ import Prelude hiding (elem)
 parseCamelCase :: (Foldable f, Functor f)
   => f (Word 'Acronym) -- ^ Collection of acronyms
   -> Text              -- ^ Input
-  -> Either (ParseError Char Dec) [SomeWord] -- ^ Result of parsing
+  -> Either (ParseError Char Void) [SomeWord] -- ^ Result of parsing
 parseCamelCase acronyms = parse (parser acronyms) ""
 
 parser :: (Foldable f, Functor f)
   => f (Word 'Acronym) -- ^ Collection of acronyms
-  -> Parser [SomeWord] -- ^ CamelCase parser
+  -> Parsec Void Text [SomeWord] -- ^ CamelCase parser
 parser acronyms = many (a <|> n) <* eof
   where
     n = SomeWord <$> word
@@ -57,15 +58,15 @@ parser acronyms = many (a <|> n) <* eof
 
 acronym :: (Foldable f, Functor f)
   => f (Word 'Acronym)
-  -> Parser (Word 'Acronym)
+  -> Parsec Void Text (Word 'Acronym)
 acronym acronyms = do
-  x <- T.pack <$> choice (string . T.unpack . unWord <$> acronyms)
+  x <- choice (string . unWord <$> acronyms)
   case mkAcronym x of
     Nothing -> empty -- cannot happen if the system is sound
     Just acr -> return acr
 {-# INLINE acronym #-}
 
-word :: Parser (Word 'Normal)
+word :: Parsec Void Text (Word 'Normal)
 word = do
   firstChar <- upperChar <|> lowerChar
   restChars <- many $ lowerChar <|> digitChar
