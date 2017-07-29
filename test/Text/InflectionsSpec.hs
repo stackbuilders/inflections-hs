@@ -1,10 +1,60 @@
+{-# LANGUAGE CPP               #-}
 {-# LANGUAGE OverloadedStrings #-}
 
 module Text.InflectionsSpec (spec) where
 
+import Data.Void
 import Test.Hspec
 import Test.QuickCheck
 import Text.Inflections
+import Text.Megaparsec
+
+import qualified Data.List.NonEmpty as NE
+import qualified Data.Set as S
+
+#if !MIN_VERSION_base(4,8,0)
+import Control.Applicative
+#endif
+
+newtype WrapperParseError =
+  WrapperParseError { unParseError :: ParseError Char Void }
+    deriving (Show)
+
+instance Arbitrary WrapperParseError where
+  arbitrary = WrapperParseError <$> oneof [trivialError, fancyError]
+    where
+      trivialError = TrivialError <$> nonEmptyArbitrary <*> maybeErrorItem <*> setErrorItem
+      fancyError = FancyError <$> nonEmptyArbitrary <*> setErrorFancy
+      nonEmptyArbitrary = NE.fromList <$> listOf1 (unSourcePos <$> arbitrary)
+      setErrorFancy = S.fromList <$> listOf (unErrorFancy <$> arbitrary)
+      maybeErrorItem = oneof [ Just <$> (unErrorItem <$> arbitrary), return Nothing]
+      setErrorItem = S.fromList <$> listOf (unErrorItem <$> arbitrary)
+
+newtype WrapperSourcePos =
+  WrapperSourcePos { unSourcePos :: SourcePos }
+    deriving (Show)
+
+instance Arbitrary WrapperSourcePos where
+  arbitrary = WrapperSourcePos <$> (SourcePos <$> arbitrary <*> posArbitrary <*> posArbitrary)
+    where
+      posArbitrary = mkPos <$> ((+1) . abs <$> arbitrary)
+
+newtype WrapperErrorFancy e =
+  WrapperErrorFancy { unErrorFancy :: ErrorFancy e }
+    deriving (Show)
+
+instance Arbitrary (WrapperErrorFancy e) where
+  arbitrary = WrapperErrorFancy <$> oneof [ ErrorFail <$> arbitrary ]
+
+newtype WrapperErrorItem t =
+  WrapperErrorItem { unErrorItem :: ErrorItem t }
+    deriving (Show)
+
+instance (Arbitrary t) => Arbitrary (WrapperErrorItem t) where
+  arbitrary = WrapperErrorItem <$> oneof [ tokens_, labels_, return EndOfInput ]
+    where
+      tokens_ = Tokens <$> (NE.fromList <$> listOf1 arbitrary)
+      labels_ = Label <$> (NE.fromList <$> listOf1 arbitrary)
 
 spec :: Spec
 spec = do
@@ -39,8 +89,9 @@ spec = do
     context "when given a parse error" $
       it "throws the correct exception" $
         property $ \err ->
-          betterThrow (Left err) `shouldThrow`
-            (== InflectionParsingFailed err)
+          betterThrow (Left (unParseError err)) `shouldThrow`
+            (== InflectionParsingFailed (unParseError err))
+
     context "when given a value in Right" $
       it "returns the value" $
         property $ \x ->
