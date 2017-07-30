@@ -9,8 +9,6 @@ cache:
 
 matrix:
   include:
-    - env: CABALVER=1.24 GHCVER=7.6.3
-      addons: {apt: {packages: [cabal-install-1.24,ghc-7.6.3], sources: [hvr-ghc]}}
     - env: CABALVER=1.24 GHCVER=7.8.4
       addons: {apt: {packages: [cabal-install-1.24,ghc-7.8.4,],sources: [hvr-ghc]}}
     - env: CABALVER=1.24 GHCVER=7.10.3
@@ -33,10 +31,6 @@ script:
     *)      cabal configure --enable-tests -v2 -f dev ;;
    esac
  - cabal build
- - case "$GHCVER" in
-    "7.6.3") true ;;
-    *)       cabal test --show-details=always ;;
-   esac
  - cabal sdist
  - cabal haddock | grep "100%" | wc -l | grep "13"
 

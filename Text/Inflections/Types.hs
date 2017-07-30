@@ -33,6 +33,7 @@ where
 import Control.Monad.Catch
 import Data.Char (isAlphaNum)
 import Data.Data (Data)
+import Data.Void (Void)
 import Data.Text (Text)
 import Data.Typeable (Typeable)
 import GHC.Generics (Generic)
@@ -135,7 +136,7 @@ instance Transformable (Word 'Acronym) where
 -- /since 0.3.0.0/
 
 data InflectionException
-  = InflectionParsingFailed (ParseError Char Dec)
+  = InflectionParsingFailed (ParseError Char Void)
   | InflectionInvalidWord Text
   | InflectionInvalidAcronym Text
   deriving (Eq, Show, Typeable, Data, Generic)
