@@ -3,7 +3,6 @@
 module Text.InflectionsSpec (spec) where
 
 import Data.Void
-import qualified Data.Maybe as M
 import qualified Data.List.NonEmpty as NE
 import qualified Data.Set as S
 import Test.Hspec
@@ -20,9 +19,7 @@ instance Arbitrary WrapperParseError where
     where
       trivialError = TrivialError <$> nonEmptyArbitrary <*> maybeErrorItem <*> setErrorItem
       fancyError = FancyError <$> nonEmptyArbitrary <*> setErrorFancy
-      nonEmptyArbitrary = safeNonEmpty <$> listOf (unSourcePos <$> arbitrary)
-      singleNonEmpty = NE.fromList [ SourcePos "" (mkPos 1) (mkPos 1) ]
-      safeNonEmpty list = M.fromMaybe singleNonEmpty (NE.nonEmpty list)
+      nonEmptyArbitrary = NE.fromList <$> listOf1 (unSourcePos <$> arbitrary)
       setErrorFancy = S.fromList <$> listOf (unErrorFancy <$> arbitrary)
       maybeErrorItem = oneof [ Just <$> (unErrorItem <$> arbitrary), return Nothing]
       setErrorItem = S.fromList <$> listOf (unErrorItem <$> arbitrary)
@@ -34,7 +31,7 @@ newtype WrapperSourcePos =
 instance Arbitrary WrapperSourcePos where
   arbitrary = WrapperSourcePos <$> (SourcePos <$> arbitrary <*> posArbitrary <*> posArbitrary)
     where
-      posArbitrary = mkPos <$> arbitrary
+      posArbitrary = mkPos <$> ((+1) . abs <$> arbitrary)
 
 newtype WrapperErrorFancy e =
   WrapperErrorFancy { unErrorFancy :: ErrorFancy e }
@@ -50,8 +47,8 @@ newtype WrapperErrorItem t =
 instance (Arbitrary t) => Arbitrary (WrapperErrorItem t) where
   arbitrary = WrapperErrorItem <$> oneof [ tokens_, labels_, return EndOfInput ]
     where
-      tokens_ = Tokens <$> (NE.fromList <$> arbitrary)
-      labels_ = Label <$> (NE.fromList <$> arbitrary)
+      tokens_ = Tokens <$> (NE.fromList <$> listOf1 arbitrary)
+      labels_ = Label <$> (NE.fromList <$> listOf1 arbitrary)
 
 spec :: Spec
 spec = do
