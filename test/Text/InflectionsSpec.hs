@@ -1,14 +1,20 @@
+{-# LANGUAGE CPP               #-}
 {-# LANGUAGE OverloadedStrings #-}
 
 module Text.InflectionsSpec (spec) where
 
 import Data.Void
-import qualified Data.List.NonEmpty as NE
-import qualified Data.Set as S
 import Test.Hspec
 import Test.QuickCheck
 import Text.Inflections
 import Text.Megaparsec
+
+import qualified Data.List.NonEmpty as NE
+import qualified Data.Set as S
+
+#if !MIN_VERSION_base(4,8,0)
+import Control.Applicative
+#endif
 
 newtype WrapperParseError =
   WrapperParseError { unParseError :: ParseError Char Void }
