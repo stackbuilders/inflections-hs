@@ -31,6 +31,8 @@ import Data.Foldable
 import Prelude hiding (elem)
 #endif
 
+type Parser = Parsec Void Text
+
 -- | Parse a snake_case string.
 --
 -- >>> bar <- mkAcronym "bar"
@@ -49,12 +51,12 @@ parseSnakeCase acronyms = parse (parser acronyms) ""
 
 parser :: (Foldable f, Functor f)
   => f (Word 'Acronym)
-  -> Parsec Void Text [SomeWord]
+  -> Parser [SomeWord]
 parser acronyms = (pWord acronyms `sepBy` char '_') <* eof
 
 pWord :: (Foldable f, Functor f)
   => f (Word 'Acronym)
-  -> Parsec Void Text SomeWord
+  -> Parser SomeWord
 pWord acronyms = do
   let acs = unWord <$> acronyms
   r <- T.pack <$> some alphaNumChar

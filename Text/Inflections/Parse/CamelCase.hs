@@ -32,6 +32,8 @@ import Data.Foldable
 import Prelude hiding (elem)
 #endif
 
+type Parser = Parsec Void Text
+
 -- | Parse a CamelCase string.
 --
 -- >>> bar <- mkAcronym "bar"
@@ -50,7 +52,7 @@ parseCamelCase acronyms = parse (parser acronyms) ""
 
 parser :: (Foldable f, Functor f)
   => f (Word 'Acronym) -- ^ Collection of acronyms
-  -> Parsec Void Text [SomeWord] -- ^ CamelCase parser
+  -> Parser [SomeWord] -- ^ CamelCase parser
 parser acronyms = many (a <|> n) <* eof
   where
     n = SomeWord <$> word
@@ -58,7 +60,7 @@ parser acronyms = many (a <|> n) <* eof
 
 acronym :: (Foldable f, Functor f)
   => f (Word 'Acronym)
-  -> Parsec Void Text (Word 'Acronym)
+  -> Parser (Word 'Acronym)
 acronym acronyms = do
   x <- choice (string . unWord <$> acronyms)
   case mkAcronym x of
@@ -66,7 +68,7 @@ acronym acronyms = do
     Just acr -> return acr
 {-# INLINE acronym #-}
 
-word :: Parsec Void Text (Word 'Normal)
+word :: Parser (Word 'Normal)
 word = do
   firstChar <- upperChar <|> lowerChar
   restChars <- many $ lowerChar <|> digitChar
