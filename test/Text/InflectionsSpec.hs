@@ -16,42 +16,26 @@ import qualified Data.Set as S
 import Control.Applicative
 #endif
 
-newtype WrapperParseError =
-  WrapperParseError { unParseError :: ParseError Char Void }
-    deriving (Show)
-
-instance Arbitrary WrapperParseError where
-  arbitrary = WrapperParseError <$> oneof [trivialError, fancyError]
+arbitraryParseError :: Gen (ParseError Char Void)
+arbitraryParseError = oneof [trivialError, fancyError]
     where
       trivialError = TrivialError <$> nonEmptyArbitrary <*> maybeErrorItem <*> setErrorItem
       fancyError = FancyError <$> nonEmptyArbitrary <*> setErrorFancy
-      nonEmptyArbitrary = NE.fromList <$> listOf1 (unSourcePos <$> arbitrary)
-      setErrorFancy = S.fromList <$> listOf (unErrorFancy <$> arbitrary)
-      maybeErrorItem = oneof [ Just <$> (unErrorItem <$> arbitrary), return Nothing]
-      setErrorItem = S.fromList <$> listOf (unErrorItem <$> arbitrary)
+      nonEmptyArbitrary = NE.fromList <$> listOf1 arbitrarySourcePos
+      setErrorFancy = S.fromList <$> listOf arbitraryErrorFancy
+      maybeErrorItem = oneof [ Just <$> arbitraryErrorItem, return Nothing]
+      setErrorItem = S.fromList <$> listOf arbitraryErrorItem
 
-newtype WrapperSourcePos =
-  WrapperSourcePos { unSourcePos :: SourcePos }
-    deriving (Show)
-
-instance Arbitrary WrapperSourcePos where
-  arbitrary = WrapperSourcePos <$> (SourcePos <$> arbitrary <*> posArbitrary <*> posArbitrary)
+arbitrarySourcePos :: Gen SourcePos
+arbitrarySourcePos = SourcePos <$> arbitrary <*> posArbitrary <*> posArbitrary
     where
       posArbitrary = mkPos <$> ((+1) . abs <$> arbitrary)
 
-newtype WrapperErrorFancy e =
-  WrapperErrorFancy { unErrorFancy :: ErrorFancy e }
-    deriving (Show)
+arbitraryErrorFancy :: Gen (ErrorFancy e)
+arbitraryErrorFancy = oneof [ ErrorFail <$> arbitrary ]
 
-instance Arbitrary (WrapperErrorFancy e) where
-  arbitrary = WrapperErrorFancy <$> oneof [ ErrorFail <$> arbitrary ]
-
-newtype WrapperErrorItem t =
-  WrapperErrorItem { unErrorItem :: ErrorItem t }
-    deriving (Show)
-
-instance (Arbitrary t) => Arbitrary (WrapperErrorItem t) where
-  arbitrary = WrapperErrorItem <$> oneof [ tokens_, labels_, return EndOfInput ]
+arbitraryErrorItem :: (Arbitrary e) => Gen (ErrorItem e)
+arbitraryErrorItem = oneof [ tokens_, labels_, return EndOfInput ]
     where
       tokens_ = Tokens <$> (NE.fromList <$> listOf1 arbitrary)
       labels_ = Label <$> (NE.fromList <$> listOf1 arbitrary)
@@ -88,9 +72,9 @@ spec = do
   describe "betterThrow" $ do
     context "when given a parse error" $
       it "throws the correct exception" $
-        property $ \err ->
-          betterThrow (Left (unParseError err)) `shouldThrow`
-            (== InflectionParsingFailed (unParseError err))
+        property $ forAll arbitraryParseError $ \err ->
+          betterThrow (Left err) `shouldThrow`
+            (== InflectionParsingFailed err)
 
     context "when given a value in Right" $
       it "returns the value" $
