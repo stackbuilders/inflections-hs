@@ -1,10 +1,44 @@
+{-# LANGUAGE CPP               #-}
 {-# LANGUAGE OverloadedStrings #-}
 
 module Text.InflectionsSpec (spec) where
 
+import Data.Void
 import Test.Hspec
 import Test.QuickCheck
 import Text.Inflections
+import Text.Megaparsec
+
+import qualified Data.List.NonEmpty as NE
+import qualified Data.Set as S
+
+#if !MIN_VERSION_base(4,8,0)
+import Control.Applicative
+#endif
+
+arbitraryParseError :: Gen (ParseError Char Void)
+arbitraryParseError = oneof [trivialError, fancyError]
+    where
+      trivialError = TrivialError <$> nonEmptyArbitrary <*> maybeErrorItem <*> setErrorItem
+      fancyError = FancyError <$> nonEmptyArbitrary <*> setErrorFancy
+      nonEmptyArbitrary = NE.fromList <$> listOf1 arbitrarySourcePos
+      setErrorFancy = S.fromList <$> listOf arbitraryErrorFancy
+      maybeErrorItem = oneof [ Just <$> arbitraryErrorItem, return Nothing]
+      setErrorItem = S.fromList <$> listOf arbitraryErrorItem
+
+arbitrarySourcePos :: Gen SourcePos
+arbitrarySourcePos = SourcePos <$> arbitrary <*> posArbitrary <*> posArbitrary
+    where
+      posArbitrary = mkPos <$> ((+1) . abs <$> arbitrary)
+
+arbitraryErrorFancy :: Gen (ErrorFancy e)
+arbitraryErrorFancy = oneof [ ErrorFail <$> arbitrary ]
+
+arbitraryErrorItem :: (Arbitrary e) => Gen (ErrorItem e)
+arbitraryErrorItem = oneof [ tokens_, labels_, return EndOfInput ]
+    where
+      tokens_ = Tokens <$> (NE.fromList <$> listOf1 arbitrary)
+      labels_ = Label <$> (NE.fromList <$> listOf1 arbitrary)
 
 spec :: Spec
 spec = do
@@ -38,9 +72,10 @@ spec = do
   describe "betterThrow" $ do
     context "when given a parse error" $
       it "throws the correct exception" $
-        property $ \err ->
+        property $ forAll arbitraryParseError $ \err ->
           betterThrow (Left err) `shouldThrow`
             (== InflectionParsingFailed err)
+
     context "when given a value in Right" $
       it "returns the value" $
         property $ \x ->

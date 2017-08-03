@@ -18,9 +18,10 @@ where
 
 import Control.Applicative
 import Data.Text (Text)
+import Data.Void (Void)
 import Text.Inflections.Types
 import Text.Megaparsec
-import Text.Megaparsec.Text
+import Text.Megaparsec.Char
 import qualified Data.Text as T
 
 #if MIN_VERSION_base(4,8,0)
@@ -29,6 +30,8 @@ import Prelude hiding (Word)
 import Data.Foldable
 import Prelude hiding (elem)
 #endif
+
+type Parser = Parsec Void Text
 
 -- | Parse a snake_case string.
 --
@@ -43,7 +46,7 @@ import Prelude hiding (elem)
 parseSnakeCase :: (Foldable f, Functor f)
   => f (Word 'Acronym) -- ^ Collection of acronyms
   -> Text              -- ^ Input
-  -> Either (ParseError Char Dec) [SomeWord] -- ^ Result of parsing
+  -> Either (ParseError Char Void) [SomeWord] -- ^ Result of parsing
 parseSnakeCase acronyms = parse (parser acronyms) ""
 
 parser :: (Foldable f, Functor f)

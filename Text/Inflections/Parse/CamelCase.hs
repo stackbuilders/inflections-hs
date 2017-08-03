@@ -19,9 +19,10 @@ where
 
 import Control.Applicative
 import Data.Text (Text)
+import Data.Void (Void)
 import Text.Inflections.Types
 import Text.Megaparsec
-import Text.Megaparsec.Text
+import Text.Megaparsec.Char
 import qualified Data.Text as T
 
 #if MIN_VERSION_base(4,8,0)
@@ -30,6 +31,8 @@ import Prelude hiding (Word)
 import Data.Foldable
 import Prelude hiding (elem)
 #endif
+
+type Parser = Parsec Void Text
 
 -- | Parse a CamelCase string.
 --
@@ -44,7 +47,7 @@ import Prelude hiding (elem)
 parseCamelCase :: (Foldable f, Functor f)
   => f (Word 'Acronym) -- ^ Collection of acronyms
   -> Text              -- ^ Input
-  -> Either (ParseError Char Dec) [SomeWord] -- ^ Result of parsing
+  -> Either (ParseError Char Void) [SomeWord] -- ^ Result of parsing
 parseCamelCase acronyms = parse (parser acronyms) ""
 
 parser :: (Foldable f, Functor f)
@@ -59,7 +62,7 @@ acronym :: (Foldable f, Functor f)
   => f (Word 'Acronym)
   -> Parser (Word 'Acronym)
 acronym acronyms = do
-  x <- T.pack <$> choice (string . T.unpack . unWord <$> acronyms)
+  x <- choice (string . unWord <$> acronyms)
   case mkAcronym x of
     Nothing -> empty -- cannot happen if the system is sound
     Just acr -> return acr
