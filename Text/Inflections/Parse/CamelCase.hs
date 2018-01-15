@@ -17,13 +17,15 @@ module Text.Inflections.Parse.CamelCase
   ( parseCamelCase )
 where
 
-#if !MIN_VERSION_megaparsec(6,4,0)
-import Control.Applicative
+# if MIN_VERSION_base(4,8,0)
+import Control.Applicative (empty, many, (<|>))
+#else
+import Control.Applicative (empty, many, (<|>), (<$>), (<*), (<*>))
 #endif
 import Data.Text (Text)
 import Data.Void (Void)
 import Text.Inflections.Types
-import Text.Megaparsec
+import Text.Megaparsec (Parsec, ParseError, choice, eof, parse)
 import Text.Megaparsec.Char
 import qualified Data.Text as T
 
