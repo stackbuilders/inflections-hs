@@ -16,11 +16,15 @@ module Text.Inflections.Parse.SnakeCase
   ( parseSnakeCase )
 where
 
-import Control.Applicative
+# if MIN_VERSION_base(4,8,0)
+import Control.Applicative (empty, some)
+#else
+import Control.Applicative (empty, some, (<$>), (<*))
+#endif
 import Data.Text (Text)
 import Data.Void (Void)
 import Text.Inflections.Types
-import Text.Megaparsec
+import Text.Megaparsec (Parsec, ParseError, eof, sepBy, parse)
 import Text.Megaparsec.Char
 import qualified Data.Text as T
 

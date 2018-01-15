@@ -1,3 +1,6 @@
+## Inflections 0.4.0.1
+* Support `megaparsec` >= 6.4.0
+
 ## Inflections 0.4.0.0
 
 * Update megaparsec to version 6.
