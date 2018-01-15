@@ -17,7 +17,9 @@ module Text.Inflections.Parse.CamelCase
   ( parseCamelCase )
 where
 
+#if !MIN_VERSION_megaparsec(6,4,0)
 import Control.Applicative
+#endif
 import Data.Text (Text)
 import Data.Void (Void)
 import Text.Inflections.Types

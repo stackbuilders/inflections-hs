@@ -16,7 +16,9 @@ module Text.Inflections.Parse.SnakeCase
   ( parseSnakeCase )
 where
 
+#if !MIN_VERSION_megaparsec(6,4,0)
 import Control.Applicative
+#endif
 import Data.Text (Text)
 import Data.Void (Void)
 import Text.Inflections.Types
