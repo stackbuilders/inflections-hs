@@ -20,7 +20,7 @@ where
 # if MIN_VERSION_base(4,8,0)
 import Control.Applicative (empty, many, (<|>))
 #else
-import Control.Applicative (empty, many, (<|>), (<$>), (<*), (<*>))
+import Control.Applicative (empty, many, (<|>), (<$>), (<*))
 #endif
 import Data.Text (Text)
 import Data.Void (Void)
