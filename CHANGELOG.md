@@ -1,3 +1,6 @@
+## Inflections 0.4.0.2
+* Support `exceptions` == 0.9.*
+
 ## Inflections 0.4.0.1
 * Support `megaparsec` >= 6.4.0
 
