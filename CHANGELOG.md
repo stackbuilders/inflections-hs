@@ -1,3 +1,6 @@
+## Inflections 0.4.0.3
+* Support `exceptions` == 0.10.*
+
 ## Inflections 0.4.0.2
 * Support `exceptions` == 0.9.*
 
