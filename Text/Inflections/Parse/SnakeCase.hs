@@ -24,7 +24,7 @@ import Control.Applicative (empty, some, (<$>), (<*))
 import Data.Text (Text)
 import Data.Void (Void)
 import Text.Inflections.Types
-import Text.Megaparsec (Parsec, ParseError, eof, sepBy, parse)
+import Text.Megaparsec (Parsec, ParseErrorBundle, eof, sepBy, parse)
 import Text.Megaparsec.Char
 import qualified Data.Text as T
 
@@ -50,7 +50,7 @@ type Parser = Parsec Void Text
 parseSnakeCase :: (Foldable f, Functor f)
   => f (Word 'Acronym) -- ^ Collection of acronyms
   -> Text              -- ^ Input
-  -> Either (ParseError Char Void) [SomeWord] -- ^ Result of parsing
+  -> Either (ParseErrorBundle Text Void) [SomeWord] -- ^ Result of parsing
 parseSnakeCase acronyms = parse (parser acronyms) ""
 
 parser :: (Foldable f, Functor f)

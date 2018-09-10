@@ -136,7 +136,7 @@ instance Transformable (Word 'Acronym) where
 -- /since 0.3.0.0/
 
 data InflectionException
-  = InflectionParsingFailed (ParseError Char Void)
+  = InflectionParsingFailed (ParseErrorBundle Text Void)
   | InflectionInvalidWord Text
   | InflectionInvalidAcronym Text
   deriving (Eq, Show, Typeable, Data, Generic)

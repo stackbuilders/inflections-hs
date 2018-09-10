@@ -2,6 +2,13 @@
 resolver: lts-7.13
 
 extra-deps:
-  - hspec-megaparsec-1.0.0
-  - megaparsec-6.0.0
-  - parser-combinators-0.1.0
+  - hspec-megaparsec-2.0.0
+  - hspec-expectations-0.8.2
+  - hspec-2.5.6
+  - hspec-core-2.5.6
+  - hspec-discover-2.5.6
+  - megaparsec-7.0.0
+  - parser-combinators-1.0.0
+  - HUnit-1.6.0.0
+  - QuickCheck-2.12.2
+  - quickcheck-io-0.2.0
