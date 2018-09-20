@@ -1,5 +1,5 @@
 ---
-resolver: lts-7.13
+resolver: lts-12.10
 
 extra-deps:
   - hspec-megaparsec-2.0.0

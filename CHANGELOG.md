@@ -1,4 +1,8 @@
 ## Inflections 0.4.0.3
+* Support `megaparsec` == 7.0*.
+* **Drop support** for `GHC 7.8.4`.
+
+## Inflections 0.4.0.3
 * Support `exceptions` == 0.10.*
 
 ## Inflections 0.4.0.2
