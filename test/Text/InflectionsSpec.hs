@@ -1,3 +1,4 @@
+{-# OPTIONS_GHC -fno-warn-orphans #-}
 {-# LANGUAGE CPP               #-}
 {-# LANGUAGE OverloadedStrings #-}
 
@@ -8,6 +9,7 @@ import Test.Hspec
 import Test.QuickCheck
 import Text.Inflections
 import Text.Megaparsec
+import Data.Text
 
 import qualified Data.List.NonEmpty as NE
 import qualified Data.Set as S
@@ -16,20 +18,34 @@ import qualified Data.Set as S
 import Control.Applicative
 #endif
 
-arbitraryParseError :: Gen (ParseError Char Void)
+instance Arbitrary Text where
+  arbitrary = pack <$> (arbitrary :: Gen String)
+
+arbitraryParseErrorBundle :: Gen (ParseErrorBundle Text Void)
+arbitraryParseErrorBundle =  ParseErrorBundle <$> nonEmptyParseErrors <*> arbitraryPosState
+  where
+    posArbitrary = mkPos <$> ((+1) . abs <$> arbitrary)
+    nonEmptyParseErrors :: Gen (NE.NonEmpty (ParseError Text Void))
+    nonEmptyParseErrors = NE.fromList <$> listOf1 arbitraryParseError
+    arbitrarySourcePos :: Gen SourcePos
+    arbitrarySourcePos = SourcePos <$> arbitrary <*> posArbitrary <*> posArbitrary
+    arbitraryPosState :: Gen (PosState Text)
+    arbitraryPosState =
+      PosState
+        <$> arbitrary
+        <*> arbitrary
+        <*> arbitrarySourcePos
+        <*> posArbitrary
+        <*> arbitrary
+
+arbitraryParseError :: Gen (ParseError Text Void)
 arbitraryParseError = oneof [trivialError, fancyError]
     where
-      trivialError = TrivialError <$> nonEmptyArbitrary <*> maybeErrorItem <*> setErrorItem
-      fancyError = FancyError <$> nonEmptyArbitrary <*> setErrorFancy
-      nonEmptyArbitrary = NE.fromList <$> listOf1 arbitrarySourcePos
+      trivialError = TrivialError <$> arbitrary <*> maybeErrorItem <*> setErrorItem
+      fancyError = FancyError <$> arbitrary <*> setErrorFancy
       setErrorFancy = S.fromList <$> listOf arbitraryErrorFancy
       maybeErrorItem = oneof [ Just <$> arbitraryErrorItem, return Nothing]
       setErrorItem = S.fromList <$> listOf arbitraryErrorItem
-
-arbitrarySourcePos :: Gen SourcePos
-arbitrarySourcePos = SourcePos <$> arbitrary <*> posArbitrary <*> posArbitrary
-    where
-      posArbitrary = mkPos <$> ((+1) . abs <$> arbitrary)
 
 arbitraryErrorFancy :: Gen (ErrorFancy e)
 arbitraryErrorFancy = oneof [ ErrorFail <$> arbitrary ]
@@ -72,7 +88,7 @@ spec = do
   describe "betterThrow" $ do
     context "when given a parse error" $
       it "throws the correct exception" $
-        property $ forAll arbitraryParseError $ \err ->
+        property $ forAll arbitraryParseErrorBundle $ \err ->
           betterThrow (Left err) `shouldThrow`
             (== InflectionParsingFailed err)
 

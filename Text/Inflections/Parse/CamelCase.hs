@@ -25,7 +25,7 @@ import Control.Applicative (empty, many, (<|>), (<$>), (<*))
 import Data.Text (Text)
 import Data.Void (Void)
 import Text.Inflections.Types
-import Text.Megaparsec (Parsec, ParseError, choice, eof, parse)
+import Text.Megaparsec (Parsec, ParseErrorBundle, choice, eof, parse)
 import Text.Megaparsec.Char
 import qualified Data.Text as T
 
@@ -51,7 +51,7 @@ type Parser = Parsec Void Text
 parseCamelCase :: (Foldable f, Functor f)
   => f (Word 'Acronym) -- ^ Collection of acronyms
   -> Text              -- ^ Input
-  -> Either (ParseError Char Void) [SomeWord] -- ^ Result of parsing
+  -> Either (ParseErrorBundle Text Void) [SomeWord] -- ^ Result of parsing
 parseCamelCase acronyms = parse (parser acronyms) ""
 
 parser :: (Foldable f, Functor f)

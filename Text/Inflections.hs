@@ -142,7 +142,7 @@ import Prelude hiding (Word)
 --
 -- >>> toUnderscore "FooBarBazz"
 -- "foo_bar_bazz"
-toUnderscore :: Text -> Either (ParseError Char Void) Text
+toUnderscore :: Text -> Either (ParseErrorBundle Text Void) Text
 toUnderscore = fmap underscore . parseCamelCase []
 
 -- | Transforms CamelCasedString to snake-cased-string-with-dashes.
@@ -151,7 +151,7 @@ toUnderscore = fmap underscore . parseCamelCase []
 --
 -- >>> toDashed "FooBarBazz"
 -- "foo-bar-bazz"
-toDashed :: Text -> Either (ParseError Char Void) Text
+toDashed :: Text -> Either (ParseErrorBundle Text Void) Text
 toDashed = fmap dasherize . parseCamelCase []
 
 -- | Transforms underscored_text to CamelCasedText. If first argument is
@@ -167,7 +167,7 @@ toDashed = fmap dasherize . parseCamelCase []
 toCamelCased
   :: Bool               -- ^ Capitalize the first character
   -> Text               -- ^ Input
-  -> Either (ParseError Char Void) Text -- ^ Output
+  -> Either (ParseErrorBundle Text Void) Text -- ^ Output
 toCamelCased c = fmap (camelizeCustom c) . parseSnakeCase []
 
 -- | Transforms underscored_text to space-separated human-readable text.
@@ -186,7 +186,7 @@ toCamelCased c = fmap (camelizeCustom c) . parseSnakeCase []
 toHumanized
   :: Bool               -- ^ Capitalize the first character
   -> Text               -- ^ Input
-  -> Either (ParseError Char Void) Text -- ^ Output
+  -> Either (ParseErrorBundle Text Void) Text -- ^ Output
 toHumanized c = fmap (humanizeCustom c) . parseSnakeCase []
 
 -- | Lift something of type @'Either' ('ParseError' 'Char' 'Void') a@ to
@@ -197,6 +197,6 @@ toHumanized c = fmap (humanizeCustom c) . parseSnakeCase []
 --
 -- /since 0.3.0.0/
 
-betterThrow :: MonadThrow m => Either (ParseError Char Void) a -> m a
+betterThrow :: MonadThrow m => Either (ParseErrorBundle Text Void) a -> m a
 betterThrow (Left err) = throwM (InflectionParsingFailed err)
 betterThrow (Right  x) = return x
