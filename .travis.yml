@@ -37,6 +37,7 @@ script:
  - case "$GHCVER" in
     "8.4.3") cabal haddock | grep "100%" | wc -l | grep "1" ;;
     *)       cabal haddock | grep "100%" | wc -l | grep "13" ;;
+   esac
 
 notifications:
   email: false
