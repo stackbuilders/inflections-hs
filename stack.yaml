@@ -7,8 +7,8 @@ extra-deps:
   - hspec-2.5.6
   - hspec-core-2.5.6
   - hspec-discover-2.5.6
-  - megaparsec-7.0.0
   - parser-combinators-1.0.0
   - HUnit-1.6.0.0
   - QuickCheck-2.12.2
   - quickcheck-io-0.2.0
+  - megaparsec-7.0.1
