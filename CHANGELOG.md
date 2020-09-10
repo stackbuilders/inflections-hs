@@ -1,3 +1,6 @@
+## Inflections 0.4.0.6
+* Support `megaparsec` == 9.0
+
 ## Inflections 0.4.0.5
 * Support `megaparsec` == 8.0
 
