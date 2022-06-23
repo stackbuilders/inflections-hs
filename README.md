@@ -64,10 +64,14 @@ For more information, please see the the
 
 Justin Leitgeb <justin@stackbuilders.com>
 
-## Contributing
-
-You may submit pull requests to this repository on GitHub. Tests are appreciated with your contribution.
-
 ## License
 
-MIT - see [the LICENSE file](LICENSE).
+MIT, see [the LICENSE file](LICENSE).
+
+## Contributing
+
+Do you want to contribute to this project? Please take a look at our [contributing guideline](/docs/CONTRIBUTING.md) to know how you can help us build it.
+
+---
+<img src="https://www.stackbuilders.com/media/images/Sb-supports.original.png" alt="Stack Builders" width="50%"></img>  
+[Check out our libraries](https://github.com/stackbuilders/) | [Join our team](https://www.stackbuilders.com/join-us/)
