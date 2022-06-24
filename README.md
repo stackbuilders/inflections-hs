@@ -49,11 +49,10 @@ If you want to specify a custom default replacement or approximation table for
 the `transliterate` function, you should instead call the `transliterateCustom`
 function which accepts a String for replacements and a Map for substitution.
 
-## TODO
+## Future work
 
-I'd like this library to implement other functions found in the Rails
-inflections library. If you need one of those functions, please submit a pull
-request!
+Ideally, we want to implement other functions found in the Rails
+inflections library. If you need one of those functions, please submit a pull request!
 
 ## Further documentation
 
