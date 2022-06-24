@@ -49,11 +49,10 @@ If you want to specify a custom default replacement or approximation table for
 the `transliterate` function, you should instead call the `transliterateCustom`
 function which accepts a String for replacements and a Map for substitution.
 
-## TODO
+## Future work
 
-I'd like this library to implement other functions found in the Rails
-inflections library. If you need one of those functions, please submit a pull
-request!
+Ideally, we want to implement other functions found in the Rails
+inflections library. If you need one of those functions, please submit a pull request!
 
 ## Further documentation
 
@@ -64,10 +63,14 @@ For more information, please see the the
 
 Justin Leitgeb <justin@stackbuilders.com>
 
-## Contributing
-
-You may submit pull requests to this repository on GitHub. Tests are appreciated with your contribution.
-
 ## License
 
-MIT - see [the LICENSE file](LICENSE).
+MIT, see [the LICENSE file](LICENSE).
+
+## Contributing
+
+Do you want to contribute to this project? Please take a look at our [contributing guideline](/docs/CONTRIBUTING.md) to know how you can help us build it.
+
+---
+<img src="https://www.stackbuilders.com/media/images/Sb-supports.original.png" alt="Stack Builders" width="50%"></img>  
+[Check out our libraries](https://github.com/stackbuilders/) | [Join our team](https://www.stackbuilders.com/join-us/)
