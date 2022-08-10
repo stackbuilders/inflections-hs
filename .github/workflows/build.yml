@@ -9,7 +9,6 @@ concurrency:
 jobs:
   haskell:
     strategy:
-      fail-fast: true
       matrix:
         ghc:
           - "8.10"
@@ -30,7 +29,7 @@ jobs:
       - name: Configure project
         run: cabal configure --enable-tests
       - name: Freeze dependencies
-        run: cabal Freeze
+        run: cabal freeze
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
