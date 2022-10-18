@@ -1,0 +1,25 @@
+# The present workflow was made based on the following references:
+# - https://github.com/tfausak/strive/blob/main/.github/workflows/ci.yaml
+# - https://hackage.haskell.org/upload
+---
+name: Release
+
+on:
+  release:
+    types:
+      - published
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  cabal-upload:
+    uses: stackbuilders/reusable-workflows/.github/workflows/cabal-upload.yml@main
+    with:
+      ghc_version: "8.10"
+      cabal_version: "3.6"
+      ignore_uploaded_package: true
+    secrets:
+      HACKAGE_USERNAME: ${{ secrets.HACKAGE_USERNAME }}
+      HACKAGE_PASSWORD: ${{ secrets.HACKAGE_PASSWORD }}
