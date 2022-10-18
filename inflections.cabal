@@ -69,6 +69,7 @@ test-suite test
                      , hspec-megaparsec >= 2.0 && < 3.0
                      , megaparsec
                      , text         >= 0.2   && < 1.3
+  build-tools:        hspec-discover   >= 2.0  && < 3.0
   if !impl(ghc >= 7.10)
     build-depends:      void         == 0.7.*
 
