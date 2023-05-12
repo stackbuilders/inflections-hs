@@ -1,3 +1,4 @@
 # Ignore compiled dist directory
 /dist
+/dist-newstyle
 /.stack-work
