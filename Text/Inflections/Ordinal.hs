@@ -9,6 +9,7 @@
 --
 -- Conversion to spelled ordinal numbers.
 
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE OverloadedStrings #-}
 
 module Text.Inflections.Ordinal
@@ -16,7 +17,9 @@ module Text.Inflections.Ordinal
   , ordinal )
 where
 
+#if !MIN_VERSION_base(4,11,0)
 import Data.Monoid ((<>))
+#endif
 import Data.Text (Text)
 import qualified Data.Text as T
 
