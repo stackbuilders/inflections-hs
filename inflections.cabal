@@ -1,3 +1,4 @@
+cabal-version:       2.0
 name:                inflections
 version:             0.4.0.6
 synopsis:            Inflections library for Haskell
@@ -14,7 +15,6 @@ maintainer:          Justin Leitgeb <justin@stackbuilders.com>
 copyright:           2014–2016 Justin Leitgeb
 category:            Text
 build-type:          Simple
-cabal-version:       >=1.10
 extra-source-files:  CHANGELOG.md
                    , README.md
 
@@ -61,6 +61,7 @@ test-suite test
   type: exitcode-stdio-1.0
   hs-source-dirs: test
   main-is: Spec.hs
+  build-tool-depends:  hspec-discover:hspec-discover
   build-depends:       inflections
                      , QuickCheck   >= 2.7.6 && < 3.0
                      , base         >= 4.6   && < 5.0
