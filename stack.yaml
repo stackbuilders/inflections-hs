@@ -1,8 +1,2 @@
 ---
 resolver: lts-16.13
-
-extra-deps:
-  - parser-combinators-1.0.0
-  - HUnit-1.6.0.0
-  - QuickCheck-2.13.2
-  - quickcheck-io-0.2.0
