@@ -14,6 +14,7 @@ jobs:
         ghc:
           - "8.10"
           - "8.4.3"
+          - "9.6.1"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
