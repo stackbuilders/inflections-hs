@@ -1,6 +1,6 @@
 cabal-version:       2.0
 name:                inflections
-version:             0.4.0.6
+version:             0.4.0.7
 synopsis:            Inflections library for Haskell
 description:
   Inflections provides methods for singularization, pluralization,

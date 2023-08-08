@@ -1,3 +1,6 @@
+## Inflections 0.4.0.7
+* Bump bounds for `text` in order to support ghc-9.6.1
+
 ## Inflections 0.4.0.6
 * Support `megaparsec` == 9.0
 
