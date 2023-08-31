@@ -6,6 +6,8 @@
 [![Stackage LTS](http://stackage.org/package/inflections/badge/lts)](http://stackage.org/lts/package/inflections)
 [![Build](https://github.com/stackbuilders/inflections-hs/actions/workflows/build.yml/badge.svg)](https://github.com/stackbuilders/inflections-hs/actions/workflows/build.yml)
 
+![GitHub contributors](https://img.shields.io/github/contributors/stackbuilders/inflections-hs)
+
 This library is a partial port of the
 [String Inflector](http://api.rubyonrails.org/classes/ActiveSupport/Inflector.html)
 from Ruby on Rails. It currently implements methods such as `parameterize`,
@@ -62,6 +64,18 @@ For more information, please see the the
 ## Author
 
 Justin Leitgeb <justin@stackbuilders.com>
+
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
 
 ## License
 
