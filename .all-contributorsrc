@@ -57,6 +57,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "nieled",
+      "name": "Daniel Calle",
+      "avatar_url": "https://avatars.githubusercontent.com/u/20074796?v=4",
+      "profile": "https://github.com/nieled",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
