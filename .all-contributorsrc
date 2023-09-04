@@ -67,6 +67,16 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "rcook",
+      "name": "Richard Cook",
+      "avatar_url": "https://avatars.githubusercontent.com/u/425396?v=4",
+      "profile": "https://blog.rcook.org/",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
