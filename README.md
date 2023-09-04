@@ -7,7 +7,7 @@
 [![Build](https://github.com/stackbuilders/inflections-hs/actions/workflows/build.yml/badge.svg)](https://github.com/stackbuilders/inflections-hs/actions/workflows/build.yml)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-11-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 This library is a partial port of the
@@ -90,6 +90,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Centeno448"><img src="https://avatars.githubusercontent.com/u/40647387?v=4?s=100" width="100px;" alt="Diego Centeno"/><br /><sub><b>Diego Centeno</b></sub></a><br /><a href="https://github.com/stackbuilders/inflections-hs/commits?author=Centeno448" title="Code">💻</a> <a href="https://github.com/stackbuilders/inflections-hs/commits?author=Centeno448" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Jagl257"><img src="https://avatars.githubusercontent.com/u/27145248?v=4?s=100" width="100px;" alt="Jorge Guerra Landázuri"/><br /><sub><b>Jorge Guerra Landázuri</b></sub></a><br /><a href="https://github.com/stackbuilders/inflections-hs/commits?author=Jagl257" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/elcuy"><img src="https://avatars.githubusercontent.com/u/11718997?v=4?s=100" width="100px;" alt="Luis Fernando Alvarez"/><br /><sub><b>Luis Fernando Alvarez</b></sub></a><br /><a href="https://github.com/stackbuilders/inflections-hs/commits?author=elcuy" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/4000000"><img src="https://avatars.githubusercontent.com/u/43458756?v=4?s=100" width="100px;" alt="4000000"/><br /><sub><b>4000000</b></sub></a><br /><a href="https://github.com/stackbuilders/inflections-hs/commits?author=4000000" title="Code">💻</a></td>
     </tr>
   </tbody>
   <tfoot>
