@@ -6,7 +6,9 @@
 [![Stackage LTS](http://stackage.org/package/inflections/badge/lts)](http://stackage.org/lts/package/inflections)
 [![Build](https://github.com/stackbuilders/inflections-hs/actions/workflows/build.yml/badge.svg)](https://github.com/stackbuilders/inflections-hs/actions/workflows/build.yml)
 
-![GitHub contributors](https://img.shields.io/github/contributors/stackbuilders/inflections-hs)
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 This library is a partial port of the
 [String Inflector](http://api.rubyonrails.org/classes/ActiveSupport/Inflector.html)
@@ -65,17 +67,18 @@ For more information, please see the the
 
 Justin Leitgeb <justin@stackbuilders.com>
 
-## Contributors
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
-
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
 ## License
 
