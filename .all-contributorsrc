@@ -86,6 +86,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "Centeno448",
+      "name": "Diego Centeno",
+      "avatar_url": "https://avatars.githubusercontent.com/u/40647387?v=4",
+      "profile": "https://github.com/Centeno448",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,

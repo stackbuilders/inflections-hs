@@ -7,7 +7,7 @@
 [![Build](https://github.com/stackbuilders/inflections-hs/actions/workflows/build.yml/badge.svg)](https://github.com/stackbuilders/inflections-hs/actions/workflows/build.yml)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 This library is a partial port of the
@@ -87,6 +87,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/philderbeast"><img src="https://avatars.githubusercontent.com/u/633283?v=4?s=100" width="100px;" alt="Phil de Joux"/><br /><sub><b>Phil de Joux</b></sub></a><br /><a href="https://github.com/stackbuilders/inflections-hs/commits?author=philderbeast" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Centeno448"><img src="https://avatars.githubusercontent.com/u/40647387?v=4?s=100" width="100px;" alt="Diego Centeno"/><br /><sub><b>Diego Centeno</b></sub></a><br /><a href="https://github.com/stackbuilders/inflections-hs/commits?author=Centeno448" title="Code">💻</a> <a href="https://github.com/stackbuilders/inflections-hs/commits?author=Centeno448" title="Documentation">📖</a></td>
     </tr>
   </tbody>
   <tfoot>
