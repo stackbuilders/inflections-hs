@@ -141,6 +141,15 @@
       "contributions": [
         "infra"
       ]
+    },
+    {
+      "login": "s9gf4ult",
+      "name": "Alexey Uimanov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/105054?v=4",
+      "profile": "http://s9gf4ult.blogspot.com/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

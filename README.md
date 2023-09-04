@@ -7,7 +7,7 @@
 [![Build](https://github.com/stackbuilders/inflections-hs/actions/workflows/build.yml/badge.svg)](https://github.com/stackbuilders/inflections-hs/actions/workflows/build.yml)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-15-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 This library is a partial port of the
@@ -93,6 +93,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/4000000"><img src="https://avatars.githubusercontent.com/u/43458756?v=4?s=100" width="100px;" alt="4000000"/><br /><sub><b>4000000</b></sub></a><br /><a href="https://github.com/stackbuilders/inflections-hs/commits?author=4000000" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/seuros"><img src="https://avatars.githubusercontent.com/u/2394703?v=4?s=100" width="100px;" alt="Abdelkader Boudih"/><br /><sub><b>Abdelkader Boudih</b></sub></a><br /><a href="https://github.com/stackbuilders/inflections-hs/commits?author=seuros" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://juancarlos.io/"><img src="https://avatars.githubusercontent.com/u/2164411?v=4?s=100" width="100px;" alt="Juan Paucar"/><br /><sub><b>Juan Paucar</b></sub></a><br /><a href="#infra-juanpaucar" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="http://s9gf4ult.blogspot.com/"><img src="https://avatars.githubusercontent.com/u/105054?v=4?s=100" width="100px;" alt="Alexey Uimanov"/><br /><sub><b>Alexey Uimanov</b></sub></a><br /><a href="https://github.com/stackbuilders/inflections-hs/commits?author=s9gf4ult" title="Code">💻</a></td>
     </tr>
   </tbody>
   <tfoot>
