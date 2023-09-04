@@ -48,6 +48,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "wereHamster",
+      "name": "Tomas Carnecky",
+      "avatar_url": "https://avatars.githubusercontent.com/u/34538?v=4",
+      "profile": "https://caurea.org/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

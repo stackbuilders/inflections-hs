@@ -7,7 +7,7 @@
 [![Build](https://github.com/stackbuilders/inflections-hs/actions/workflows/build.yml/badge.svg)](https://github.com/stackbuilders/inflections-hs/actions/workflows/build.yml)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 This library is a partial port of the
@@ -81,6 +81,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://markkarpov.com/"><img src="https://avatars.githubusercontent.com/u/8165792?v=4?s=100" width="100px;" alt="Mark Karpov"/><br /><sub><b>Mark Karpov</b></sub></a><br /><a href="https://github.com/stackbuilders/inflections-hs/commits?author=mrkkrp" title="Code">💻</a> <a href="https://github.com/stackbuilders/inflections-hs/commits?author=mrkkrp" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://www.stackbuilders.com/news/author/justin-leitgeb"><img src="https://avatars.githubusercontent.com/u/9977?v=4?s=100" width="100px;" alt="Justin S. Leitgeb"/><br /><sub><b>Justin S. Leitgeb</b></sub></a><br /><a href="https://github.com/stackbuilders/inflections-hs/commits?author=jsl" title="Code">💻</a> <a href="https://github.com/stackbuilders/inflections-hs/commits?author=jsl" title="Documentation">📖</a> <a href="#ideas-jsl" title="Ideas, Planning, & Feedback">🤔</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/jpvillaisaza"><img src="https://avatars.githubusercontent.com/u/584947?v=4?s=100" width="100px;" alt="Juan Pedro Villa Isaza"/><br /><sub><b>Juan Pedro Villa Isaza</b></sub></a><br /><a href="https://github.com/stackbuilders/inflections-hs/commits?author=jpvillaisaza" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://caurea.org/"><img src="https://avatars.githubusercontent.com/u/34538?v=4?s=100" width="100px;" alt="Tomas Carnecky"/><br /><sub><b>Tomas Carnecky</b></sub></a><br /><a href="https://github.com/stackbuilders/inflections-hs/commits?author=wereHamster" title="Code">💻</a></td>
     </tr>
   </tbody>
   <tfoot>
