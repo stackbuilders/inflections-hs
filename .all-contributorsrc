@@ -1,0 +1,175 @@
+{
+  "projectName": "inflections-hs",
+  "projectOwner": "stackbuilders",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "none",
+  "contributors": [
+    {
+      "login": "CristhianMotoche",
+      "name": "Cristhian Motoche",
+      "avatar_url": "https://avatars.githubusercontent.com/u/8370088?v=4",
+      "profile": "https://cristhianmotoche.github.io/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "mrkkrp",
+      "name": "Mark Karpov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/8165792?v=4",
+      "profile": "https://markkarpov.com/",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "jsl",
+      "name": "Justin S. Leitgeb",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9977?v=4",
+      "profile": "https://www.stackbuilders.com/news/author/justin-leitgeb",
+      "contributions": [
+        "code",
+        "doc",
+        "ideas"
+      ]
+    },
+    {
+      "login": "jpvillaisaza",
+      "name": "Juan Pedro Villa Isaza",
+      "avatar_url": "https://avatars.githubusercontent.com/u/584947?v=4",
+      "profile": "https://github.com/jpvillaisaza",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "wereHamster",
+      "name": "Tomas Carnecky",
+      "avatar_url": "https://avatars.githubusercontent.com/u/34538?v=4",
+      "profile": "https://caurea.org/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "4e6",
+      "name": "Dmitry Bushev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/357683?v=4",
+      "profile": "https://twitter.com/4e6",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "nieled",
+      "name": "Daniel Calle",
+      "avatar_url": "https://avatars.githubusercontent.com/u/20074796?v=4",
+      "profile": "https://github.com/nieled",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "rcook",
+      "name": "Richard Cook",
+      "avatar_url": "https://avatars.githubusercontent.com/u/425396?v=4",
+      "profile": "https://blog.rcook.org/",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "philderbeast",
+      "name": "Phil de Joux",
+      "avatar_url": "https://avatars.githubusercontent.com/u/633283?v=4",
+      "profile": "https://github.com/philderbeast",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Centeno448",
+      "name": "Diego Centeno",
+      "avatar_url": "https://avatars.githubusercontent.com/u/40647387?v=4",
+      "profile": "https://github.com/Centeno448",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "Jagl257",
+      "name": "Jorge Guerra Landázuri",
+      "avatar_url": "https://avatars.githubusercontent.com/u/27145248?v=4",
+      "profile": "https://github.com/Jagl257",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "elcuy",
+      "name": "Luis Fernando Alvarez",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11718997?v=4",
+      "profile": "https://github.com/elcuy",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "seuros",
+      "name": "Abdelkader Boudih",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2394703?v=4",
+      "profile": "https://github.com/seuros",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "juanpaucar",
+      "name": "Juan Paucar",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2164411?v=4",
+      "profile": "https://juancarlos.io/",
+      "contributions": [
+        "infra"
+      ]
+    },
+    {
+      "login": "s9gf4ult",
+      "name": "Alexey Uimanov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/105054?v=4",
+      "profile": "http://s9gf4ult.blogspot.com/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "badosu",
+      "name": "Amadeus Folego",
+      "avatar_url": "https://avatars.githubusercontent.com/u/347552?v=4",
+      "profile": "https://github.com/badosu",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "mecampbellsoup",
+      "name": "Matt Campbell",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2043821?v=4",
+      "profile": "https://github.com/mecampbellsoup",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "linkToUsage": true
+}
