@@ -63,10 +63,6 @@ inflections library. If you need one of those functions, please submit a pull re
 For more information, please see the the
 [Haddock docs for this module](http://hackage.haskell.org/package/inflections/docs/Text-Inflections.html).
 
-## Author
-
-Justin Leitgeb <justin@stackbuilders.com>
-
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
