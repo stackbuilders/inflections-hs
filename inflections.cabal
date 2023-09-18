@@ -100,7 +100,7 @@ benchmark bench-speed
   build-depends:      base
                     , inflections
                     , text
-                    , criterion    >= 1.1   && < 1.2
+                    , criterion    >= 1.1   && < 1.7
  default-language: Haskell2010
 
 benchmark bench-memory
@@ -110,5 +110,5 @@ benchmark bench-memory
   build-depends:      base
                     , inflections
                     , text
-                    , weigh        >= 0.0.3 && < 0.0.4
+                    , weigh        >= 0.0.3 && < 0.1.0
  default-language: Haskell2010
