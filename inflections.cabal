@@ -17,6 +17,7 @@ category:            Text
 build-type:          Simple
 extra-source-files:  CHANGELOG.md
                    , README.md
+                   , bench/little_women.txt
 
 source-repository head
   type:            git
