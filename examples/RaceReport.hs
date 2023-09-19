@@ -28,6 +28,21 @@ reportResult (name, pos) = TI.ordinalize pos <> " " <> name <> "\n"
 reportResults :: T.Text
 reportResults = mconcat $ zipWith (curry reportResult) bikers [1..]
 
+
+{-
+   >>> :set -package inflections
+   >>> :load RaceReport.hs
+   >>> main
+   Race Results:
+   1st Richard Carapaz
+   2nd Juan Carlos Gaviria
+   3rd María Fernanda López
+   4th Andrés Mendoza
+   5th Gabriela Vargas
+   6td Luis Eduardo Torres
+
+-}
+
 main :: IO ()
 main = do
   T.putStrLn "Race Results:"

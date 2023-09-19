@@ -49,9 +49,6 @@ example =
     , otherAttributeTwo = "World!"
     }
 
-main :: IO ()
-main = BL8.putStrLn (encode example)
-
 {-
    >>> :set -package aeson
    >>> :set -package megaparsec
@@ -65,3 +62,6 @@ main = BL8.putStrLn (encode example)
     , "other_attribute_two":"World!"
     }"
 -}
+
+main :: IO ()
+main = BL8.putStrLn (encode example)
