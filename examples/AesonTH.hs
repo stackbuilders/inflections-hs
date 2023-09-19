@@ -1,18 +1,18 @@
-{-
-   In this example, I'm going to show how Text.Inflections can help us to format
-   our JSON instances using Aeson.TH.
--}
-
 {-# LANGUAGE TemplateHaskell #-}
 
 module AesonTH where
 
 import Data.Aeson (encode)
 import Data.Aeson.TH
-import Text.Megaparsec (parseErrorPretty)
+import Text.Megaparsec (errorBundlePretty)
 import qualified Data.ByteString.Lazy.Char8 as BL8
 import qualified Data.Text as T
 import qualified Text.Inflections as TI
+
+{-
+   In this example, I'm going to show how Text.Inflections can help us to format
+   our JSON instances using Aeson.TH.
+-}
 
 
 -- | A common record
@@ -33,7 +33,7 @@ $(deriveJSON
       let toSnake attribute =
             T.unpack $ fromRight' $ TI.toUnderscore (T.pack attribute)
           fromRight' (Right a) = a
-          fromRight' (Left err) = error $ parseErrorPretty err
+          fromRight' (Left err) = error $ errorBundlePretty err
        in toSnake
     }
   )
