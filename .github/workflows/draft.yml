@@ -18,7 +18,10 @@ jobs:
         uses: haskell/actions/setup@v2
         with:
           ghc-version: "9.6.1"
-          cabal-version: "3.10"
+          cabal-version: "3.6"
+
+      - name: Configure project
+        run: cabal configure --enable-benchmarks
 
       - name: Build including benchmarks
         run: cabal build --enable-benchmarks
