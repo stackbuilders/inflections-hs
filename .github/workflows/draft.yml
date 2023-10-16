@@ -2,8 +2,10 @@ name: Release package to Github
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - fix/solve-issue-74
+    # tags:
+    #   - 'v*'
 
 jobs:
   build-binary:
