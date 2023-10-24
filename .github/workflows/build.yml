@@ -19,18 +19,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
+
       - name: Install Haskell tooling
         uses: haskell/actions/setup@v2
         with:
           ghc-version: ${{ matrix.ghc }}
           cabal-version: "3.6"
+
       - name: Configure project
         run: cabal configure --enable-tests
+
       - name: Freeze dependencies
         run: cabal freeze
+
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
@@ -40,7 +41,9 @@ jobs:
             dist-newstyle
           key: ${{ matrix.ghc }}-${{ hashFiles('cabal.project.freeze') }}
           restore-keys: ${{ matrix.ghc }}-
+
       - name: Build
         run: cabal build
+
       - name: Run tests
         run: cabal test

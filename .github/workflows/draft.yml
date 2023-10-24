@@ -1,0 +1,55 @@
+name: Release package to Github
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-binary:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Haskell tooling
+        uses: haskell/actions/setup@v2
+        with:
+          ghc-version: "9.6.1"
+          cabal-version: "3.6"
+
+      - name: Configure project
+        run: cabal configure --enable-benchmarks
+
+      - name: Build including benchmarks
+        run: cabal build --enable-benchmarks
+
+      - name: Freeze dependencies
+        run: cabal freeze
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cabal/package
+            ~/.cabal/store
+            dist-newstyle
+          key: ${{ matrix.ghc }}-${{ hashFiles('cabal.project.freeze') }}
+          restore-keys: ${{ matrix.ghc }}-
+
+      - name: Run speed benchmarking
+        run: cabal bench bench-speed > speed-benchmark.txt
+
+      - name: Run memory benchmarking
+        run: cabal bench bench-memory > memory-benchmark.txt
+
+      - name: Create release with package assets
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: CHANGELOG.md
+          files: |
+            speed-benchmark.txt
+            memory-benchmark.txt
+          draft: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
