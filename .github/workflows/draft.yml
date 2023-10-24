@@ -2,10 +2,8 @@ name: Release package to Github
 
 on:
   push:
-    branches:
-      - fix/solve-issue-74
-    # tags:
-    #   - 'v*'
+    tags:
+      - 'v*'
 
 jobs:
   build-binary:
@@ -54,5 +52,4 @@ jobs:
             memory-benchmark.txt
           draft: true
         env:
-          # TODO: Get a GITHUB_TOKEN
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
