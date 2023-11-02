@@ -3,7 +3,7 @@ import System.Random (randomRIO)
 import qualified Text.Inflections as TI
 
 {-
-  This example is explained in detail in the README.md file inside
+  This example is elaborated upon in the README.md file located inside
   the random-username project folder.
 -}
 
