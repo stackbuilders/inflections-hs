@@ -39,3 +39,8 @@ main = do
     >>> :set -package random
     >>> main
 -}
+
+{- 
+    As part of Stack Builders Inc. Hacktoberfest 2023 event.
+    Visit Stack Builders Inc at: www.stackbuilders.com
+-}
