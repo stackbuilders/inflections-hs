@@ -1,0 +1,35 @@
+name: random-username
+version: 0.1.0.0
+#synopsis:
+#description:
+homepage: https://github.com/githubuser/random-username#readme
+license: BSD-3-Clause
+author: Author name here
+maintainer: example@example.com
+copyright: 2023 Author name here
+category: Web
+extra-source-files:
+  - README.md
+  - CHANGELOG.md
+
+dependencies:
+  - base >= 4.7 && < 5
+  - text
+  - inflections
+  - random
+
+ghc-options:
+  - -Wall
+  - -Wcompat
+  - -Widentities
+  - -Wincomplete-record-updates
+  - -Wincomplete-uni-patterns
+  - -Wmissing-export-lists
+  - -Wmissing-home-modules
+  - -Wpartial-fields
+  - -Wredundant-constraints
+
+executables:
+  random-username:
+    source-dirs: src
+    main: Main.hs
