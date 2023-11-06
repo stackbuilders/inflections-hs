@@ -1,4 +1,8 @@
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TypeApplications #-}
+
 import qualified Data.Text as T
+import qualified Data.Text.IO as TO
 import System.Random (randomRIO)
 import qualified Text.Inflections as TI
 
@@ -8,11 +12,11 @@ import qualified Text.Inflections as TI
 -}
 
 makeUserNameWith :: [T.Text] -> T.Text
-makeUserNameWith = T.intercalate (T.pack "-")
+makeUserNameWith = T.intercalate "-"
 
 generateRandomUserName :: T.Text -> T.Text -> IO T.Text
 generateRandomUserName firstName lastName = do
-  randomNumber <- T.toLower . T.pack . show <$> randomRIO (10 :: Int, 99)
+  randomNumber <- (T.toLower . T.pack . show) <$> randomRIO @Int (10, 99)
   let formattedFirstName = TI.parameterize firstName
       formattedLastName = TI.parameterize lastName
       nameParts = [formattedFirstName, formattedLastName, randomNumber]
@@ -21,12 +25,11 @@ generateRandomUserName firstName lastName = do
 main :: IO ()
 main = do
   putStrLn "Please enter your first name: "
-  firstName <- T.pack <$> getLine
+  firstName <- TO.getLine
 
   putStrLn "Please enter your last name: "
-  lastName <- T.pack <$> getLine
+  lastName <- TO.getLine
 
-  let usernameText = generateRandomUserName firstName lastName
-  username <- T.unpack <$> usernameText
+  username <- generateRandomUserName firstName lastName
 
-  putStrLn $ "Generated username: " ++ username
+  TO.putStrLn $ "Generated username: " <> username
