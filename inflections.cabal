@@ -51,7 +51,7 @@ library
   build-depends:       base         >= 4.11   && < 5.0
                      , exceptions   >= 0.6   && < 0.11
                      , megaparsec   >= 7.0.1 && < 10.0
-                     , text         >= 0.2   && < 2.1
+                     , text         >= 0.2   && < 2.2
                      , unordered-containers >= 0.2.7 && < 0.3
   if !impl(ghc >= 7.10)
     build-depends:      void         == 0.7.*
@@ -66,11 +66,11 @@ test-suite test
   build-depends:       inflections
                      , QuickCheck   >= 2.7.6 && < 3.0
                      , base         >= 4.11   && < 5.0
-                     , containers   >= 0.5   && < 0.7
+                     , containers   >= 0.5   && < 0.8
                      , hspec        >= 2.0   && < 3.0
                      , hspec-megaparsec >= 2.0 && < 3.0
                      , megaparsec
-                     , text         >= 0.2   && < 2.1
+                     , text         >= 0.2   && < 2.2
   if !impl(ghc >= 7.10)
     build-depends:      void         == 0.7.*
 
